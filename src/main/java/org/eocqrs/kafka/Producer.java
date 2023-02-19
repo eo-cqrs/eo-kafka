@@ -22,7 +22,10 @@ public interface Producer<K, X> {
           data.topic(),
           data.partition(),
           key,
-//          @todo: #1: 30min KfData implementation
+/**
+ * @todo #1:30m/DEV KfData implementation
+ *
+ */
           new DataizeOf<>(data.dataized(), "text")
             .dataize()
         )
