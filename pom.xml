@@ -141,25 +141,25 @@ SOFTWARE.
           </execution>
         </executions>
       </plugin>
-<!-- @todo #3:15m/DEV Coverage checks have not been met
--->
-<!--      <plugin>-->
-<!--        <groupId>org.jacoco</groupId>-->
-<!--        <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <id>jacoco-initialize</id>-->
-<!--            <goals>-->
-<!--              <goal>prepare-agent</goal>-->
-<!--            </goals>-->
-<!--          </execution>-->
-<!--          <execution>-->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>jacoco-initialize</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
 <!--            <id>jacoco-check</id>-->
 <!--            <phase>test</phase>-->
-<!--            <goals>-->
+            <goals>
+<!-- @todo #3:15m/DEV Coverage checks have not been met
+-->
 <!--              <goal>check</goal>-->
-<!--              <goal>report</goal>-->
-<!--            </goals>-->
+              <goal>report</goal>
+            </goals>
 <!--            <configuration>-->
 <!--              <rules>-->
 <!--                <rule>-->
@@ -199,9 +199,9 @@ SOFTWARE.
 <!--                </rule>-->
 <!--              </rules>-->
 <!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
