@@ -9,15 +9,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public final class KfData<X> implements Data<X> {
 
+  private final X data;
   private final String topic;
   private final int partition;
 
-  /**
-   * @todo #2:30m/DEV KfData dataization
-   */
   @Override
   public Dataized<X> dataized() {
-    return null;
+    return new KfDataized<>(
+      this.data
+    );
   }
 
   @Override
