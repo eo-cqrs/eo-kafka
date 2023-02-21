@@ -8,7 +8,7 @@ package org.eocqrs.kafka;
 /**
  * @todo #19:30m/DEV DataizedOf implementation
  */
-public class DataizedOf<T> implements Dataized<T> {
+public final class DataizedOf<T> implements Dataized<T> {
 
   /**
    * @todo #20:15m/DEV DataizedOf Ctor
