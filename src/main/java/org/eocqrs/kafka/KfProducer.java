@@ -1,6 +1,5 @@
 package org.eocqrs.kafka;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -28,24 +27,5 @@ public final class KfProducer<K, X> implements Producer<K, X> {
           .dataize()
       )
     );
-  }
-
-  @AllArgsConstructor
-  @lombok.Data
-  final class User {
-
-    private final Long id;
-    private final String name;
-  }
-
-  @RequiredArgsConstructor
-  final class A {
-
-    private final KfProducer<String, User> producer;
-
-    void test() {
-      final User user = new User(1L, "h1alexbel");
-      this.producer.send(user.getName(), new KfData<>(user, "users", 1));
-    }
   }
 }
