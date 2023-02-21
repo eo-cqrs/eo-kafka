@@ -72,6 +72,7 @@ SOFTWARE.
     <junit-api.version>5.9.2</junit-api.version>
     <junit-params.version>5.9.2</junit-params.version>
     <assert4j-core.version>3.24.2</assert4j-core.version>
+    <xembly.version>0.28.1</xembly.version>
   </properties>
   <dependencies>
     <dependency>
@@ -83,6 +84,15 @@ SOFTWARE.
       <groupId>org.cactoos</groupId>
       <artifactId>cactoos</artifactId>
       <version>${cactoos.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.jcabi</groupId>
+      <artifactId>jcabi-xml</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.jcabi.incubator</groupId>
+      <artifactId>xembly</artifactId>
+      <version>${xembly.version}</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>
