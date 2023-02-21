@@ -24,7 +24,7 @@ public interface Producer<K, X> {
           data.topic(),
           data.partition(),
           key,
-          new DataizeOf<>(data.dataized(), "text")
+          new DataizedOf<>(data.dataized(), "text")
             .dataize()
         )
       );
