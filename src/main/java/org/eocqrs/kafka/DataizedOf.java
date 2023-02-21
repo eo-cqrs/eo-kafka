@@ -6,12 +6,12 @@ package org.eocqrs.kafka;
  */
 
 /**
- * @todo 30m/DEV DataizedOf implementation
+ * @todo #19:30m/DEV DataizedOf implementation
  */
 public class DataizedOf<T> implements Dataized<T> {
 
   /**
-   * @todo 15m/DEV DataizedOf Ctor
+   * @todo #20:15m/DEV DataizedOf Ctor
    */
   public DataizedOf(Dataized<T> dataized, String format) {
 
