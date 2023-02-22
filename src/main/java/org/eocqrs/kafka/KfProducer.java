@@ -14,18 +14,18 @@ public final class KfProducer<K, X> implements Producer<K, X> {
   private final KafkaProducer<K, X> producer;
 
   /**
-   * @todo #21:30m/DEV send
+   * @todo #23:30m/DEV test send construction
    */
   @Override
-  public void send(final K key, final Data<X> message) {
+  public void send(final K key, final Data<X> data) {
     this.producer.send(
-      new ProducerRecord<>(
-        message.topic(),
-        message.partition(),
-        key,
-        message.dataized()
-          .dataize()
-      )
-    );
+        new ProducerRecord<>(
+          data.topic(),
+          data.partition(),
+          key,
+          data.dataized()
+            .dataize()
+        )
+      );
   }
 }
