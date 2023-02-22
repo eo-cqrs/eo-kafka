@@ -1,44 +1,39 @@
 package org.eocqrs.kafka;
 
 import com.jcabi.xml.XML;
-import com.jcabi.xml.XMLDocument;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.eocqrs.kafka.xml.TextXpath;
 
 /**
  * @author Aliaksei Bialiauski (abialiauski@solvd.com)
  * @since 1.0
  */
 @RequiredArgsConstructor
-public class KfProducerSettings implements ProducerSettings {
+public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
 
   private final XML xml;
 
-  public static void main(String[] args) throws FileNotFoundException {
-    final XMLDocument document = new XMLDocument(new File("producer.xml"));
-    final ProducerSettings settings = new KfProducerSettings(
-      document
+  /**
+   * @todo #26:20m/DEV test producer construction
+   */
+  @Override
+  public KafkaProducer<K, X> producer() {
+    final Map<String, Object> config = new HashMap<>(3);
+    config.put("bootstrap.servers",
+      new TextXpath(this.xml, "//bootstrapServers")
+        .toString()
     );
-    final XML server = document.nodes("//valueSerializer").get(0);
-    System.out.println(server.xpath("text()").get(0));
-  }
-
-  @Override
-  public String bootstrapServers() {
-    final XML item = this.xml.nodes("//bootstrapServers").get(0);
-    return item.xpath("text()").get(0);
-  }
-
-  @Override
-  public String keyClass() {
-    final XML item = this.xml.nodes("//keySerializer").get(0);
-    return item.xpath("text()").get(0);
-  }
-
-  @Override
-  public String valueClass() {
-    final XML item = this.xml.nodes("//valueSerializer").get(0);
-    return item.xpath("text()").get(0);
+    config.put("key.serializer",
+      new TextXpath(this.xml, "//keySerializer")
+        .toString()
+    );
+    config.put("value.serializer",
+      new TextXpath(this.xml, "//valueSerializer")
+        .toString()
+    );
+    return new KafkaProducer<>(config);
   }
 }

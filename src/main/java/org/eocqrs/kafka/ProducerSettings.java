@@ -1,14 +1,12 @@
 package org.eocqrs.kafka;
 
+import org.apache.kafka.clients.producer.KafkaProducer;
+
 /**
  * @author Aliaksei Bialiauski (abialiauski@solvd.com)
  * @since 1.0
  */
-public interface ProducerSettings {
+public interface ProducerSettings<K, X> {
 
-  String bootstrapServers();
-
-  String keyClass();
-
-  String valueClass();
+  KafkaProducer<K, X> producer();
 }
