@@ -68,7 +68,7 @@ Producer<String, String> producer =
     new KfProducerSettings<String, String>(
       new XMLDocument(
         new File("producer.xml")
-      )
+        )
     ).producer()
 );
 ```
