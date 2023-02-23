@@ -16,9 +16,6 @@ public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
 
   private final XML xml;
 
-  /**
-   * @todo #26:20m/DEV test producer construction
-   */
   @Override
   public KafkaProducer<K, X> producer() {
     final Map<String, Object> config = new HashMap<>(3);
