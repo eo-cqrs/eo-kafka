@@ -30,6 +30,61 @@ Maven:
 </dependency>
 ```
 
+## Messages
+To create Kafka Message:
+```java
+Data<String> string =
+  new KfData<>(
+    "string-data", //data
+    "strings", //topic
+    1 //partition
+  );
+```
+
+## Producer API
+To create Kafka Producer Settings (Config):
+```java
+ProducerSettings<String, String> settings =
+   new KfProducerSettings<>(
+      new XMLDocument(
+        new File("settings.xml") //xml file with all the settings
+        )
+      );
+```
+
+btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should look like:
+```xml
+<producer>
+  <bootstrapServers>localhost:9092</bootstrapServers>
+  <keySerializer>org.apache.kafka.common.serialization.StringSerializer</keySerializer>
+  <valueSerializer>org.apache.kafka.common.serialization.StringSerializer</valueSerializer>
+</producer>
+```
+
+To create Kafka Producer:
+```java
+final Producer<String, String> producer =
+    new KfProducer<>(
+      new KfProducerSettings<String, String>(
+        new XMLDocument(
+          new File("src/test/resources/settings.xml")
+        )
+      ).producer()
+  );
+```
+
+To send a message:
+```java
+producer.send(
+      "key-0",
+      new KfData<>(
+        "test-0",
+        "testing",
+        1
+      )
+    );
+```
+
 ## How to Contribute
 
 Fork repository, make changes, send us a [pull request](https://www.yegor256.com/2014/04/15/github-guidelines.html).
