@@ -47,9 +47,9 @@ To create Kafka Producer Settings (Config):
 ProducerSettings<String, String> settings =
    new KfProducerSettings<>(
       new XMLDocument(
-        new File("settings.xml") //xml file with all the settings
+        new File("producer.xml") //xml file with all the settings
         )
-      );
+);
 ```
 
 btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should look like:
@@ -63,14 +63,14 @@ btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20
 
 To create Kafka Producer:
 ```java
-final Producer<String, String> producer =
-    new KfProducer<>(
-      new KfProducerSettings<String, String>(
-        new XMLDocument(
-          new File("src/test/resources/settings.xml")
-        )
-      ).producer()
-  );
+Producer<String, String> producer =
+  new KfProducer<>(
+    new KfProducerSettings<String, String>(
+      new XMLDocument(
+        new File("producer.xml")
+      )
+    ).producer()
+);
 ```
 
 To send a message:
@@ -82,7 +82,7 @@ producer.send(
         "testing",
         1
       )
-    );
+);
 ```
 
 ## How to Contribute
