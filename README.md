@@ -35,9 +35,9 @@ To create Kafka Message:
 ```java
 Data<String> string =
   new KfData<>(
-    "string-data", //data
-    "strings", //topic
-    1 //partition
+    "string-data",          //data
+    "strings",              //topic
+    1                       //partition
   );
 ```
 
@@ -73,7 +73,7 @@ Producer<String, String> producer =
 );
 ```
 
-To send a message:
+To send a [message](#messages):
 ```java
 producer.send(
       "key-0",
