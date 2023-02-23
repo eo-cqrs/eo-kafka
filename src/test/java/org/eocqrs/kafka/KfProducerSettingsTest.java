@@ -18,7 +18,9 @@ class KfProducerSettingsTest {
   void testProducerConstruction() throws FileNotFoundException {
     final ProducerSettings<String, String> settings =
       new KfProducerSettings<>(
-        new XMLDocument(new File("src/test/resources/settings.xml"))
+        new XMLDocument(
+          new File("src/test/resources/settings.xml")
+        )
       );
     final KafkaProducer<String, String> out = settings.producer();
     assertThat(out).isNotNull();
