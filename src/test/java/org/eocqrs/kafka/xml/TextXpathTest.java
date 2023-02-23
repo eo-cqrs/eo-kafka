@@ -22,7 +22,7 @@ class TextXpathTest {
       ),
       "//bootstrapServers"
     ).toString();
-    assertThat(servers).isEqualTo("localhost");
+    assertThat(servers).isEqualTo("test");
   }
 
   @Test
