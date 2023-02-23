@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<producer>
+  <bootstrapServers>localhost:9092</bootstrapServers>
+  <keySerializer>org.apache.kafka.common.serialization.StringSerializer</keySerializer>
+  <valueSerializer>org.apache.kafka.common.serialization.StringSerializer</valueSerializer>
+</producer>
