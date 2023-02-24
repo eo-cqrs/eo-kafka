@@ -20,17 +20,11 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
-
 /**
+ * Kafka API.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Data<X> {
 
-  Dataized<X> dataized();
-
-  String topic();
-
-  int partition();
-}
+package org.eocqrs.kafka;
