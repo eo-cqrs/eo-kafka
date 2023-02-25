@@ -20,63 +20,34 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.producer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import com.jcabi.xml.XMLDocument;
 import java.io.File;
 import java.io.FileNotFoundException;
-import org.eocqrs.kafka.data.KfData;
-import org.eocqrs.kafka.producer.KfProducer;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.eocqrs.kafka.ProducerSettings;
 import org.eocqrs.kafka.producer.KfProducerSettings;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link KfProducer}
+ * Test case for {@link KfProducerSettings}
  *
  * @since 0.0.0
  */
-/**
- * @todo #46:60m/DEV Too much time.
- * This test takes too long to run, it should be an integration test,
- * or we should do something about the execution speed.
- */
-class KfProducerTest {
+class KfProducerSettingsTest {
 
   @Test
-  void testConstruct() throws FileNotFoundException {
-    final Producer<String, String> producer =
-      new KfProducer<>(
-        new KfProducerSettings<String, String>(
-          new XMLDocument(
-            new File("src/test/resources/settings.xml")
-          )
-        ).producer()
-      );
-    assertThat(producer).isNotNull();
-  }
-
-  @Test
-  void testSendDoesntThrowException() throws FileNotFoundException {
-    final Producer<String, String> producer =
-      new KfProducer<>(
-        new KfProducerSettings<String, String>(
-          new XMLDocument(
-            new File("src/test/resources/settings.xml")
-          )
-        ).producer()
-      );
-    assertDoesNotThrow(() ->
-      producer.send(
-        "key-0",
-        new KfData<>(
-          "test-0",
-          "testing",
-          1
+  void testProducerConstruction() throws FileNotFoundException {
+    final ProducerSettings<String, String> settings =
+      new KfProducerSettings<>(
+        new XMLDocument(
+          new File("src/test/resources/settings.xml")
         )
-      )
-    );
+      );
+    final KafkaProducer<String, String> out = settings.producer();
+    assertThat(out).isNotNull();
   }
 }

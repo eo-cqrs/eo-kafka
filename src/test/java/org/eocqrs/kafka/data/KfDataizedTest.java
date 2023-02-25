@@ -20,10 +20,12 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.data;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.eocqrs.kafka.Data;
+import org.eocqrs.kafka.Dataized;
 import org.eocqrs.kafka.data.KfData;
 import org.eocqrs.kafka.data.KfDataized;
 import org.junit.jupiter.api.Test;

@@ -20,46 +20,65 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.producer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import com.jcabi.xml.XMLDocument;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import org.eocqrs.kafka.Producer;
 import org.eocqrs.kafka.data.KfData;
+import org.eocqrs.kafka.producer.KfProducer;
+import org.eocqrs.kafka.producer.KfProducerSettings;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link KfData}
+ * Test case for {@link KfProducer}
  *
  * @since 0.0.0
  */
-class KfDataTest {
+/**
+ * @todo #46:60m/DEV Too much time.
+ * This test takes too long to run, it should be an integration test,
+ * or we should do something about the execution speed.
+ */
+class KfProducerTest {
 
   @Test
-  void stringDataized() {
-    final String origin = "test";
-    final Data<String> data = new KfData<>(
-      origin, "processes", 3
-    );
-    assertDoesNotThrow(data::dataized);
-    assertThat(data.dataized()).isNotNull();
+  void testConstruct() throws FileNotFoundException {
+    final Producer<String, String> producer =
+      new KfProducer<>(
+        new KfProducerSettings<String, String>(
+          new XMLDocument(
+            new File("src/test/resources/settings.xml")
+          )
+        ).producer()
+      );
+    assertThat(producer).isNotNull();
   }
 
   @Test
-  void topic() {
-    final String topic = "tx-log";
-    final Data<String> data = new KfData<>(
-      "test", topic, 12
+  void testSendDoesntThrowException() throws FileNotFoundException {
+    final Producer<String, String> producer =
+      new KfProducer<>(
+        new KfProducerSettings<String, String>(
+          new XMLDocument(
+            new File("src/test/resources/settings.xml")
+          )
+        ).producer()
+      );
+    assertDoesNotThrow(() ->
+      producer.send(
+        "key-0",
+        new KfData<>(
+          "test-0",
+          "testing",
+          1
+        )
+      )
     );
-    assertThat(data.topic()).isEqualTo(topic);
-  }
-
-  @Test
-  void partition() {
-    final int partition = 1;
-    final Data<String> data = new KfData<>(
-      "test", "customer-messages", partition
-    );
-    assertThat(data.partition()).isEqualTo(partition);
   }
 }
