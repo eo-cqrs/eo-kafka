@@ -28,6 +28,6 @@ package org.eocqrs.kafka;
  */
 public interface Consumer<X> {
 
-  void consume(int partition, Data<X> message);
+  Dataized<?> consume(int partition, Data<X> message);
 
 }
