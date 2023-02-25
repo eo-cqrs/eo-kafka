@@ -28,6 +28,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import com.jcabi.xml.XMLDocument;
 import java.io.File;
 import java.io.FileNotFoundException;
+import org.eocqrs.kafka.data.KfData;
+import org.eocqrs.kafka.producer.KfProducer;
+import org.eocqrs.kafka.producer.KfProducerSettings;
 import org.junit.jupiter.api.Test;
 
 /**

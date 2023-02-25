@@ -28,6 +28,7 @@ import com.jcabi.xml.XMLDocument;
 import java.io.File;
 import java.io.FileNotFoundException;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.eocqrs.kafka.producer.KfProducerSettings;
 import org.junit.jupiter.api.Test;
 
 /**

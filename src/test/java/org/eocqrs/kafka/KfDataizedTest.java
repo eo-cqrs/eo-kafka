@@ -24,6 +24,8 @@ package org.eocqrs.kafka;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.eocqrs.kafka.data.KfData;
+import org.eocqrs.kafka.data.KfDataized;
 import org.junit.jupiter.api.Test;
 
 /**

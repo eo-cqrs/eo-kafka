@@ -20,14 +20,10 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
-
 /**
+ * Kafka API-Producers.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Producer<K, X> {
-
-  void send(K key, Data<X> message);
-
-}
+package org.eocqrs.kafka.producer;

@@ -29,4 +29,5 @@ package org.eocqrs.kafka;
 public interface Dataized<T> {
 
   T dataize();
+
 }

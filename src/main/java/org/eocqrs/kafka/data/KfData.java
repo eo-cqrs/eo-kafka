@@ -20,21 +20,37 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.data;
 
 import lombok.RequiredArgsConstructor;
+import org.eocqrs.kafka.Data;
+import org.eocqrs.kafka.Dataized;
 
 /**
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 @RequiredArgsConstructor
-public final class KfDataized<X> implements Dataized<X> {
+public final class KfData<X> implements Data<X> {
 
   private final X data;
+  private final String topic;
+  private final int partition;
 
   @Override
-  public X dataize() {
-    return this.data;
+  public Dataized<X> dataized() {
+    return new KfDataized<>(
+      this.data
+    );
+  }
+
+  @Override
+  public String topic() {
+    return this.topic;
+  }
+
+  @Override
+  public int partition() {
+    return this.partition;
   }
 }

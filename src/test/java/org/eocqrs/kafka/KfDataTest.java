@@ -25,6 +25,7 @@ package org.eocqrs.kafka;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import org.eocqrs.kafka.data.KfData;
 import org.junit.jupiter.api.Test;
 
 /**
