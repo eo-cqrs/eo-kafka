@@ -28,7 +28,7 @@ package org.eocqrs.kafka;
  * @since 0.0.0
  */
 /**
- * @todo #47:60m/DEV Consume method.
+ * @todo #48:60m/DEV Consume method.
  * We must create a consume method that
  * will accept the meta-information and the message.
  * Perhaps we need to create a new class, say.
