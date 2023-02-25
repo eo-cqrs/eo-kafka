@@ -20,14 +20,22 @@
  * SOFTWARE.
  */
 
+
 package org.eocqrs.kafka;
 
 /**
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.0
  */
+/**
+ * @todo #47:60m/DEV Consume method.
+ * We must create a consume method that
+ * will accept the meta-information and the message.
+ * Perhaps we need to create a new class, say.
+ * `class MsgData` or something like that.
+ */
 public interface Consumer<X> {
 
-  Dataized<?> consume(int partition, Data<X> message);
+  Dataized<?> dataize(int partition, Data<X> message);
 
 }
