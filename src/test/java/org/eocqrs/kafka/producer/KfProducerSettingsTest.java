@@ -20,45 +20,34 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.producer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
+import com.jcabi.xml.XMLDocument;
+import java.io.File;
+import java.io.FileNotFoundException;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.eocqrs.kafka.ProducerSettings;
+import org.eocqrs.kafka.producer.KfProducerSettings;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link KfData}
+ * Test case for {@link KfProducerSettings}
  *
  * @since 0.0.0
  */
-class KfDataTest {
+class KfProducerSettingsTest {
 
   @Test
-  void stringDataized() {
-    final String origin = "test";
-    final Data<String> data = new KfData<>(
-      origin, "processes", 3
-    );
-    assertDoesNotThrow(data::dataized);
-    assertThat(data.dataized()).isNotNull();
-  }
-
-  @Test
-  void topic() {
-    final String topic = "tx-log";
-    final Data<String> data = new KfData<>(
-      "test", topic, 12
-    );
-    assertThat(data.topic()).isEqualTo(topic);
-  }
-
-  @Test
-  void partition() {
-    final int partition = 1;
-    final Data<String> data = new KfData<>(
-      "test", "customer-messages", partition
-    );
-    assertThat(data.partition()).isEqualTo(partition);
+  void testProducerConstruction() throws FileNotFoundException {
+    final ProducerSettings<String, String> settings =
+      new KfProducerSettings<>(
+        new XMLDocument(
+          new File("src/test/resources/settings.xml")
+        )
+      );
+    final KafkaProducer<String, String> out = settings.producer();
+    assertThat(out).isNotNull();
   }
 }

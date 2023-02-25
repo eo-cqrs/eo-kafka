@@ -31,4 +31,5 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 public interface ProducerSettings<K, X> {
 
   KafkaProducer<K, X> producer();
+
 }

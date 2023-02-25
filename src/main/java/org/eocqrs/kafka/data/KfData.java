@@ -20,40 +20,37 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.data;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.Test;
+import lombok.RequiredArgsConstructor;
+import org.eocqrs.kafka.Data;
+import org.eocqrs.kafka.Dataized;
 
 /**
- * Test case for {@link KfDataized}
- *
+ * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-class KfDataizedTest {
+@RequiredArgsConstructor
+public final class KfData<X> implements Data<X> {
 
-  @Test
-  void intDataize() {
-    final int data = 13491;
-    final Dataized<Integer> dataized = new KfDataized<>(data);
-    assertThat(dataized.dataize()).isEqualTo(data);
-  }
+  private final X data;
+  private final String topic;
+  private final int partition;
 
-  @Test
-  void stringDataize() {
-    final String data = "data";
-    final Dataized<String> dataized = new KfDataized<>(data);
-    assertThat(dataized.dataize()).isEqualTo(data);
-  }
-
-  @Test
-  void dataizedData() {
-    final String customer = "customer-1";
-    final Data<String> data = new KfData<>(
-      "customer-1", "customers", 5
+  @Override
+  public Dataized<X> dataized() {
+    return new KfDataized<>(
+      this.data
     );
-    assertThat(data.dataized().dataize())
-      .isEqualTo(customer);
+  }
+
+  @Override
+  public String topic() {
+    return this.topic;
+  }
+
+  @Override
+  public int partition() {
+    return this.partition;
   }
 }

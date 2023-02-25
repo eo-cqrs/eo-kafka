@@ -20,14 +20,44 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.data;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.eocqrs.kafka.Data;
+import org.eocqrs.kafka.Dataized;
+import org.eocqrs.kafka.data.KfData;
+import org.eocqrs.kafka.data.KfDataized;
+import org.junit.jupiter.api.Test;
 
 /**
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * Test case for {@link KfDataized}
+ *
  * @since 0.0.0
  */
-public interface Producer<K, X> {
+class KfDataizedTest {
 
-  void send(K key, Data<X> message);
+  @Test
+  void intDataize() {
+    final int data = 13491;
+    final Dataized<Integer> dataized = new KfDataized<>(data);
+    assertThat(dataized.dataize()).isEqualTo(data);
+  }
 
+  @Test
+  void stringDataize() {
+    final String data = "data";
+    final Dataized<String> dataized = new KfDataized<>(data);
+    assertThat(dataized.dataize()).isEqualTo(data);
+  }
+
+  @Test
+  void dataizedData() {
+    final String customer = "customer-1";
+    final Data<String> data = new KfData<>(
+      "customer-1", "customers", 5
+    );
+    assertThat(data.dataized().dataize())
+      .isEqualTo(customer);
+  }
 }

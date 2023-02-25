@@ -20,14 +20,36 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.producer;
+
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.eocqrs.kafka.Data;
+import org.eocqrs.kafka.Producer;
 
 /**
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Producer<K, X> {
+@RequiredArgsConstructor
+public final class KfProducer<K, X> implements Producer<K, X> {
 
-  void send(K key, Data<X> message);
+  private final KafkaProducer<K, X> origin;
 
+  /**
+   * @todo #30:60m/DEV it for data consumption
+   */
+  @Override
+  public void send(final K key, final Data<X> data) {
+    this.origin.send(
+        new ProducerRecord<>(
+          data.topic(),
+          data.partition(),
+          key,
+          data.dataized()
+            .dataize()
+        )
+      );
+  }
 }

@@ -20,32 +20,22 @@
  * SOFTWARE.
  */
 
+
 package org.eocqrs.kafka;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import com.jcabi.xml.XMLDocument;
-import java.io.File;
-import java.io.FileNotFoundException;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.junit.jupiter.api.Test;
-
 /**
- * Test case for {@link KfProducerSettings}
- *
+ * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.0
  */
-class KfProducerSettingsTest {
+/**
+ * @todo #48:60m/DEV Consume method.
+ * We must create a consume method that
+ * will accept the meta-information and the message.
+ * Perhaps we need to create a new class, say.
+ * `class MsgData` or something like that.
+ */
+public interface Consumer<X> {
 
-  @Test
-  void testProducerConstruction() throws FileNotFoundException {
-    final ProducerSettings<String, String> settings =
-      new KfProducerSettings<>(
-        new XMLDocument(
-          new File("src/test/resources/settings.xml")
-        )
-      );
-    final KafkaProducer<String, String> out = settings.producer();
-    assertThat(out).isNotNull();
-  }
+  Dataized<?> dataize(int partition, Data<X> message);
+
 }

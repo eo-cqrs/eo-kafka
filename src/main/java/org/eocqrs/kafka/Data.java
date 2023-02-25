@@ -33,4 +33,5 @@ public interface Data<X> {
   String topic();
 
   int partition();
+
 }

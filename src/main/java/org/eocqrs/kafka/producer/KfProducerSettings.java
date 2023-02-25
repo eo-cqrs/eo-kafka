@@ -20,21 +20,40 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.producer;
 
+import com.jcabi.xml.XML;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.eocqrs.kafka.ProducerSettings;
+import org.eocqrs.kafka.xml.TextXpath;
 
 /**
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 @RequiredArgsConstructor
-public final class KfDataized<X> implements Dataized<X> {
+public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
 
-  private final X data;
+  private final XML xml;
 
   @Override
-  public X dataize() {
-    return this.data;
+  public KafkaProducer<K, X> producer() {
+    final Map<String, Object> config = new HashMap<>(3);
+    config.put("bootstrap.servers",
+      new TextXpath(this.xml, "//bootstrapServers")
+        .toString()
+    );
+    config.put("key.serializer",
+      new TextXpath(this.xml, "//keySerializer")
+        .toString()
+    );
+    config.put("value.serializer",
+      new TextXpath(this.xml, "//valueSerializer")
+        .toString()
+    );
+    return new KafkaProducer<>(config);
   }
 }
