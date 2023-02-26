@@ -99,3 +99,5 @@ $ mvn clean install
 ```
 
 You will need Maven 3.3+ and Java 17+.
+
+Our [rultor image](https://github.com/eo-cqrs/eo-kafka-rultor-image) for CI/CD.
