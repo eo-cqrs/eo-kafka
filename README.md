@@ -1,4 +1,4 @@
-<img alt="logo" src="logo.png" height="100px" />
+<img alt="logo" src="logo.svg" height="100px" />
 
 This nice logo made by [@l3r8yJ](https://github.com/l3r8yJ)
 
