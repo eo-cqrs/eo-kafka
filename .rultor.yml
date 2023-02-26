@@ -1,7 +1,7 @@
 architect:
   - h1alexbel
 docker: 
-  image: l3r8y/rultor-image:1.0.1
+  image: l3r8y/rultor-image:1.0.2
 merge:
   script:
     - "mvn -version"
