@@ -1,10 +1,6 @@
 architect:
   - h1alexbel
-install: |-
-  sudo update-java-alternatives --set java-1.17.0-openjdk-amd64
-  sudo export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+docker: l3r8y/rultor-image:1.0.1
 merge:
-  script: |-
-    mvn -version
-    java --version
-    mvn clean install
+  script:
+    - "mvn clean install --errors --batch-mode"
