@@ -33,7 +33,7 @@ import org.eocqrs.kafka.Producer;
 /**
  * @todo #10:45m/DEV Fake Producer implementation
  */
-public class FkProducer<K, X> implements Producer<K, X> {
+public final class FkProducer<K, X> implements Producer<K, X> {
 
   @Override
   public void send(final K key, final Data<X> message) {
