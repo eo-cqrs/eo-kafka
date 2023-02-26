@@ -20,18 +20,43 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.consumer;
 
 import java.time.Duration;
 import java.util.Collection;
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.eocqrs.kafka.Consumer;
+import org.eocqrs.kafka.Dataized;
 
 /**
- * @author Ivan Ivanchuck (l3r8y@duck.com), Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Consumer<K, X> {
+@RequiredArgsConstructor
+public final class KfConsumer<K, X> implements Consumer<K, X> {
 
-  void subscribe(Collection<String> topics);
+  private final KafkaConsumer<K, X> origin;
 
-  Dataized<X> dataized(String topic, Duration timeout);
+  @Override
+  public void subscribe(final Collection<String> topics) {
+    this.origin.subscribe(topics);
+  }
+
+  /**
+   * @todo #41:30m/DEV Data polling
+   * example:
+   * origin.poll(timeout)
+   *       .records(topic)
+   *       .forEach(new java.util.function.Consumer<ConsumerRecord<K, X>>() {
+   *         @Override
+   *         public void accept(ConsumerRecord<K, X> record) {
+   *           throw new UnsupportedOperationException("#accept()");
+   *         }
+   *       });
+   */
+  @Override
+  public Dataized<X> dataized(final String topic, final Duration timeout) {
+    throw new UnsupportedOperationException("method not implemented");
+  }
 }

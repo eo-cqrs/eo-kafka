@@ -20,18 +20,30 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.fake;
 
 import java.time.Duration;
 import java.util.Collection;
+import org.eocqrs.kafka.Consumer;
+import org.eocqrs.kafka.Dataized;
 
 /**
- * @author Ivan Ivanchuck (l3r8y@duck.com), Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Consumer<K, X> {
 
-  void subscribe(Collection<String> topics);
+/**
+ * @todo #49:45m/DEV Fake Consumer implementation
+ */
+public final class FkConsumer<K, X> implements Consumer<K, X> {
 
-  Dataized<X> dataized(String topic, Duration timeout);
+  @Override
+  public void subscribe(Collection<String> topics) {
+    throw new UnsupportedOperationException("#subscribe()");
+  }
+
+  @Override
+  public Dataized<X> dataized(String topic, Duration timeout) {
+    throw new UnsupportedOperationException("#dataized()");
+  }
 }

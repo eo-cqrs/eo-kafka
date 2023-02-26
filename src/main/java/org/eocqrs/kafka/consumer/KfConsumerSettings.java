@@ -20,18 +20,31 @@
  * SOFTWARE.
  */
 
-package org.eocqrs.kafka;
+package org.eocqrs.kafka.consumer;
 
-import java.time.Duration;
-import java.util.Collection;
+import com.jcabi.xml.XML;
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.eocqrs.kafka.ConsumerSettings;
 
 /**
- * @author Ivan Ivanchuck (l3r8y@duck.com), Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Consumer<K, X> {
 
-  void subscribe(Collection<String> topics);
+/**
+ * @todo #25:15m/DEV Origin consumer construction from XML
+ */
+@RequiredArgsConstructor
+public final class KfConsumerSettings<K, X> implements ConsumerSettings<K, X> {
 
-  Dataized<X> dataized(String topic, Duration timeout);
+  private final XML xml;
+
+  /**
+   * @todo #25:10m/DEV Which settings needed for origin consumer construction
+   */
+  @Override
+  public KafkaConsumer<K, X> consumer() {
+    throw new UnsupportedOperationException("#consumer()");
+  }
 }
