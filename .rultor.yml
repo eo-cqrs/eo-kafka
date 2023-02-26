@@ -3,4 +3,5 @@ architect:
 docker: l3r8y/rultor-image:1.0.1
 merge:
   script:
+    - "mvn -version"
     - "mvn clean install --errors --batch-mode"
