@@ -53,6 +53,10 @@ SOFTWARE.
     <system>GitHub</system>
     <url>https://github.com/eo-cqrs/eo-kafka/issues</url>
   </issueManagement>
+  <ciManagement>
+    <system>GitHub Actions</system>
+    <url>https://github.com/eo-cqrs/eo-kafka/actions</url>
+  </ciManagement>
   <licenses>
     <license>
       <name>MIT</name>
@@ -60,6 +64,17 @@ SOFTWARE.
       <distribution>site</distribution>
     </license>
   </licenses>
+  <scm>
+    <connection>scm:git:git://github.com/eo-cqrs/eo-kafka.git</connection>
+    <developerConnection>scm:git:ssh://github.com:eo-cqrs/eo-kafka.git</developerConnection>
+    <url>https://github.com/eo-cqrs/eo-kafka/tree/master</url>
+  </scm>
+  <distributionManagement>
+    <site>
+      <id>www.elegram-api.ru</id>
+      <url>https://www.elegram-api.ru</url>
+    </site>
+  </distributionManagement>
   <properties>
     <java.version>17</java.version>
     <maven.compiler.source>17</maven.compiler.source>
