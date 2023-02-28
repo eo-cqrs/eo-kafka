@@ -71,8 +71,8 @@ SOFTWARE.
   </scm>
   <distributionManagement>
     <site>
-      <id>www.elegram-api.ru</id>
-      <url>https://www.elegram-api.ru</url>
+      <id>eo-cqrs.github.io/eo-kafka/</id>
+      <url>https://eo-cqrs.github.io/eo-kafka/</url>
     </site>
   </distributionManagement>
   <properties>
