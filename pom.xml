@@ -29,7 +29,7 @@ SOFTWARE.
     <artifactId>parent</artifactId>
     <version>0.65.0</version>
   </parent>
-  <groupId>org.eocqrs</groupId>
+  <groupId>io.github.eo-cqrs</groupId>
   <artifactId>eo-kafka</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>eo-kafka</name>

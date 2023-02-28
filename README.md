@@ -27,7 +27,7 @@ eo-kafka is suggesting to do almost exactly the same, but through objects.
 Maven:
 ```xml
 <dependency>
-  <groupId>org.eocqrs</groupId>
+  <groupId>io.github.eo-cqrs</groupId>
   <artifactId>eo-kafka</artifactId>
 </dependency>
 ```
