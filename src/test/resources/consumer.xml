@@ -22,8 +22,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
-<root>
-  <!--
-  @todo #25:15m/DEV Consumer settings in XML
-  -->
-</root>
+<consumer>
+  <bootstrapServers>localhost:9092</bootstrapServers>
+  <groupId>1</groupId>
+  <keyDeserializer>org.apache.kafka.common.serialization.StringDeserializer</keyDeserializer>
+  <valueDeserializer>org.apache.kafka.common.serialization.StringDeserializer</valueDeserializer>
+</consumer>

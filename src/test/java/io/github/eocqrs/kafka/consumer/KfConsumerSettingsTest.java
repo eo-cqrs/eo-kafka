@@ -1,11 +1,12 @@
 package io.github.eocqrs.kafka.consumer;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.jcabi.xml.XMLDocument;
+import io.github.eocqrs.kafka.ConsumerSettings;
 import java.io.File;
 import java.io.FileNotFoundException;
-import io.github.eocqrs.kafka.ConsumerSettings;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,9 +16,6 @@ import org.junit.jupiter.api.Test;
  */
 class KfConsumerSettingsTest {
 
-  /**
-   * @todo #25:20m/DEV Consumer construction Test
-   */
   @Test
   void testConsumerConstruction() throws FileNotFoundException {
     final ConsumerSettings<String, String> settings =
@@ -28,9 +26,8 @@ class KfConsumerSettingsTest {
           )
         )
       );
-    assertThrows(
-      UnsupportedOperationException.class,
-      () -> settings.consumer()
-    );
+    final KafkaConsumer<String, String> out = settings.consumer();
+    assertThat(out).isNotNull();
+    out.close();
   }
 }

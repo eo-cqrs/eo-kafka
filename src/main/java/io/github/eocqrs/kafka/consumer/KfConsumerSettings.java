@@ -24,6 +24,9 @@ package io.github.eocqrs.kafka.consumer;
 
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.ConsumerSettings;
+import io.github.eocqrs.kafka.xml.TextXpath;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
@@ -31,20 +34,34 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-
-/**
- * @todo #25:15m/DEV Origin consumer construction from XML
- */
 @RequiredArgsConstructor
 public final class KfConsumerSettings<K, X> implements ConsumerSettings<K, X> {
 
   private final XML xml;
 
-  /**
-   * @todo #25:10m/DEV Which settings needed for origin consumer construction
-   */
   @Override
   public KafkaConsumer<K, X> consumer() {
-    throw new UnsupportedOperationException("#consumer()");
+    final Map<String, Object> config = new HashMap<>(3);
+    config.put("bootstrap.servers",
+      new TextXpath(
+        this.xml, "//bootstrapServers"
+      ).toString()
+    );
+    config.put("group.id",
+      new TextXpath(
+        this.xml, "//groupId"
+      ).toString()
+    );
+    config.put("key.deserializer",
+      new TextXpath(
+        this.xml, "//keyDeserializer"
+      ).toString()
+    );
+    config.put("value.deserializer",
+      new TextXpath(
+        this.xml, "//valueDeserializer"
+      ).toString()
+    );
+    return new KafkaConsumer<>(config);
   }
 }
