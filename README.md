@@ -32,7 +32,14 @@ Maven:
 </dependency>
 ```
 
-## Messages
+Gradle:
+```groovy
+dependencies {
+    compile 'io.github.eo-cqrs:eo-kafka:<version>'
+}
+```
+
+## Messages API
 To create Kafka Message:
 ```java
 Data<String> string =
