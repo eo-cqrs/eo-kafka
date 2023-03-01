@@ -94,6 +94,9 @@ producer.send(
 );
 ```
 
+## Consumer API
+TBD
+
 ## How to Contribute
 
 Fork repository, make changes, send us a [pull request](https://www.yegor256.com/2014/04/15/github-guidelines.html).
