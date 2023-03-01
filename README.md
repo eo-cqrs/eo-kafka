@@ -61,7 +61,7 @@ ProducerSettings<String, String> settings =
 );
 ```
 
-btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should look like:
+btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
 ```xml
 <producer>
   <bootstrapServers>localhost:9092</bootstrapServers>
