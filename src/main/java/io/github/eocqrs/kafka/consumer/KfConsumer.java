@@ -30,12 +30,17 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
+ * Kafka Consumer.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 @RequiredArgsConstructor
 public final class KfConsumer<K, X> implements Consumer<K, X> {
 
+  /**
+   * Origin Kafka Consumer.
+   */
   private final KafkaConsumer<K, X> origin;
 
   @Override
@@ -45,15 +50,14 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
 
   /**
    * @todo #41:30m/DEV Data polling
+   * <pre>
    * example:
    * origin.poll(timeout)
    *       .records(topic)
-   *       .forEach(new java.util.function.Consumer<ConsumerRecord<K, X>>() {
-   *         @Override
-   *         public void accept(ConsumerRecord<K, X> record) {
-   *           throw new UnsupportedOperationException("#accept()");
-   *         }
-   *       });
+   *       .forEach(...ConsumerRecord) {
+   *         ...
+   *       };
+   * </pre>
    */
   @Override
   public Dataized<X> dataized(final String topic, final Duration timeout) {

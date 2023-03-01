@@ -23,15 +23,32 @@
 package io.github.eocqrs.kafka;
 
 /**
+ * Message Data.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 public interface Data<X> {
 
+  /**
+   * Dataized.
+   *
+   * @return Dataized data
+   */
   Dataized<X> dataized();
 
+  /**
+   * Topic.
+   *
+   * @return Topic as string
+   */
   String topic();
 
+  /**
+   * Partition.
+   *
+   * @return Partition as int
+   */
   int partition();
 
 }

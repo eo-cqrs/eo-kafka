@@ -25,11 +25,19 @@ package io.github.eocqrs.kafka;
 import org.apache.kafka.clients.producer.KafkaProducer;
 
 /**
+ * Producer Settings.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 public interface ProducerSettings<K, X> {
 
+  /**
+   * Kafka Producer.
+   *
+   * @return Kafka producer
+   * @see KafkaProducer
+   */
   KafkaProducer<K, X> producer();
 
 }

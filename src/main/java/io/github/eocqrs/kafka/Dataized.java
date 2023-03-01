@@ -23,11 +23,18 @@
 package io.github.eocqrs.kafka;
 
 /**
+ * Dataized.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 public interface Dataized<T> {
 
+  /**
+   * Dataize.
+   *
+   * @return Data dataized wrapper contains
+   */
   T dataize();
 
 }

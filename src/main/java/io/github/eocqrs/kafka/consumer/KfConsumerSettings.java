@@ -31,35 +31,40 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
+ * Kafka Consumer Settings.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 @RequiredArgsConstructor
 public final class KfConsumerSettings<K, X> implements ConsumerSettings<K, X> {
 
-  private final XML xml;
+  /**
+   * Settings in XML.
+   */
+  private final XML settings;
 
   @Override
   public KafkaConsumer<K, X> consumer() {
     final Map<String, Object> config = new HashMap<>(3);
     config.put("bootstrap.servers",
       new TextXpath(
-        this.xml, "//bootstrapServers"
+        this.settings, "//bootstrapServers"
       ).toString()
     );
     config.put("group.id",
       new TextXpath(
-        this.xml, "//groupId"
+        this.settings, "//groupId"
       ).toString()
     );
     config.put("key.deserializer",
       new TextXpath(
-        this.xml, "//keyDeserializer"
+        this.settings, "//keyDeserializer"
       ).toString()
     );
     config.put("value.deserializer",
       new TextXpath(
-        this.xml, "//valueDeserializer"
+        this.settings, "//valueDeserializer"
       ).toString()
     );
     return new KafkaConsumer<>(config);

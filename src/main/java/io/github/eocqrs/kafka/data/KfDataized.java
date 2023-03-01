@@ -26,12 +26,17 @@ import io.github.eocqrs.kafka.Dataized;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Kafka Dataized data.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 @RequiredArgsConstructor
 public final class KfDataized<X> implements Dataized<X> {
 
+  /**
+   * Inside.
+   */
   private final X data;
 
   @Override
