@@ -31,27 +31,32 @@ import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.KafkaProducer;
 
 /**
+ * Kafka Producer Settings.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 @RequiredArgsConstructor
 public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
 
-  private final XML xml;
+  /**
+   * Settings in XML.
+   */
+  private final XML settings;
 
   @Override
   public KafkaProducer<K, X> producer() {
     final Map<String, Object> config = new HashMap<>(3);
     config.put("bootstrap.servers",
-      new TextXpath(this.xml, "//bootstrapServers")
+      new TextXpath(this.settings, "//bootstrapServers")
         .toString()
     );
     config.put("key.serializer",
-      new TextXpath(this.xml, "//keySerializer")
+      new TextXpath(this.settings, "//keySerializer")
         .toString()
     );
     config.put("value.serializer",
-      new TextXpath(this.xml, "//valueSerializer")
+      new TextXpath(this.settings, "//valueSerializer")
         .toString()
     );
     return new KafkaProducer<>(config);

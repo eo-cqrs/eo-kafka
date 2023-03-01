@@ -28,6 +28,8 @@ import java.time.Duration;
 import java.util.Collection;
 
 /**
+ * Fake Consumer.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */

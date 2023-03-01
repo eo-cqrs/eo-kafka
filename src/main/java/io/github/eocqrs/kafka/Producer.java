@@ -23,11 +23,19 @@
 package io.github.eocqrs.kafka;
 
 /**
+ * Producer.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 public interface Producer<K, X> {
 
-  void send(K key, Data<X> message);
+  /**
+   * Send data.
+   *
+   * @param key  message key
+   * @param data data wrapper to process
+   */
+  void send(K key, Data<X> data);
 
 }

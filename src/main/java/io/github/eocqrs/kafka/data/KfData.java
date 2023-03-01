@@ -27,14 +27,25 @@ import io.github.eocqrs.kafka.Dataized;
 import lombok.RequiredArgsConstructor;
 
 /**
+ * Kafka Message Data.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 @RequiredArgsConstructor
 public final class KfData<X> implements Data<X> {
 
+  /**
+   * Data type
+   */
   private final X data;
+  /**
+   * Kafka message topic.
+   */
   private final String topic;
+  /**
+   * Kafka partition.
+   */
   private final int partition;
 
   @Override

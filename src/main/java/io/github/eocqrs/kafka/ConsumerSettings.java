@@ -25,10 +25,18 @@ package io.github.eocqrs.kafka;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
+ * Consumer Settings.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 public interface ConsumerSettings<K, X> {
 
+  /**
+   * Kafka Consumer.
+   *
+   * @return Kafka consumer
+   * @see KafkaConsumer
+   */
   KafkaConsumer<K, X> consumer();
 }

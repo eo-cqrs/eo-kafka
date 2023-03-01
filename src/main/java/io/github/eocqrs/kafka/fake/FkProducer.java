@@ -26,6 +26,8 @@ import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
 
 /**
+ * Fake Producer.
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */

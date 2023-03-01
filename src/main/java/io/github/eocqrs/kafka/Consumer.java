@@ -26,12 +26,26 @@ import java.time.Duration;
 import java.util.Collection;
 
 /**
+ * Consumer.
+ *
  * @author Ivan Ivanchuck (l3r8y@duck.com), Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 public interface Consumer<K, X> {
 
+  /**
+   * Subscribe.
+   *
+   * @param topics topics to subscribe
+   */
   void subscribe(Collection<String> topics);
 
+  /**
+   * Dataized.
+   *
+   * @param topic   topic to poll
+   * @param timeout max time to wait
+   * @return Dataized polled data.
+   */
   Dataized<X> dataized(String topic, Duration timeout);
 }
