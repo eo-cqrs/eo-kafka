@@ -95,6 +95,31 @@ producer.send(
 ```
 
 ## Consumer API
+
+To create Kafka Consumer Settings (Config):
+```java
+ConsumerSettings<String, String> settings =
+   new KfConsumerSettings<>(
+      new XMLDocument(
+        new File("consumer.xml") //xml file with all the settings
+        )
+);
+```
+
+Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
+```xml
+<consumer>
+  <bootstrapServers>localhost:9092</bootstrapServers>
+  <groupId>1</groupId>
+  <keyDeserializer>org.apache.kafka.common.serialization.StringDeserializer</keyDeserializer>
+  <valueDeserializer>org.apache.kafka.common.serialization.StringDeserializer</valueDeserializer>
+</consumer>
+```
+
+Creating Kafka Consumer:
+TBD
+
+Consuming messages:
 TBD
 
 ## How to Contribute
