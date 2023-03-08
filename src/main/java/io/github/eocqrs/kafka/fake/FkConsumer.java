@@ -26,6 +26,7 @@ import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.Dataized;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Fake Consumer.
@@ -45,7 +46,7 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
   }
 
   @Override
-  public Dataized<X> dataized(String topic, Duration timeout) {
-    throw new UnsupportedOperationException("#dataized()");
+  public List<Dataized<X>> iterate(String topic, Duration timeout) {
+    throw new UnsupportedOperationException("#iterate()");
   }
 }

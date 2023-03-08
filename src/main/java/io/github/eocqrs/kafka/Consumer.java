@@ -24,6 +24,7 @@ package io.github.eocqrs.kafka;
 
 import java.time.Duration;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Consumer.
@@ -47,5 +48,5 @@ public interface Consumer<K, X> {
    * @param timeout max time to wait
    * @return Dataized polled data.
    */
-  Dataized<X> dataized(String topic, Duration timeout);
+  List<Dataized<X>> iterate(String topic, Duration timeout);
 }

@@ -24,8 +24,11 @@ package io.github.eocqrs.kafka.consumer;
 
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.Dataized;
+import io.github.eocqrs.kafka.data.KfData;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
@@ -60,7 +63,21 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    * </pre>
    */
   @Override
-  public Dataized<X> dataized(final String topic, final Duration timeout) {
-    throw new UnsupportedOperationException("method not implemented");
+  public List<Dataized<X>> iterate(final String topic, final Duration timeout) {
+    final List<Dataized<X>> iterate = new ArrayList<>(13);
+    this.origin.poll(
+        timeout
+      ).records(topic)
+      .forEach(
+        data ->
+          iterate.add(
+            new KfData<>(
+              data.value(),
+              topic,
+              data.partition()
+            ).dataized()
+          )
+      );
+    return iterate;
   }
 }
