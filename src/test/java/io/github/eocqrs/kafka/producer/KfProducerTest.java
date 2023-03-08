@@ -26,22 +26,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import com.jcabi.xml.XMLDocument;
-import java.io.File;
-import java.io.FileNotFoundException;
-
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.data.KfData;
+import java.io.File;
+import java.io.FileNotFoundException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link KfProducer}
  *
  * @since 0.0.0
- */
-/**
- * @todo #46:60m/DEV Too much time.
- * This test takes too long to run, it should be an integration test,
- * or we should do something about the execution speed.
  */
 class KfProducerTest {
 
@@ -58,6 +53,10 @@ class KfProducerTest {
     assertThat(producer).isNotNull();
   }
 
+  /**
+   * @todo #47:45m/DEV Producer <> Consumer it.
+   */
+  @Disabled
   @Test
   void testSendDoesntThrowException() throws FileNotFoundException {
     final Producer<String, String> producer =
