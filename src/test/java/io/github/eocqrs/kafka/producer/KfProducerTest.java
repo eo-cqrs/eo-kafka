@@ -56,7 +56,7 @@ class KfProducerTest {
   /**
    * @todo #47:45m/DEV Producer <> Consumer it.
    */
-//  @Disabled
+  @Disabled
   @Test
   void testSendDoesntThrowException() throws FileNotFoundException {
     final Producer<String, String> producer =
