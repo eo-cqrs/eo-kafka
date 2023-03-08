@@ -33,11 +33,4 @@ class KfConsumerTest {
         )
     );
   }
-
-  /**
-   * @todo #41:30m/DEV Consumer data polling Test
-   */
-  @Test
-  void testDataized() {
-  }
 }

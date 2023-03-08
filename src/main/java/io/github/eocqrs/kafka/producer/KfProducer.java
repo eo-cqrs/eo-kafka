@@ -42,9 +42,6 @@ public final class KfProducer<K, X> implements Producer<K, X> {
    */
   private final KafkaProducer<K, X> origin;
 
-  /**
-   * @todo #30:60m/DEV it for data consumption
-   */
   @Override
   public void send(final K key, final Data<X> data) {
     this.origin.send(
