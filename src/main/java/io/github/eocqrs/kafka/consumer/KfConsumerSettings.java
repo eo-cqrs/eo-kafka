@@ -46,7 +46,7 @@ public final class KfConsumerSettings<K, X> implements ConsumerSettings<K, X> {
 
   @Override
   public KafkaConsumer<K, X> consumer() {
-    final Map<String, Object> config = new HashMap<>(3);
+    final Map<String, Object> config = new HashMap<>(4);
     config.put(
       "bootstrap.servers",
       new TextXpath(
