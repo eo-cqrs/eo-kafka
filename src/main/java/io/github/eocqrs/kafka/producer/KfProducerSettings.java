@@ -47,15 +47,18 @@ public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
   @Override
   public KafkaProducer<K, X> producer() {
     final Map<String, Object> config = new HashMap<>(3);
-    config.put("bootstrap.servers",
+    config.put(
+      "bootstrap.servers",
       new TextXpath(this.settings, "//bootstrapServers")
         .toString()
     );
-    config.put("key.serializer",
+    config.put(
+      "key.serializer",
       new TextXpath(this.settings, "//keySerializer")
         .toString()
     );
-    config.put("value.serializer",
+    config.put(
+      "value.serializer",
       new TextXpath(this.settings, "//valueSerializer")
         .toString()
     );

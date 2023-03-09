@@ -47,22 +47,26 @@ public final class KfConsumerSettings<K, X> implements ConsumerSettings<K, X> {
   @Override
   public KafkaConsumer<K, X> consumer() {
     final Map<String, Object> config = new HashMap<>(3);
-    config.put("bootstrap.servers",
+    config.put(
+      "bootstrap.servers",
       new TextXpath(
         this.settings, "//bootstrapServers"
       ).toString()
     );
-    config.put("group.id",
+    config.put(
+      "group.id",
       new TextXpath(
         this.settings, "//groupId"
       ).toString()
     );
-    config.put("key.deserializer",
+    config.put(
+      "key.deserializer",
       new TextXpath(
         this.settings, "//keyDeserializer"
       ).toString()
     );
-    config.put("value.deserializer",
+    config.put(
+      "value.deserializer",
       new TextXpath(
         this.settings, "//valueDeserializer"
       ).toString()
