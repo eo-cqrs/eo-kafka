@@ -29,7 +29,8 @@ import java.util.List;
 /**
  * Consumer.
  *
- * @author Ivan Ivanchuck (l3r8y@duck.com), Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * @author Ivan Ivanchuck (l3r8y@duck.com)
+ * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
 public interface Consumer<K, X> {
