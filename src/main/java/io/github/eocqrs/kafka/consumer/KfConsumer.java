@@ -46,6 +46,11 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    */
   private final KafkaConsumer<K, X> origin;
 
+  /**
+   * Subscribe to collection of topics.
+   *
+   * @param topics topics to subscribe
+   */
   @Override
   public void subscribe(final Collection<String> topics) {
     this.origin.subscribe(topics);
