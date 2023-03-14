@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Test;
 class KfProducerSettingsTest {
 
   @Test
-  void testProducerConstruction() throws FileNotFoundException {
+  void constructsWithSettings() throws FileNotFoundException {
     final ProducerSettings<String, String> settings =
       new KfProducerSettings<>(
         new XMLDocument(
