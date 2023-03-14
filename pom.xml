@@ -87,9 +87,10 @@ SOFTWARE.
     <junit-params.version>5.9.2</junit-params.version>
     <assert4j-core.version>3.24.2</assert4j-core.version>
     <xembly.version>0.28.1</xembly.version>
-    <maven-surefire-plugin.version>3.0.0-M9</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
     <maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
     <slf4j.version>2.0.6</slf4j.version>
+    <jtcop.version>0.1.9</jtcop.version>
   </properties>
   <dependencies>
     <dependency>
@@ -257,6 +258,18 @@ SOFTWARE.
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.volodya-lombrozo</groupId>
+        <artifactId>jtcop-maven-plugin</artifactId>
+        <version>${jtcop.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
