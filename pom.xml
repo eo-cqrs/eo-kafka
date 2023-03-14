@@ -90,6 +90,7 @@ SOFTWARE.
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
     <maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
     <slf4j.version>2.0.6</slf4j.version>
+    <jtcop.version>0.1.9</jtcop.version>
   </properties>
   <dependencies>
     <dependency>
@@ -257,6 +258,18 @@ SOFTWARE.
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.volodya-lombrozo</groupId>
+        <artifactId>jtcop-maven-plugin</artifactId>
+        <version>${jtcop.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>

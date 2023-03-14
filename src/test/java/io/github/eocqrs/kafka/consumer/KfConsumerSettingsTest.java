@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 class KfConsumerSettingsTest {
 
   @Test
-  void testConsumerConstruction() throws FileNotFoundException {
+  void constructsConsumer() throws FileNotFoundException {
     final ConsumerSettings<String, String> settings =
       new KfConsumerSettings<>(
         new XMLDocument(

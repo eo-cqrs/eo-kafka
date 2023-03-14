@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test;
 class KfProducerTest {
 
   @Test
-  void testConstruct() throws IOException {
+  void constructsProducer() throws IOException {
     final Producer<String, String> producer =
       new KfProducer<>(
         new KfProducerSettings<String, String>(
@@ -62,7 +62,7 @@ class KfProducerTest {
    */
   @Disabled
   @Test
-  void testSendDoesntThrowException() throws FileNotFoundException {
+  void sendsMessage() throws FileNotFoundException {
     final Producer<String, String> producer =
       new KfProducer<>(
         new KfProducerSettings<String, String>(

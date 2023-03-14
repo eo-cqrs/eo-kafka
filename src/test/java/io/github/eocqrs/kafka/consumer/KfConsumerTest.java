@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 class KfConsumerTest {
 
   @Test
-  void testSubscribe() throws FileNotFoundException {
+  void subscribes() throws FileNotFoundException {
     final Consumer<String, String> consumer =
       new KfConsumer<>(
         new KfConsumerSettings<String, String>(

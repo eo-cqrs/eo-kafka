@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 class KfDataTest {
 
   @Test
-  void stringDataized() {
+  void dataizesFromString() {
     final String origin = "test";
     final Data<String> data = new KfData<>(
       origin, "processes", 3
@@ -46,7 +46,7 @@ class KfDataTest {
   }
 
   @Test
-  void topic() {
+  void acceptsTopic() {
     final String topic = "tx-log";
     final Data<String> data = new KfData<>(
       "test", topic, 12
@@ -55,7 +55,7 @@ class KfDataTest {
   }
 
   @Test
-  void partition() {
+  void acceptsPartition() {
     final int partition = 1;
     final Data<String> data = new KfData<>(
       "test", "customer-messages", partition
