@@ -57,30 +57,4 @@ class KfProducerTest {
     );
   }
 
-  /**
-   * @todo #47:45m/DEV Producer <> Consumer it.
-   */
-  @Disabled
-  @Test
-  void sendsMessage() throws IOException {
-    final Producer<String, String> producer =
-      new KfProducer<>(
-        new KfProducerSettings<String, String>(
-          new XMLDocument(
-            new File("src/test/resources/settings.xml")
-          )
-        ).producer()
-      );
-    assertDoesNotThrow(() ->
-      producer.send(
-        "key-0",
-        new KfData<>(
-          "test-0",
-          "testing",
-          1
-        )
-      )
-    );
-    producer.close();
-  }
 }
