@@ -39,6 +39,10 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.0.0
  */
+/**
+ * @todo #47:45m/DEV Consumer Producer communication.
+ * We have to create an ITCase for communication between Consumer and Producer.
+ */
 class KfProducerTest {
 
   @Test
