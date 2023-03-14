@@ -62,7 +62,7 @@ class KfProducerTest {
    */
   @Disabled
   @Test
-  void sendsMessage() throws FileNotFoundException {
+  void sendsMessage() throws IOException {
     final Producer<String, String> producer =
       new KfProducer<>(
         new KfProducerSettings<String, String>(
