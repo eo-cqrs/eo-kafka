@@ -22,13 +22,15 @@
 
 package io.github.eocqrs.kafka;
 
+import java.io.Closeable;
+
 /**
  * Producer.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Producer<K, X> {
+public interface Producer<K, X> extends Closeable {
 
   /**
    * Send data.
@@ -37,5 +39,4 @@ public interface Producer<K, X> {
    * @param data data wrapper to process
    */
   void send(K key, Data<X> data);
-
 }

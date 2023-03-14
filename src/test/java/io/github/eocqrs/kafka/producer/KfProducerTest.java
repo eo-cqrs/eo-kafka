@@ -30,6 +30,7 @@ import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.data.KfData;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -41,7 +42,7 @@ import org.junit.jupiter.api.Test;
 class KfProducerTest {
 
   @Test
-  void testConstruct() throws FileNotFoundException {
+  void testConstruct() throws IOException {
     final Producer<String, String> producer =
       new KfProducer<>(
         new KfProducerSettings<String, String>(
@@ -51,6 +52,9 @@ class KfProducerTest {
         ).producer()
       );
     assertThat(producer).isNotNull();
+    assertDoesNotThrow(
+      producer::close
+    );
   }
 
   /**

@@ -84,14 +84,28 @@ Producer<String, String> producer =
 
 To send a [message](#messages):
 ```java
-producer.send(
-      "key-0",
-      new KfData<>(
-        "test-0",
-        "testing",
-        1
-      )
-);
+      try (
+        final Producer<String, String> producer =
+          new KfProducer<>(
+            new KfProducerSettings<String, String>(
+              new XMLDocument(
+                new File("settings.xml")
+              )
+            ).producer()
+          )
+      ) {
+        producer.send(
+          "key2012",
+          new KfData<>(
+            "newRest28",
+            "orders",
+            1
+          )
+        );
+      } catch (Exception e) {
+        throw new IllegalStateException(e);
+      }
+}
 ```
 
 ## Consumer API
