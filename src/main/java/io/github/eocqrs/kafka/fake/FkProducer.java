@@ -41,4 +41,9 @@ public final class FkProducer<K, X> implements Producer<K, X> {
   public void send(final K key, final Data<X> message) {
     throw new UnsupportedOperationException("#send()");
   }
+
+  @Override
+  public void close() throws Exception {
+    throw new UnsupportedOperationException("#close()");
+  }
 }

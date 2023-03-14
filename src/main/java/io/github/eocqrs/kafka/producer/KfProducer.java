@@ -54,4 +54,9 @@ public final class KfProducer<K, X> implements Producer<K, X> {
       )
     );
   }
+
+  @Override
+  public void close() throws Exception {
+    this.origin.close();
+  }
 }
