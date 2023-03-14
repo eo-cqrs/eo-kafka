@@ -23,5 +23,6 @@ jobs:
           mvn clean install
       - uses: codecov/codecov-action@v3
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./target/site/jacoco/jacoco.xml
           fail_ci_if_error: true
