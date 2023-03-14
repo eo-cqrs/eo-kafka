@@ -43,7 +43,7 @@ public final class FkProducer<K, X> implements Producer<K, X> {
   }
 
   @Override
-  public void close() throws Exception {
+  public void close() {
     throw new UnsupportedOperationException("#close()");
   }
 }
