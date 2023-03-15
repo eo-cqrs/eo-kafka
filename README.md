@@ -82,7 +82,7 @@ Producer<String, String> producer =
 );
 ```
 
-To send a [message](#messages):
+To send a [message](#messages-api):
 ```java
 try (
   final Producer<String, String> producer =
