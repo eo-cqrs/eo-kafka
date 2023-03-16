@@ -25,10 +25,10 @@ package io.github.eocqrs.kafka.producer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.jcabi.xml.XMLDocument;
+import io.github.eocqrs.kafka.ProducerSettings;
 import java.io.File;
 import java.io.FileNotFoundException;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import io.github.eocqrs.kafka.ProducerSettings;
 import org.junit.jupiter.api.Test;
 
 /**

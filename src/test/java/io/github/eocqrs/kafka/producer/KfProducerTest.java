@@ -27,11 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Producer;
-import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.kafka.ProducerSettings;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -39,6 +37,7 @@ import org.junit.jupiter.api.Test;
  *
  * @since 0.0.0
  */
+
 /**
  * @todo #47:45m/DEV Consumer Producer communication.
  * We have to create an ITCase for communication between Consumer and Producer.
@@ -61,4 +60,35 @@ class KfProducerTest {
     );
   }
 
+  @Test
+  void constructsProducerFromSettings() throws IOException {
+    final ProducerSettings<String, String> settings =
+      new KfProducerSettings<>(
+        new XMLDocument(
+          new File("src/test/resources/settings.xml")
+        )
+      );
+    final Producer<String, String> producer =
+      new KfProducer<>(
+        settings
+      );
+    assertThat(producer).isNotNull();
+    assertDoesNotThrow(
+      producer::close
+    );
+  }
+
+  @Test
+  void constructsProducerFromXML() throws IOException {
+    final Producer<String, String> producer =
+      new KfProducer<>(
+        new XMLDocument(
+          new File("src/test/resources/settings.xml")
+        )
+      );
+    assertThat(producer).isNotNull();
+    assertDoesNotThrow(
+      producer::close
+    );
+  }
 }
