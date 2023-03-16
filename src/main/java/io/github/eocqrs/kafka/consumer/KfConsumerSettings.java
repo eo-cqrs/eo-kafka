@@ -25,10 +25,11 @@ package io.github.eocqrs.kafka.consumer;
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.xml.TextXpath;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Kafka Consumer Settings.

@@ -22,11 +22,11 @@
 
 package io.github.eocqrs.kafka.data;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Dataized;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test case for {@link KfDataized}

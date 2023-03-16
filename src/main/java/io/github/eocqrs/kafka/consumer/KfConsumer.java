@@ -25,12 +25,13 @@ package io.github.eocqrs.kafka.consumer;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.Dataized;
 import io.github.eocqrs.kafka.data.KfData;
+import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
  * Kafka Consumer.

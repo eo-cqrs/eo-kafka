@@ -25,10 +25,11 @@ package io.github.eocqrs.kafka.producer;
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.xml.TextXpath;
-import java.util.HashMap;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.KafkaProducer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Kafka Producer Settings.
