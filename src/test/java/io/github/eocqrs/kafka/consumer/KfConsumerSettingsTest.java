@@ -1,13 +1,14 @@
 package io.github.eocqrs.kafka.consumer;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ConsumerSettings;
-import java.io.File;
-import java.io.FileNotFoundException;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test case for {@link KfConsumerSettings}

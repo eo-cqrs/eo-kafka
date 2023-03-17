@@ -4,10 +4,11 @@ import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
+import org.junit.jupiter.api.Test;
+import org.cactoos.list.ListOf;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import org.cactoos.list.ListOf;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

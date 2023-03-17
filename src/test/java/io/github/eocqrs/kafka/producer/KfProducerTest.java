@@ -22,15 +22,16 @@
 
 package io.github.eocqrs.kafka.producer;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.ProducerSettings;
+
 import java.io.File;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * Test case for {@link KfProducer}

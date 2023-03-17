@@ -22,13 +22,14 @@
 
 package io.github.eocqrs.kafka.xml;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import com.jcabi.xml.XMLDocument;
+import org.junit.jupiter.api.Test;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link TextXpath}
