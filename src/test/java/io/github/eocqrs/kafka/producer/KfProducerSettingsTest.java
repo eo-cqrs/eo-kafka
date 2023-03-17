@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class KfProducerSettingsTest {
 
   @Test
-  void testProducerConstruction() throws FileNotFoundException {
+  void constructsWithSettings() throws FileNotFoundException {
     final ProducerSettings<String, String> settings =
       new KfProducerSettings<>(
         new XMLDocument(

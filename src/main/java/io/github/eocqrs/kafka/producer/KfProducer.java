@@ -22,9 +22,10 @@
 
 package io.github.eocqrs.kafka.producer;
 
+import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
-import lombok.RequiredArgsConstructor;
+import io.github.eocqrs.kafka.ProducerSettings;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
@@ -34,13 +35,47 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-@RequiredArgsConstructor
 public final class KfProducer<K, X> implements Producer<K, X> {
 
   /**
    * Origin Kafka Producer.
    */
   private final KafkaProducer<K, X> origin;
+
+  /**
+   * Ctor.
+   *
+   * @param orgn origin Kafka Producer
+   * @see KafkaProducer
+   */
+  public KfProducer(final KafkaProducer<K, X> orgn) {
+    this.origin = orgn;
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param settings Producer Settings
+   * @see ProducerSettings
+   */
+  public KfProducer(final ProducerSettings<K, X> settings) {
+    this(
+      settings.producer()
+    );
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param settings XML settings
+   */
+  public KfProducer(final XML settings) {
+    this(
+      new KfProducerSettings<K, X>(
+        settings
+      ).producer()
+    );
+  }
 
   @Override
   public void send(final K key, final Data<X> data) {

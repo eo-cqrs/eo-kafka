@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 class KfConsumerTest {
 
   @Test
-  void testSubscribe() throws FileNotFoundException {
+  void subscribes() throws FileNotFoundException {
     final Consumer<String, String> consumer =
       new KfConsumer<>(
         new KfConsumerSettings<String, String>(

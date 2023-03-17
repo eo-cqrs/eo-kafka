@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class KfConsumerSettingsTest {
 
   @Test
-  void testConsumerConstruction() throws FileNotFoundException {
+  void constructsConsumer() throws FileNotFoundException {
     final ConsumerSettings<String, String> settings =
       new KfConsumerSettings<>(
         new XMLDocument(

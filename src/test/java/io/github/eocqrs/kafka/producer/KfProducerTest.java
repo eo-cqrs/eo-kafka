@@ -40,10 +40,15 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  *
  * @since 0.0.0
  */
+
+/**
+ * @todo #47:45m/DEV Consumer Producer communication.
+ * We have to create an ITCase for communication between Consumer and Producer.
+ */
 class KfProducerTest {
 
   @Test
-  void testConstruct() throws IOException {
+  void constructsProducer() throws IOException {
     final Producer<String, String> producer =
       new KfProducer<>(
         new KfProducerSettings<String, String>(
@@ -58,29 +63,35 @@ class KfProducerTest {
     );
   }
 
-  /**
-   * @todo #47:45m/DEV Producer <> Consumer it.
-   */
-  @Disabled
   @Test
-  void testSendDoesntThrowException() throws FileNotFoundException {
+  void constructsProducerFromSettings() throws IOException {
+    final ProducerSettings<String, String> settings =
+      new KfProducerSettings<>(
+        new XMLDocument(
+          new File("src/test/resources/settings.xml")
+        )
+      );
     final Producer<String, String> producer =
       new KfProducer<>(
-        new KfProducerSettings<String, String>(
-          new XMLDocument(
-            new File("src/test/resources/settings.xml")
-          )
-        ).producer()
+        settings
       );
-    assertDoesNotThrow(() ->
-      producer.send(
-        "key-0",
-        new KfData<>(
-          "test-0",
-          "testing",
-          1
+    assertThat(producer).isNotNull();
+    assertDoesNotThrow(
+      producer::close
+    );
+  }
+
+  @Test
+  void constructsProducerFromXML() throws IOException {
+    final Producer<String, String> producer =
+      new KfProducer<>(
+        new XMLDocument(
+          new File("src/test/resources/settings.xml")
         )
-      )
+      );
+    assertThat(producer).isNotNull();
+    assertDoesNotThrow(
+      producer::close
     );
   }
 }

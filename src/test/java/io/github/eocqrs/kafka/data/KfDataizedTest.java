@@ -36,21 +36,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 class KfDataizedTest {
 
   @Test
-  void intDataize() {
+  void dataizesToInt() {
     final int data = 13491;
     final Dataized<Integer> dataized = new KfDataized<>(data);
     assertThat(dataized.dataize()).isEqualTo(data);
   }
 
   @Test
-  void stringDataize() {
+  void dataizesToString() {
     final String data = "data";
     final Dataized<String> dataized = new KfDataized<>(data);
     assertThat(dataized.dataize()).isEqualTo(data);
   }
 
   @Test
-  void dataizedData() {
+  void dataizesToData() {
     final String customer = "customer-1";
     final Data<String> data = new KfData<>(
       "customer-1", "customers", 5

@@ -82,14 +82,14 @@ Producer<String, String> producer =
 );
 ```
 
-To send a [message](#messages):
+To send a [message](#messages-api):
 ```java
-      try (
-        final Producer<String, String> producer =
-          new KfProducer<>(
-            new KfProducerSettings<String, String>(
+try (
+  final Producer<String, String> producer =
+      new KfProducer<>(
+          new KfProducerSettings<String, String>(
               new XMLDocument(
-                new File("settings.xml")
+                  new File("settings.xml")
               )
             ).producer()
           )

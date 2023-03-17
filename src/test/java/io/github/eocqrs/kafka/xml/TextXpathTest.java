@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class TextXpathTest {
 
   @Test
-  void testBootStrapServers() throws FileNotFoundException {
+  void readsBootStrapServers() throws FileNotFoundException {
     final String servers = new TextXpath(
       new XMLDocument(
         new File("src/test/resources/producer.xml")
@@ -50,7 +50,7 @@ class TextXpathTest {
   }
 
   @Test
-  void testName() throws FileNotFoundException {
+  void readsName() throws FileNotFoundException {
     final String name = new TextXpath(
       new XMLDocument(
         new File("src/test/resources/test.xml")
@@ -61,7 +61,7 @@ class TextXpathTest {
   }
 
   @Test
-  void testInvalidQuery() throws FileNotFoundException {
+  void failsWithInvalidXpath() throws FileNotFoundException {
     final TextXpath xpath = new TextXpath(
       new XMLDocument(
         new File("src/test/resources/producer.xml")
