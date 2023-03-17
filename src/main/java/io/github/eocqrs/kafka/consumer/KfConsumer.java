@@ -27,11 +27,12 @@ import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Dataized;
 import io.github.eocqrs.kafka.data.KfData;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
  * Kafka Consumer.
