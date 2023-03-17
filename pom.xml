@@ -271,6 +271,18 @@ SOFTWARE.
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>ru.l3r8y</groupId>
+        <artifactId>sa-tan</artifactId>
+        <version>0.1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>search</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 </project>
