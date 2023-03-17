@@ -89,7 +89,9 @@ try (
       new KfProducer<>(
           new KfProducerSettings<String, String>(
               new XMLDocument(
-                  new File("settings.xml")
+                  new File(
+                    "settings.xml"
+                )
               )
             ).producer()
           )
