@@ -22,14 +22,15 @@
 
 package io.github.eocqrs.kafka.consumer;
 
+import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Consumer;
+import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Dataized;
 import io.github.eocqrs.kafka.data.KfData;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
@@ -38,13 +39,46 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-@RequiredArgsConstructor
 public final class KfConsumer<K, X> implements Consumer<K, X> {
 
   /**
    * Origin Kafka Consumer.
    */
   private final KafkaConsumer<K, X> origin;
+
+  /**
+   * Ctor.
+   *
+   * @param orgn origin Kafka Consumer
+   */
+  public KfConsumer(final KafkaConsumer<K, X> orgn) {
+    this.origin = orgn;
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param settings Consumer Settings
+   * @see ConsumerSettings
+   */
+  public KfConsumer(final ConsumerSettings<K, X> settings) {
+    this(
+      settings.consumer()
+    );
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param settings XML settings
+   */
+  public KfConsumer(final XML settings) {
+    this(
+      new KfConsumerSettings<>(
+        settings
+      )
+    );
+  }
 
   @Override
   public void subscribe(final Collection<String> topics) {
