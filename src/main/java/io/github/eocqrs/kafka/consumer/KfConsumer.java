@@ -30,7 +30,6 @@ import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import io.github.eocqrs.kafka.data.KfData;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -101,10 +100,10 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    */
   @Override
   public List<Dataized<X>> iterate(final String topic, final Duration timeout) {
-    final List<Dataized<X>> iterate = new ArrayList<>(13);
-    this.origin.poll(
-        timeout
-      ).records(topic)
+    final List<Dataized<X>> iterate = new ArrayList<>(0);
+    this.origin
+      .poll(timeout)
+      .records(topic)
       .forEach(
         data ->
           iterate.add(
