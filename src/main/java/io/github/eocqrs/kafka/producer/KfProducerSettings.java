@@ -49,8 +49,8 @@ public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
   /**
    * A ctor that takes a String and converts it to Input.
    *
-   * @param name Name of xml configuration.
-   * @throws Exception When something went wrong.
+   * @param name Name of xml configuration
+   * @throws Exception When something went wrong
    */
   public KfProducerSettings(final String name) throws Exception {
     this(new ResourceOf(name));
