@@ -28,6 +28,7 @@ import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.Input;
+import org.cactoos.io.ResourceOf;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +46,15 @@ public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
    */
   private final XML settings;
 
+  /**
+   * A ctor that takes a String and converts it to Input.
+   *
+   * @param name Name of xml configuration.
+   * @throws Exception When something went wrong.
+   */
+  public KfProducerSettings(final String name) throws Exception {
+    this(new ResourceOf(name));
+  }
 
   /**
    * A ctor that takes an Input and converts it to XMLDocument.
