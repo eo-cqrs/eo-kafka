@@ -29,6 +29,7 @@ import io.github.eocqrs.kafka.Dataized;
 import io.github.eocqrs.kafka.data.KfData;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -114,5 +115,10 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
           )
       );
     return iterate;
+  }
+
+  @Override
+  public void close() {
+    this.origin.close();
   }
 }
