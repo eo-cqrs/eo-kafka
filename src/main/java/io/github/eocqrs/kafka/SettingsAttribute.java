@@ -19,25 +19,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package io.github.eocqrs.kafka;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-
 /**
- * Producer Settings.
+ * Settings attribute.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @author Ivan Ivanchuck (l3r8y@duck.com)
+ * @since 0.0.2
  */
-public interface ProducerSettings<K, X> {
+public interface SettingsAttribute {
 
   /**
-   * Kafka Producer.
+   * Represents settings as XML.
    *
-   * @return Kafka producer
-   * @see KafkaProducer
+   * @return XML string.
    */
-  KafkaProducer<K, X> producer();
+  String asXml();
 
 }

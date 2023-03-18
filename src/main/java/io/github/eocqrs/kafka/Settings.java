@@ -21,20 +21,22 @@
  */
 package io.github.eocqrs.kafka;
 
+import java.util.Collection;
+
 /**
- * General settings.
+ * Settings attribute.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.2
  */
-public interface Settings<K, X> {
+public interface Settings {
 
   /**
-   * Represents settings as XML.
+   * Returns a collection of all the settings attributes.
    *
-   * @return XML string.
+   * @return A collection of SettingsAttribute objects.
    */
-  String asXml();
+  Collection<SettingsAttribute> all();
 
 }

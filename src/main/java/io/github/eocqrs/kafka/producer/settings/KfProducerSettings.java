@@ -96,8 +96,4 @@ public final class KfProducerSettings<K, X> extends KfProducerSettingsEnvelope<K
     return new KafkaProducer<>(config);
   }
 
-  @Override
-  public String asXml() {
-    throw new UnsupportedOperationException("#asXml()");
-  }
 }

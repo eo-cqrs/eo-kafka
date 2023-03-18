@@ -98,8 +98,4 @@ public final class KfConsumerSettings<K, X> extends KfConsumerSettingsEnvelope<K
     return new KafkaConsumer<>(config);
   }
 
-  @Override
-  public String asXml() {
-    throw new UnsupportedOperationException("#asXml()");
-  }
 }
