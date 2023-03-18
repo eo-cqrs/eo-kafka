@@ -24,14 +24,14 @@ final class SimpleTest {
       final Consumer<String, String> consumer =
         new KfConsumer<>(new KfConsumerSettings<>("consumer.xml"))
     ) {
-      consumer.subscribe(new ListOf<>("4313"));
+      consumer.subscribe(new ListOf<>("test-t"));
       producer.send(
         "my_key",
-        new KfData<>("value", "4313", 1)
+        new KfData<>("data-from-test", "test-t", 1)
       );
       MatcherAssert.assertThat(
         "Consumes data right",
-        consumer.iterate("4313", Duration.ofMillis(50L)).size(),
+        consumer.iterate("test-t", Duration.ofMillis(5000L)).size(),
         Matchers.equalTo(1)
       );
     } catch (final Exception ex) {
