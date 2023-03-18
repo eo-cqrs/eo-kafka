@@ -50,4 +50,9 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
   public List<Dataized<X>> iterate(String topic, Duration timeout) {
     throw new UnsupportedOperationException("#iterate()");
   }
+
+  @Override
+  public void close() {
+    throw new UnsupportedOperationException("#close()");
+  }
 }

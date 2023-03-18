@@ -20,13 +20,12 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.consumer;
+package io.github.eocqrs.kafka.consumer.settings;
 
 import com.jcabi.xml.XML;
-import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.xml.TextXpath;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.cactoos.Input;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,15 +34,39 @@ import java.util.Map;
  * Kafka Consumer Settings.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.0
  */
-@RequiredArgsConstructor
-public final class KfConsumerSettings<K, X> implements ConsumerSettings<K, X> {
+public final class KfConsumerSettings<K, X> extends KfConsumerSettingsEnvelope<K, X> {
 
   /**
-   * Settings in XML.
+   * Ctor.
+   *
+   * @param name Name of the resource.
+   * @throws Exception When something went wrong.
    */
-  private final XML settings;
+  public KfConsumerSettings(final String name) throws Exception {
+    super(name);
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param resource The resource with xml settings.
+   * @throws Exception When something went wrong.
+   */
+  public KfConsumerSettings(final Input resource) throws Exception {
+    super(resource);
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param settings The XML settings.
+   */
+  public KfConsumerSettings(final XML settings) {
+    super(settings);
+  }
 
   @Override
   public KafkaConsumer<K, X> consumer() {

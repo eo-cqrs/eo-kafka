@@ -20,35 +20,10 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
-
-import java.io.Closeable;
-import java.time.Duration;
-import java.util.Collection;
-import java.util.List;
-
 /**
- * Consumer.
+ * Kafka API-ConsumerSettings.
  *
- * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Consumer<K, X> extends Closeable {
-
-  /**
-   * Subscribe.
-   *
-   * @param topics topics to subscribe
-   */
-  void subscribe(Collection<String> topics);
-
-  /**
-   * Dataized.
-   *
-   * @param topic   topic to poll
-   * @param timeout max time to wait
-   * @return Dataized polled data.
-   */
-  List<Dataized<X>> iterate(String topic, Duration timeout);
-}
+package io.github.eocqrs.kafka.consumer.settings;
