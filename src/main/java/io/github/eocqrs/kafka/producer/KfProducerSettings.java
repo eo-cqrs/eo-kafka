@@ -23,10 +23,13 @@
 package io.github.eocqrs.kafka.producer;
 
 import com.jcabi.xml.XML;
+import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.cactoos.Input;
+import org.cactoos.io.ResourceOf;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,13 +40,32 @@ import java.util.Map;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-@RequiredArgsConstructor
 public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
 
   /**
    * Settings in XML.
    */
   private final XML settings;
+
+
+  /**
+   * A ctor that takes an Input and converts it to XMLDocument.
+   *
+   * @param resource Resources
+   * @throws Exception When something went wrong
+   */
+  public KfProducerSettings(final Input resource) throws Exception {
+    this(new XMLDocument(resource.stream()));
+  }
+
+  /**
+   * Primary ctor.
+   *
+   * @param settings Settings as XML.
+   */
+  public KfProducerSettings(final XML settings) {
+    this.settings = settings;
+  }
 
   @Override
   public KafkaProducer<K, X> producer() {
