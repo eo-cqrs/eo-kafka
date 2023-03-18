@@ -22,6 +22,7 @@
 
 package io.github.eocqrs.kafka;
 
+import java.io.Closeable;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public interface Consumer<K, X> extends AutoCloseable {
+public interface Consumer<K, X> extends Closeable {
 
   /**
    * Subscribe.
