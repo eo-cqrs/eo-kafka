@@ -32,6 +32,10 @@ import org.cactoos.io.ResourceOf;
 
 import java.util.HashMap;
 import java.util.Map;
+/**
+ * #127:30m/DEV Readme update.
+ * We have to update documentation and code examples in README.
+ */
 
 /**
  * Kafka Producer Settings.
