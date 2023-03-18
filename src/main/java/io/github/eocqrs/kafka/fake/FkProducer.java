@@ -22,8 +22,17 @@
 
 package io.github.eocqrs.kafka.fake;
 
+import com.jcabi.aspects.Immutable;
+import com.jcabi.xml.XML;
+import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
+import org.xembly.Directives;
+import org.xembly.ImpossibleModificationException;
+import org.xembly.Xembler;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * Fake Producer.
@@ -35,15 +44,46 @@ import io.github.eocqrs.kafka.Producer;
 /**
  * @todo #10:45m/DEV Fake Producer implementation
  */
+@Immutable
 public final class FkProducer<K, X> implements Producer<K, X> {
+
+  private final XML settings;
+
+  public FkProducer(final XML settings) {
+    this.settings = settings;
+  }
+
+  public FkProducer(final File file) throws FileNotFoundException {
+    this(
+      new XMLDocument(file)
+    );
+  }
 
   @Override
   public void send(final K key, final Data<X> message) {
-    throw new UnsupportedOperationException("#send()");
+    try {
+      new Xembler(
+        new Directives()
+          .add("chunks")
+          .add("chunk")
+          .add("topic")
+          .set(message.topic())
+          .up()
+          .add("partition")
+          .set(message.partition())
+          .up()
+          .add("key")
+          .set(key)
+          .up()
+          .add("value")
+          .set(message.dataized().dataize())
+      ).xml();
+    } catch (final ImpossibleModificationException e) {
+      throw new IllegalStateException(e);
+    }
   }
 
   @Override
   public void close() {
-    throw new UnsupportedOperationException("#close()");
   }
 }

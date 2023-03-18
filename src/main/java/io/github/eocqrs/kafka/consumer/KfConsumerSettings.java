@@ -22,6 +22,7 @@
 
 package io.github.eocqrs.kafka.consumer;
 
+import com.jcabi.aspects.Immutable;
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.xml.TextXpath;

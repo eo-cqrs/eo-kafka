@@ -22,6 +22,7 @@
 
 package io.github.eocqrs.kafka.producer;
 
+import com.jcabi.aspects.Immutable;
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;

@@ -22,6 +22,7 @@
 
 package io.github.eocqrs.kafka.consumer;
 
+import com.jcabi.aspects.Immutable;
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
@@ -40,6 +41,7 @@ import java.util.List;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
+@Immutable
 public final class KfConsumer<K, X> implements Consumer<K, X> {
 
   /**
