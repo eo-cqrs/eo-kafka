@@ -24,7 +24,6 @@ SOFTWARE.
 -->
 <producer>
   <bootstrapServers>localhost:9092</bootstrapServers>
-  <groupId>1</groupId>
   <keySerializer>org.apache.kafka.common.serialization.StringSerializer</keySerializer>
   <valueSerializer>org.apache.kafka.common.serialization.StringSerializer</valueSerializer>
 </producer>
