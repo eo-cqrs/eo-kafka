@@ -24,9 +24,9 @@ package io.github.eocqrs.kafka.producer;
 
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
+import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.io.ResourceOf;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -50,8 +50,7 @@ final class KfProducerSettingsTest {
           new File("src/test/resources/settings.xml")
         )
       );
-    final KafkaProducer<String, String> out = settings.producer();
-    assertThat(out).isNotNull();
+    assertThat(settings.producer()).isNotNull();
   }
 
   @Test
@@ -60,8 +59,7 @@ final class KfProducerSettingsTest {
       () -> {
         final ProducerSettings<String, String> settings =
           new KfProducerSettings<>(new ResourceOf("settings.xml"));
-        final KafkaProducer<String, String> out = settings.producer();
-        assertThat(out).isNotNull();
+        assertThat(settings.producer()).isNotNull();
       }
     );
   }
@@ -70,10 +68,8 @@ final class KfProducerSettingsTest {
   void constructsWithString() {
     assertDoesNotThrow(
       () -> {
-        final ProducerSettings<String, String> settings =
-          new KfProducerSettings<>("settings.xml");
-        final KafkaProducer<String, String> out = settings.producer();
-        assertThat(out).isNotNull();
+        final ProducerSettings<String, String> settings = new KfProducerSettings<>("settings.xml");
+        assertThat(settings.producer()).isNotNull();
       }
     );
   }

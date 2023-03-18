@@ -26,6 +26,7 @@ import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Dataized;
+import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import io.github.eocqrs.kafka.data.KfData;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
@@ -114,5 +115,10 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
           )
       );
     return iterate;
+  }
+
+  @Override
+  public void close() {
+    this.origin.close();
   }
 }

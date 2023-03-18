@@ -28,6 +28,8 @@ import io.github.eocqrs.kafka.ProducerSettings;
 
 import java.io.File;
 import java.io.IOException;
+
+import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
