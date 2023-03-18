@@ -7,14 +7,46 @@ import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.kafka.producer.KfProducer;
 import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
+import org.cactoos.io.ResourceOf;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.utility.DockerImageName;
 
 import java.time.Duration;
 
+@Testcontainers
 final class SimpleTest {
+
+  @Container
+  public final KafkaContainer kafka =
+    new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:6.2.1"))
+      .withEmbeddedZookeeper();
+
+  @BeforeEach
+  void startKafka() {
+    this.kafka.start();
+  }
+
+  @AfterEach
+  void stopKafka() {
+    this.kafka.stop();
+  }
+
+  @Test
+  public void kafkaRunning() {
+    MatcherAssert.assertThat(
+      "Kafka container running",
+      this.kafka.isRunning(),
+      Matchers.is(true)
+    );
+  }
 
   @Test
   public void pollsDataCorrectly() {
