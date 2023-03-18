@@ -25,19 +25,22 @@ package io.github.eocqrs.kafka.producer;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.cactoos.io.ResourceOf;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * Test case for {@link KfProducerSettings}
  *
  * @since 0.0.0
  */
-class KfProducerSettingsTest {
+final class KfProducerSettingsTest {
 
   @Test
   void constructsWithSettings() throws FileNotFoundException {
@@ -50,4 +53,29 @@ class KfProducerSettingsTest {
     final KafkaProducer<String, String> out = settings.producer();
     assertThat(out).isNotNull();
   }
+
+  @Test
+  void constructsWithResourceOf() {
+    assertDoesNotThrow(
+      () -> {
+        final ProducerSettings<String, String> settings =
+          new KfProducerSettings<>(new ResourceOf("settings.xml"));
+        final KafkaProducer<String, String> out = settings.producer();
+        assertThat(out).isNotNull();
+      }
+    );
+  }
+
+  @Test
+  void constructsWithString() {
+    assertDoesNotThrow(
+      () -> {
+        final ProducerSettings<String, String> settings =
+          new KfProducerSettings<>("settings.xml");
+        final KafkaProducer<String, String> out = settings.producer();
+        assertThat(out).isNotNull();
+      }
+    );
+  }
+
 }
