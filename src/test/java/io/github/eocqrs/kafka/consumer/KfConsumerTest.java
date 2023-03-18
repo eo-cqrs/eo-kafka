@@ -4,8 +4,9 @@ import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
-import org.cactoos.list.ListOf;
+import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import org.junit.jupiter.api.Test;
+import org.cactoos.list.ListOf;
 
 import java.io.File;
 import java.io.FileNotFoundException;

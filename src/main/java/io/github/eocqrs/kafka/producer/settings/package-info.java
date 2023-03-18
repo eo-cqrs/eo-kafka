@@ -21,9 +21,9 @@
  */
 
 /**
- * Kafka API-Consumers.
+ * Kafka API-ProducerSettings.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-package io.github.eocqrs.kafka.consumer;
+package io.github.eocqrs.kafka.producer.settings;

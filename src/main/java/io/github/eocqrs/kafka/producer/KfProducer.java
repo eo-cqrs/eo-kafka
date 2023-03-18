@@ -26,6 +26,7 @@ import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.ProducerSettings;
+import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 

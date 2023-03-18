@@ -19,37 +19,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package io.github.eocqrs.kafka.producer;
+package io.github.eocqrs.kafka.producer.settings;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
-import io.github.eocqrs.kafka.xml.TextXpath;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.Input;
 import org.cactoos.io.ResourceOf;
 
-import java.util.HashMap;
-import java.util.Map;
 /**
- * #127:30m/DEV Readme update.
- * We have to update documentation and code examples in README.
- */
-
-/**
- * Kafka Producer Settings.
+ * Envelope for {@link ProducerSettings}.
  *
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @author Ivan Ivanchuk (l3r8y@duck.com)
- * @since 0.0.0
+ * @author Ivan Ivanchuck (l3r8y@duck.com)
+ * @since 0.0.2
  */
-public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
+public abstract class KfProducerSettingsEnvelope<K, X> implements ProducerSettings<K, X> {
 
   /**
    * Settings in XML.
    */
-  private final XML settings;
+  protected final XML settings;
 
   /**
    * A ctor that takes a String and converts it to Input.
@@ -57,7 +46,7 @@ public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
    * @param name Name of xml configuration.
    * @throws Exception When something went wrong.
    */
-  public KfProducerSettings(final String name) throws Exception {
+  protected KfProducerSettingsEnvelope(final String name) throws Exception {
     this(new ResourceOf(name));
   }
 
@@ -67,7 +56,7 @@ public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
    * @param resource Resources.
    * @throws Exception When something went wrong.
    */
-  public KfProducerSettings(final Input resource) throws Exception {
+  protected KfProducerSettingsEnvelope(final Input resource) throws Exception {
     this(new XMLDocument(resource.stream()));
   }
 
@@ -76,28 +65,9 @@ public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
    *
    * @param settings Settings as XML.
    */
-  public KfProducerSettings(final XML settings) {
+  protected KfProducerSettingsEnvelope(final XML settings) {
     this.settings = settings;
   }
 
-  @Override
-  public KafkaProducer<K, X> producer() {
-    final Map<String, Object> config = new HashMap<>(3);
-    config.put(
-      "bootstrap.servers",
-      new TextXpath(this.settings, "//bootstrapServers")
-        .toString()
-    );
-    config.put(
-      "key.serializer",
-      new TextXpath(this.settings, "//keySerializer")
-        .toString()
-    );
-    config.put(
-      "value.serializer",
-      new TextXpath(this.settings, "//valueSerializer")
-        .toString()
-    );
-    return new KafkaProducer<>(config);
-  }
 }
+
