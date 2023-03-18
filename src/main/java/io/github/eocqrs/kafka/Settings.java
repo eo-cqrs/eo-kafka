@@ -19,15 +19,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package io.github.eocqrs.kafka;
 
 import java.util.Collection;
 
 /**
- * Settings attribute.
+ * Kafka Settings.
  *
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuck (l3r8y@duck.com)
+ * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.2
  */
 public interface Settings {
@@ -38,5 +39,4 @@ public interface Settings {
    * @return A collection of SettingsAttribute objects.
    */
   Collection<SettingsAttribute> all();
-
 }

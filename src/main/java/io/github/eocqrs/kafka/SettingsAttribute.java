@@ -19,22 +19,29 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
 package io.github.eocqrs.kafka;
 
 /**
  * Settings attribute.
  *
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuck (l3r8y@duck.com)
+ * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.2
  */
 public interface SettingsAttribute {
 
   /**
-   * Represents settings as XML.
+   * Kafka property.
+   *
+   * @return property name as string.
+   */
+  String name();
+
+  /**
+   * Represents setting as XML.
    *
    * @return XML string.
    */
   String asXml();
-
 }
