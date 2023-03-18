@@ -37,6 +37,7 @@ SOFTWARE.
     EO Kafka Producers and consumers for working with Apache Kafka message broker
   </description>
   <inceptionYear>2023</inceptionYear>
+  <url>https://eo-cqrs.github.io/eo-kafka/</url>
   <developers>
     <developer>
       <id>1</id>
@@ -69,12 +70,6 @@ SOFTWARE.
     <developerConnection>scm:git:ssh://github.com:eo-cqrs/eo-kafka.git</developerConnection>
     <url>https://github.com/eo-cqrs/eo-kafka/tree/master</url>
   </scm>
-  <distributionManagement>
-    <site>
-      <id>eo-cqrs.github.io/eo-kafka/</id>
-      <url>https://eo-cqrs.github.io/eo-kafka/</url>
-    </site>
-  </distributionManagement>
   <properties>
     <java.version>17</java.version>
     <maven.compiler.source>17</maven.compiler.source>
@@ -285,4 +280,86 @@ SOFTWARE.
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>gpg.keyname</name>
+        </property>
+      </activation>
+      <distributionManagement>
+        <snapshotRepository>
+          <id>ossrh</id>
+          <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+          <id>ossrh</id>
+          <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/
+          </url>
+        </repository>
+      </distributionManagement>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>3.2.1</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>3.0.1</version>
+            <configuration>
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <version>1.6.13</version>
+            <extensions>true</extensions>
+            <configuration>
+              <serverId>ossrh</serverId>
+              <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+              <autoReleaseAfterClose>true</autoReleaseAfterClose>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
