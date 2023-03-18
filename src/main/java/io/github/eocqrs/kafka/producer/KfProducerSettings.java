@@ -37,6 +37,7 @@ import java.util.Map;
  * Kafka Producer Settings.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.0
  */
 public final class KfProducerSettings<K, X> implements ProducerSettings<K, X> {
