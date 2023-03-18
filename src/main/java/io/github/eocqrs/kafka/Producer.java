@@ -22,7 +22,14 @@
 
 package io.github.eocqrs.kafka;
 
+import com.jcabi.xml.XMLDocument;
+import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.kafka.producer.KfProducer;
+import io.github.eocqrs.kafka.producer.KfProducerSettings;
 import java.io.Closeable;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Producer.
@@ -39,4 +46,22 @@ public interface Producer<K, X> extends Closeable {
    * @param data data wrapper to process
    */
   void send(K key, Data<X> data);
+
+  final class T {
+
+    public static void main(String[] args) throws IOException {
+      final Producer<String, String> producer =
+        new KfProducer<>(
+          new KfProducerSettings<>(
+            new XMLDocument(
+              new File(
+                "src/main/resources/settings.xml"
+              )
+            )
+          )
+        );
+      producer.send("key-data-04", new KfData<>("dat4", "orders", 1));
+      producer.close();
+    }
+  }
 }
