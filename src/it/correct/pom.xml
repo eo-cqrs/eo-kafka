@@ -98,7 +98,7 @@ SOFTWARE.
         <executions>
           <execution>
             <id>pull</id>
-            <phase>verify</phase>
+            <phase>compile</phase>
             <goals>
               <goal>pull</goal>
             </goals>
