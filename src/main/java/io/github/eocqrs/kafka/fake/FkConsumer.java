@@ -25,7 +25,6 @@ package io.github.eocqrs.kafka.fake;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.Dataized;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
