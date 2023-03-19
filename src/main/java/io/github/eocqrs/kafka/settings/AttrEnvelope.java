@@ -64,10 +64,10 @@ public abstract class AttrEnvelope implements SettingsAttribute {
    */
   private String nameInCamelCase() {
     final String[] result = this.name.split("\\.");
-    final String first = String.valueOf(result[1].charAt(0));
+    final char first = result[1].charAt(0);
     result[1] = result[1].replaceFirst(
-      first,
-      String.valueOf(Character.toUpperCase(result[1].charAt(0)))
+      String.valueOf(first),
+      String.valueOf(Character.toUpperCase(first))
     );
     return String.join("", result);
   }
