@@ -23,6 +23,7 @@
 package io.github.eocqrs.kafka.consumer.settings;
 
 import com.jcabi.xml.XML;
+import io.github.eocqrs.kafka.Settings;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.cactoos.Input;
@@ -38,6 +39,17 @@ import java.util.Map;
  * @since 0.0.0
  */
 public final class KfConsumerSettings<K, X> extends KfConsumerSettingsEnvelope<K, X> {
+
+
+  /**
+   * Ctor.
+   *
+   * @param settings The settings object.
+   * @throws Exception When something went wrong.
+   */
+  public KfConsumerSettings(final Settings settings) throws Exception {
+    super(settings);
+  }
 
   /**
    * Ctor.

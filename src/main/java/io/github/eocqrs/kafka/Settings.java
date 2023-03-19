@@ -39,4 +39,10 @@ public interface Settings {
    */
   Collection<SettingsAttribute> all();
 
+  /**
+   * Returns the XML representation of the settings.
+   *
+   * @return The return value is a string.
+   */
+  String asXml();
 }

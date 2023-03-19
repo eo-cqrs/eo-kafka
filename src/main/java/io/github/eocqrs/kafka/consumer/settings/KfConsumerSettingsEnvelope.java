@@ -3,8 +3,15 @@ package io.github.eocqrs.kafka.consumer.settings;
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ConsumerSettings;
+import io.github.eocqrs.kafka.Settings;
+import io.github.eocqrs.kafka.SettingsAttribute;
 import org.cactoos.Input;
 import org.cactoos.io.ResourceOf;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * Envelope for {@link ConsumerSettings}.
@@ -18,6 +25,15 @@ public abstract class KfConsumerSettingsEnvelope<K, X> implements ConsumerSettin
    * Settings in XML.
    */
   protected final XML settings;
+
+  /**
+   * A constructor that takes a Settings object and converts it to XMLDocument.
+   *
+   * @param settings The settings object.
+   */
+  protected KfConsumerSettingsEnvelope(final Settings settings) {
+    this.settings = new XMLDocument(settings.asXml());
+  }
 
   /**
    * A constructor that takes a String and converts it to ResourceOf.
