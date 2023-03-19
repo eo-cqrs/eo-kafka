@@ -28,7 +28,7 @@ package io.github.eocqrs.kafka.settings;
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public class ValueSerializer extends AttrEnvelope {
+public final class ValueSerializer extends AttrEnvelope {
 
   /**
    * Ctor.
