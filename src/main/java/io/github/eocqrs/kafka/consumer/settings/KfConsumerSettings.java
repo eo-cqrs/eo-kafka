@@ -45,9 +45,8 @@ public final class KfConsumerSettings<K, X> extends KfConsumerSettingsEnvelope<K
    * Ctor.
    *
    * @param params The settings object.
-   * @throws Exception When something went wrong.
    */
-  public KfConsumerSettings(final Params params) throws Exception {
+  public KfConsumerSettings(final Params params) {
     super(params);
   }
 
