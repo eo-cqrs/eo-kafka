@@ -62,6 +62,12 @@ public abstract class AttrEnvelope implements SettingsAttribute {
    *
    * @return The name of the attribute as a tag.
    */
+  /*
+  * #134:60m/DEV Replace a private method with object.
+  * We should implement something like NameInCamelCase.
+  * Or even send a pull request to cactoos
+  * with an implementation of TextInCamelCase.
+  * */
   private String nameInCamelCase() {
     final String[] result = this.name.split("\\.");
     final char first = result[1].charAt(0);
