@@ -26,7 +26,10 @@ import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
-import io.github.eocqrs.kafka.settings.*;
+import io.github.eocqrs.kafka.settings.BootstrapServers;
+import io.github.eocqrs.kafka.settings.KeySerializer;
+import io.github.eocqrs.kafka.settings.KfParams;
+import io.github.eocqrs.kafka.settings.ValueSerializer;
 import org.cactoos.io.ResourceOf;
 import org.junit.jupiter.api.Test;
 

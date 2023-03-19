@@ -22,39 +22,32 @@
 
 package io.github.eocqrs.kafka.producer.settings;
 
-import io.github.eocqrs.kafka.Settings;
-import io.github.eocqrs.kafka.SettingsAttribute;
-import lombok.RequiredArgsConstructor;
-import org.cactoos.text.FormattedText;
-
-import java.util.Collection;
+import io.github.eocqrs.kafka.settings.GroupId;
+import io.github.eocqrs.kafka.settings.KfParams;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
 /**
- * Kafka Producer parameters.
- * Decorates {@link Settings}.
+ * Test case for {@link KfProducerParams}.
  *
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuk (l3r8y@duck.com)
- * @since 0.0.0
+ * @since 0.0.2
  */
-@RequiredArgsConstructor
-public final class KfProducerParams implements Settings {
+final class KfProducerParamsTest {
 
-  /**
-   * The origin.
-   */
-  private final Settings origin;
-
-  @Override
-  public Collection<SettingsAttribute> all() {
-    return this.origin.all();
-  }
-
-  @Override
-  public String asXml() {
-    return new FormattedText(
-      "<producer>\n%s\n</producer>\n",
-      this.origin.asXml()
-    ).toString();
+  @Test
+  void representsXmlCorrectly() {
+    MatcherAssert.assertThat(
+      "Represents right XML settings",
+      new KfProducerParams(
+        new KfParams(
+          new GroupId("103")
+        )
+      ).asXml(),
+      Matchers.equalTo(
+        "<producer>\n<groupId>103</groupId>\n</producer>\n"
+      )
+    );
   }
 }

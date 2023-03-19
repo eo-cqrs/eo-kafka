@@ -20,41 +20,31 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.producer.settings;
+package io.github.eocqrs.kafka.settings;
 
-import io.github.eocqrs.kafka.Settings;
-import io.github.eocqrs.kafka.SettingsAttribute;
-import lombok.RequiredArgsConstructor;
-import org.cactoos.text.FormattedText;
-
-import java.util.Collection;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
 /**
- * Kafka Producer parameters.
- * Decorates {@link Settings}.
+ * Test case for {@link KfParamsTest}.
  *
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuk (l3r8y@duck.com)
- * @since 0.0.0
+ * @since 0.0.2
  */
-@RequiredArgsConstructor
-public final class KfProducerParams implements Settings {
+final class KfParamsTest {
 
-  /**
-   * The origin.
-   */
-  private final Settings origin;
-
-  @Override
-  public Collection<SettingsAttribute> all() {
-    return this.origin.all();
-  }
-
-  @Override
-  public String asXml() {
-    return new FormattedText(
-      "<producer>\n%s\n</producer>\n",
-      this.origin.asXml()
-    ).toString();
+  @Test
+  void representsXmlCorrectly() {
+    MatcherAssert.assertThat(
+      "Contains right tags",
+      new KfParams(
+        new GroupId("103"),
+        new KeySerializer("ks")
+      ).asXml(),
+      Matchers.equalTo(
+        "<groupId>103</groupId>\n<keySerializer>ks</keySerializer>"
+      )
+    );
   }
 }

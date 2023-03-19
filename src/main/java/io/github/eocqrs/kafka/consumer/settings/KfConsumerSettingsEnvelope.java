@@ -4,14 +4,8 @@ import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Settings;
-import io.github.eocqrs.kafka.SettingsAttribute;
 import org.cactoos.Input;
 import org.cactoos.io.ResourceOf;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.stream.Collectors;
 
 /**
  * Envelope for {@link ConsumerSettings}.

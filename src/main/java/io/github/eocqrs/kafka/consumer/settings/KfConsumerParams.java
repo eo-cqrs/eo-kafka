@@ -30,7 +30,7 @@ public final class KfConsumerParams implements Settings {
   @Override
   public String asXml() {
     return new FormattedText(
-      "<consumer>\n%s</consumer>\n",
+      "<consumer>\n%s\n</consumer>\n",
       this.origin.asXml()
     ).toString();
   }
