@@ -29,29 +29,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link GroupId}.
+ * Test case for {@link BootstrapServers}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class GroupIdTest {
+final class BootstrapServersTest {
 
   /**
    * Under test.
    */
-  private SettingsAttribute groupId;
+  private SettingsAttribute server;
 
   @BeforeEach
   void setUp() {
-    this.groupId = new GroupId("gid");
+    this.server = new BootstrapServers("bserver");
   }
 
   @Test
   void writesRightName() {
     MatcherAssert.assertThat(
       "Name in right format",
-      this.groupId.name(),
-      Matchers.equalTo("group.id")
+      this.server.name(),
+      Matchers.equalTo("bootstrap.servers")
     );
   }
 
@@ -59,8 +59,8 @@ final class GroupIdTest {
   void writesRightXml() {
     MatcherAssert.assertThat(
       "XML in right format",
-      this.groupId.asXml(),
-      Matchers.equalTo("<groupId>gid</groupId>")
+      this.server.asXml(),
+      Matchers.equalTo("<bootstrapServers>bserver</bootstrapServers>")
     );
   }
 }

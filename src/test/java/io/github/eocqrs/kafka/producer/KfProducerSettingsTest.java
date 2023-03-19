@@ -25,7 +25,6 @@ package io.github.eocqrs.kafka.producer;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.io.ResourceOf;
 import org.junit.jupiter.api.Test;
 

@@ -29,29 +29,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link GroupId}.
+ * Test case for {@link KeyDeserializer}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class GroupIdTest {
+final class KeyDeserializerTest {
 
   /**
    * Under test.
    */
-  private SettingsAttribute groupId;
+  private SettingsAttribute key;
 
   @BeforeEach
   void setUp() {
-    this.groupId = new GroupId("gid");
+    this.key = new KeyDeserializer("kd");
   }
 
   @Test
   void writesRightName() {
     MatcherAssert.assertThat(
       "Name in right format",
-      this.groupId.name(),
-      Matchers.equalTo("group.id")
+      this.key.name(),
+      Matchers.equalTo("key.deserializer")
     );
   }
 
@@ -59,8 +59,8 @@ final class GroupIdTest {
   void writesRightXml() {
     MatcherAssert.assertThat(
       "XML in right format",
-      this.groupId.asXml(),
-      Matchers.equalTo("<groupId>gid</groupId>")
+      this.key.asXml(),
+      Matchers.equalTo("<keyDeserializer>kd</keyDeserializer>")
     );
   }
 }

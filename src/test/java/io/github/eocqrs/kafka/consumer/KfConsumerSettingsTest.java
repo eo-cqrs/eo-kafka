@@ -3,16 +3,11 @@ package io.github.eocqrs.kafka.consumer;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
-import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
-import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.io.ResourceOf;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

@@ -25,12 +25,11 @@ package io.github.eocqrs.kafka.producer;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.ProducerSettings;
+import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
-
-import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;

@@ -23,12 +23,9 @@
 package io.github.eocqrs.kafka.producer.settings;
 
 import com.jcabi.xml.XML;
-import com.jcabi.xml.XMLDocument;
-import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.Input;
-import org.cactoos.io.ResourceOf;
 
 import java.util.HashMap;
 import java.util.Map;
