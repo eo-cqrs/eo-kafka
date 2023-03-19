@@ -22,7 +22,7 @@
 
 package io.github.eocqrs.kafka.settings;
 
-import io.github.eocqrs.kafka.ParamsAttribute;
+import io.github.eocqrs.kafka.ParamsAttr;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +39,7 @@ final class GroupIdTest {
   /**
    * Under test.
    */
-  private ParamsAttribute groupId;
+  private ParamsAttr groupId;
 
   @BeforeEach
   void setUp() {

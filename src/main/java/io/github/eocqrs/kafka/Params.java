@@ -37,7 +37,7 @@ public interface Params {
    *
    * @return A collection of SettingsAttribute objects.
    */
-  Collection<ParamsAttribute> all();
+  Collection<ParamsAttr> all();
 
   /**
    * Returns the XML representation of the settings.

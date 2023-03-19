@@ -1,7 +1,7 @@
 package io.github.eocqrs.kafka.consumer.settings;
 
 import io.github.eocqrs.kafka.Params;
-import io.github.eocqrs.kafka.ParamsAttribute;
+import io.github.eocqrs.kafka.ParamsAttr;
 import lombok.RequiredArgsConstructor;
 import org.cactoos.text.FormattedText;
 
@@ -23,7 +23,7 @@ public final class KfConsumerParams implements Params {
   private final Params origin;
 
   @Override
-  public Collection<ParamsAttribute> all() {
+  public Collection<ParamsAttr> all() {
     return this.origin.all();
   }
 

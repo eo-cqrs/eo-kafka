@@ -30,6 +30,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
+@FunctionalInterface
 public interface ConsumerSettings<K, X> {
 
   /**

@@ -23,7 +23,7 @@
 package io.github.eocqrs.kafka.settings;
 
 import io.github.eocqrs.kafka.Params;
-import io.github.eocqrs.kafka.ParamsAttribute;
+import io.github.eocqrs.kafka.ParamsAttr;
 import org.cactoos.list.ListOf;
 
 import java.util.Collection;
@@ -31,7 +31,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
- * It's a collection of `{@link ParamsAttribute}` objects.
+ * It's a collection of `{@link ParamsAttr}` objects.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
@@ -41,19 +41,19 @@ public final class KfParams implements Params {
   /**
    * The params.
    */
-  private final Collection<ParamsAttribute> params;
+  private final Collection<ParamsAttr> params;
 
   /**
    * Ctor.
    *
    * @param args Kafka parameters.
    */
-  public KfParams(final ParamsAttribute... args) {
+  public KfParams(final ParamsAttr... args) {
     this.params = new ListOf<>(args);
   }
 
   @Override
-  public Collection<ParamsAttribute> all() {
+  public Collection<ParamsAttr> all() {
     return Collections.unmodifiableCollection(this.params);
   }
 
@@ -61,7 +61,7 @@ public final class KfParams implements Params {
   public String asXml() {
     return this.params
       .stream()
-      .map(ParamsAttribute::asXml)
+      .map(ParamsAttr::asXml)
       .collect(Collectors.joining("\n"));
   }
 }

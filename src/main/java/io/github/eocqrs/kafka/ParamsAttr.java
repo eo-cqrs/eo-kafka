@@ -28,7 +28,7 @@ package io.github.eocqrs.kafka;
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.2
  */
-public interface ParamsAttribute {
+public interface ParamsAttr {
 
   /**
    * Represents settings as XML.

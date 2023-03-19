@@ -22,7 +22,7 @@
 
 package io.github.eocqrs.kafka.settings;
 
-import io.github.eocqrs.kafka.ParamsAttribute;
+import io.github.eocqrs.kafka.ParamsAttr;
 import org.cactoos.text.FormattedText;
 
 /**
@@ -31,7 +31,7 @@ import org.cactoos.text.FormattedText;
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public abstract class AttrEnvelope implements ParamsAttribute {
+public abstract class AttrEnvelope implements ParamsAttr {
 
   protected final String value;
 

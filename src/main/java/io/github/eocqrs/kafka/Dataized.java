@@ -28,6 +28,7 @@ package io.github.eocqrs.kafka;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
+@FunctionalInterface
 public interface Dataized<T> {
 
   /**
