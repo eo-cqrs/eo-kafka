@@ -19,28 +19,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.eocqrs.kafka;
+
+package io.github.eocqrs.kafka.settings;
 
 /**
- * Kafka property.
+ * It's a wrapper for the `value.deserializer` kafka attribute.
  *
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @author Ivan Ivanchuck (l3r8y@duck.com)
+ * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public interface SettingsAttribute {
+public class ValueDeserializer extends AttrEnvelope {
 
   /**
-   * Represents settings as XML.
+   * Ctor.
    *
-   * @return XML string.
+   * @param value The value.
    */
-  String asXml();
-
-  /**
-   * Returns the name of the current attribute.
-   *
-   * @return The name of the class.
-   */
-  String name();
+  public ValueDeserializer(final String value) {
+    super(value, "value.deserializer");
+  }
 }

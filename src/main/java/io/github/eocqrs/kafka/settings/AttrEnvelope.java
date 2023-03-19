@@ -19,28 +19,56 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.eocqrs.kafka;
+
+package io.github.eocqrs.kafka.settings;
+
+import io.github.eocqrs.kafka.SettingsAttribute;
+import org.cactoos.text.FormattedText;
 
 /**
- * Kafka property.
+ * It's a wrapper for a string value that can be converted to XML.
  *
- * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @author Ivan Ivanchuck (l3r8y@duck.com)
+ * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public interface SettingsAttribute {
+public abstract class AttrEnvelope implements SettingsAttribute {
+
+  protected final String value;
+
+  protected final String name;
+
+  protected AttrEnvelope(final String value, final String name) {
+    this.value = value;
+    this.name = name;
+  }
+
+  @Override
+  public final String asXml() {
+    return new FormattedText(
+      "<%s>%s</%s>",
+      this.nameInCamelCase(),
+      this.value,
+      this.nameInCamelCase()
+    ).toString();
+  }
+
+  @Override
+  public final String name() {
+    return this.name;
+  }
 
   /**
-   * Represents settings as XML.
+   * Name to camelcase.
    *
-   * @return XML string.
+   * @return The name of the attribute as a tag.
    */
-  String asXml();
-
-  /**
-   * Returns the name of the current attribute.
-   *
-   * @return The name of the class.
-   */
-  String name();
+  private String nameInCamelCase() {
+    final String[] result = this.name.split("\\.");
+    final String first = String.valueOf(result[1].charAt(0));
+    result[1] = result[1].replaceFirst(
+      first,
+      String.valueOf(Character.toUpperCase(result[1].charAt(0)))
+    );
+    return String.join("", result);
+  }
 }
