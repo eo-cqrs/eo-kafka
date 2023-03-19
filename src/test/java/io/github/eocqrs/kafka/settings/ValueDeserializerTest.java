@@ -1,6 +1,6 @@
 package io.github.eocqrs.kafka.settings;
 
-import io.github.eocqrs.kafka.SettingsAttribute;
+import io.github.eocqrs.kafka.ParamsAttribute;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,7 +16,7 @@ final class ValueDeserializerTest {
   /**
    * Under test.
    */
-  private SettingsAttribute key;
+  private ParamsAttribute key;
 
   @BeforeEach
   void setUp() {

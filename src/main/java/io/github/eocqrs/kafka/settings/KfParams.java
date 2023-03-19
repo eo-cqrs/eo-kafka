@@ -22,45 +22,46 @@
 
 package io.github.eocqrs.kafka.settings;
 
+import io.github.eocqrs.kafka.Params;
 import io.github.eocqrs.kafka.ParamsAttribute;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.cactoos.list.ListOf;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 /**
- * Test case for {@link KeyDeserializer}.
+ * It's a collection of `{@link ParamsAttribute}` objects.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class KeyDeserializerTest {
+public final class KfParams implements Params {
 
   /**
-   * Under test.
+   * The params.
    */
-  private ParamsAttribute key;
+  private final Collection<ParamsAttribute> params;
 
-  @BeforeEach
-  void setUp() {
-    this.key = new KeyDeserializer("kd");
+  /**
+   * Ctor.
+   *
+   * @param args Kafka parameters.
+   */
+  public KfParams(final ParamsAttribute... args) {
+    this.params = new ListOf<>(args);
   }
 
-  @Test
-  void writesRightName() {
-    MatcherAssert.assertThat(
-      "Name in right format",
-      this.key.name(),
-      Matchers.equalTo("key.deserializer")
-    );
+  @Override
+  public Collection<ParamsAttribute> all() {
+    return Collections.unmodifiableCollection(this.params);
   }
 
-  @Test
-  void writesRightXml() {
-    MatcherAssert.assertThat(
-      "XML in right format",
-      this.key.asXml(),
-      Matchers.equalTo("<keyDeserializer>kd</keyDeserializer>")
-    );
+  @Override
+  public String asXml() {
+    return this.params
+      .stream()
+      .map(ParamsAttribute::asXml)
+      .collect(Collectors.joining("\n"));
   }
 }

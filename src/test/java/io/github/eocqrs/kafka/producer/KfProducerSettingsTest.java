@@ -24,7 +24,12 @@ package io.github.eocqrs.kafka.producer;
 
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
+import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
+import io.github.eocqrs.kafka.settings.BootstrapServers;
+import io.github.eocqrs.kafka.settings.KeySerializer;
+import io.github.eocqrs.kafka.settings.KfParams;
+import io.github.eocqrs.kafka.settings.ValueSerializer;
 import org.cactoos.io.ResourceOf;
 import org.junit.jupiter.api.Test;
 
@@ -73,4 +78,22 @@ final class KfProducerSettingsTest {
     );
   }
 
+  @Test
+  void constructsWithSettingsObject() {
+    assertDoesNotThrow(
+      () -> {
+        final ProducerSettings<String, String> settings =
+          new KfProducerSettings<>(
+            new KfProducerParams(
+              new KfParams(
+                new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer"),
+                new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
+                new BootstrapServers("localhost:9092")
+              )
+            )
+          );
+        assertThat(settings.producer()).isNotNull();
+      }
+    );
+  }
 }

@@ -19,24 +19,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.eocqrs.kafka;
+
+package io.github.eocqrs.kafka.producer.settings;
+
+import io.github.eocqrs.kafka.Params;
+import io.github.eocqrs.kafka.ParamsAttribute;
+import lombok.RequiredArgsConstructor;
+import org.cactoos.text.FormattedText;
 
 import java.util.Collection;
 
 /**
- * Settings attribute.
+ * Kafka Producer parameters.
+ * Decorates {@link Params}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @author Ivan Ivanchuck (l3r8y@duck.com)
- * @since 0.0.2
+ * @author Ivan Ivanchuk (l3r8y@duck.com)
+ * @since 0.0.0
  */
-public interface Settings {
+@RequiredArgsConstructor
+public final class KfProducerParams implements Params {
 
   /**
-   * Returns a collection of all the settings attributes.
-   *
-   * @return A collection of SettingsAttribute objects.
+   * The origin.
    */
-  Collection<SettingsAttribute> all();
+  private final Params origin;
 
+  @Override
+  public Collection<ParamsAttribute> all() {
+    return this.origin.all();
+  }
+
+  @Override
+  public String asXml() {
+    return new FormattedText(
+      "<producer>\n%s\n</producer>\n",
+      this.origin.asXml()
+    ).toString();
+  }
 }

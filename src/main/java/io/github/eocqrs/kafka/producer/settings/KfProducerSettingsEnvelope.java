@@ -24,6 +24,7 @@ package io.github.eocqrs.kafka.producer.settings;
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
+import io.github.eocqrs.kafka.Params;
 import org.cactoos.Input;
 import org.cactoos.io.ResourceOf;
 
@@ -39,6 +40,15 @@ public abstract class KfProducerSettingsEnvelope<K, X> implements ProducerSettin
    * Settings in XML.
    */
   protected final XML settings;
+
+  /**
+   * A constructor that takes a Settings object and converts it to XMLDocument.
+   *
+   * @param params The settings object.
+   */
+  protected KfProducerSettingsEnvelope(final Params params) {
+    this.settings = new XMLDocument(params.asXml());
+  }
 
   /**
    * A ctor that takes a String and converts it to Input.

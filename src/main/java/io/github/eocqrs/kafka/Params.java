@@ -21,26 +21,28 @@
  */
 package io.github.eocqrs.kafka;
 
+import java.util.Collection;
+
 /**
- * Kafka property.
+ * Settings attribute.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.2
  */
-public interface SettingsAttribute {
+public interface Params {
 
   /**
-   * Represents settings as XML.
+   * Returns a collection of all the settings attributes.
    *
-   * @return XML string.
+   * @return A collection of SettingsAttribute objects.
+   */
+  Collection<ParamsAttribute> all();
+
+  /**
+   * Returns the XML representation of the settings.
+   *
+   * @return The return value is a string.
    */
   String asXml();
-
-  /**
-   * Returns the name of the current attribute.
-   *
-   * @return The name of the class.
-   */
-  String name();
 }

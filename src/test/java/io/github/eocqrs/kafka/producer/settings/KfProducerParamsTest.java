@@ -20,47 +20,34 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.producer.settings;
 
-import io.github.eocqrs.kafka.ParamsAttribute;
+import io.github.eocqrs.kafka.settings.GroupId;
+import io.github.eocqrs.kafka.settings.KfParams;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link KeyDeserializer}.
+ * Test case for {@link KfProducerParams}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class KeyDeserializerTest {
-
-  /**
-   * Under test.
-   */
-  private ParamsAttribute key;
-
-  @BeforeEach
-  void setUp() {
-    this.key = new KeyDeserializer("kd");
-  }
+final class KfProducerParamsTest {
 
   @Test
-  void writesRightName() {
+  void representsXmlCorrectly() {
     MatcherAssert.assertThat(
-      "Name in right format",
-      this.key.name(),
-      Matchers.equalTo("key.deserializer")
-    );
-  }
-
-  @Test
-  void writesRightXml() {
-    MatcherAssert.assertThat(
-      "XML in right format",
-      this.key.asXml(),
-      Matchers.equalTo("<keyDeserializer>kd</keyDeserializer>")
+      "Represents right XML settings",
+      new KfProducerParams(
+        new KfParams(
+          new GroupId("103")
+        )
+      ).asXml(),
+      Matchers.equalTo(
+        "<producer>\n<groupId>103</groupId>\n</producer>\n"
+      )
     );
   }
 }

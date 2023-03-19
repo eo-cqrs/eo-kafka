@@ -19,48 +19,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-package io.github.eocqrs.kafka.settings;
-
-import io.github.eocqrs.kafka.ParamsAttribute;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+package io.github.eocqrs.kafka;
 
 /**
- * Test case for {@link KeyDeserializer}.
+ * Kafka property.
  *
- * @author Ivan Ivanchuk (l3r8y@duck.com)
+ * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
+ * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class KeyDeserializerTest {
+public interface ParamsAttribute {
 
   /**
-   * Under test.
+   * Represents settings as XML.
+   *
+   * @return XML string.
    */
-  private ParamsAttribute key;
+  String asXml();
 
-  @BeforeEach
-  void setUp() {
-    this.key = new KeyDeserializer("kd");
-  }
-
-  @Test
-  void writesRightName() {
-    MatcherAssert.assertThat(
-      "Name in right format",
-      this.key.name(),
-      Matchers.equalTo("key.deserializer")
-    );
-  }
-
-  @Test
-  void writesRightXml() {
-    MatcherAssert.assertThat(
-      "XML in right format",
-      this.key.asXml(),
-      Matchers.equalTo("<keyDeserializer>kd</keyDeserializer>")
-    );
-  }
+  /**
+   * Returns the name of the current attribute.
+   *
+   * @return The name of the class.
+   */
+  String name();
 }
