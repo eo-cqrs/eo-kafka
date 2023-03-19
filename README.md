@@ -55,10 +55,10 @@ Data<String> string =
 ## Producer API
 To create Kafka Producer Settings (Config):
 ```java
-ProducerSettings<String, String> settings =
+ProducerSettings<String, String> params =
    new KfProducerSettings<>(
       new XMLDocument(
-        new File("producer.xml") //xml file with all the settings
+        new File("producer.xml") //xml file with all the params
         )
 );
 ```
@@ -92,7 +92,7 @@ try (
           new KfProducerSettings<String, String>(
               new XMLDocument(
                   new File(
-                    "settings.xml"
+                    "params.xml"
                 )
               )
             ).producer()
@@ -116,10 +116,10 @@ try (
 
 To create Kafka Consumer Settings (Config):
 ```java
-ConsumerSettings<String, String> settings =
+ConsumerSettings<String, String> params =
    new KfConsumerSettings<>(
       new XMLDocument(
-        new File("consumer.xml") //xml file with all the settings
+        new File("consumer.xml") //xml file with all the params
         )
 );
 ```

@@ -22,8 +22,8 @@
 
 package io.github.eocqrs.kafka.settings;
 
-import io.github.eocqrs.kafka.Settings;
-import io.github.eocqrs.kafka.SettingsAttribute;
+import io.github.eocqrs.kafka.Params;
+import io.github.eocqrs.kafka.ParamsAttribute;
 import org.cactoos.list.ListOf;
 
 import java.util.Collection;
@@ -31,29 +31,29 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 /**
- * It's a collection of `{@link SettingsAttribute}` objects.
+ * It's a collection of `{@link ParamsAttribute}` objects.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public final class KfParams implements Settings {
+public final class KfParams implements Params {
 
   /**
    * The params.
    */
-  private final Collection<SettingsAttribute> params;
+  private final Collection<ParamsAttribute> params;
 
   /**
    * Ctor.
    *
    * @param args Kafka parameters.
    */
-  public KfParams(final SettingsAttribute... args) {
+  public KfParams(final ParamsAttribute... args) {
     this.params = new ListOf<>(args);
   }
 
   @Override
-  public Collection<SettingsAttribute> all() {
+  public Collection<ParamsAttribute> all() {
     return Collections.unmodifiableCollection(this.params);
   }
 
@@ -61,7 +61,7 @@ public final class KfParams implements Settings {
   public String asXml() {
     return this.params
       .stream()
-      .map(SettingsAttribute::asXml)
+      .map(ParamsAttribute::asXml)
       .collect(Collectors.joining("\n"));
   }
 }

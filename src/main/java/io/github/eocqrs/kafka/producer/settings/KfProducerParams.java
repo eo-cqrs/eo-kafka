@@ -22,8 +22,8 @@
 
 package io.github.eocqrs.kafka.producer.settings;
 
-import io.github.eocqrs.kafka.Settings;
-import io.github.eocqrs.kafka.SettingsAttribute;
+import io.github.eocqrs.kafka.Params;
+import io.github.eocqrs.kafka.ParamsAttribute;
 import lombok.RequiredArgsConstructor;
 import org.cactoos.text.FormattedText;
 
@@ -31,22 +31,22 @@ import java.util.Collection;
 
 /**
  * Kafka Producer parameters.
- * Decorates {@link Settings}.
+ * Decorates {@link Params}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.0
  */
 @RequiredArgsConstructor
-public final class KfProducerParams implements Settings {
+public final class KfProducerParams implements Params {
 
   /**
    * The origin.
    */
-  private final Settings origin;
+  private final Params origin;
 
   @Override
-  public Collection<SettingsAttribute> all() {
+  public Collection<ParamsAttribute> all() {
     return this.origin.all();
   }
 

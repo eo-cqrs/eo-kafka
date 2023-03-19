@@ -1,7 +1,7 @@
 package io.github.eocqrs.kafka.consumer.settings;
 
-import io.github.eocqrs.kafka.Settings;
-import io.github.eocqrs.kafka.SettingsAttribute;
+import io.github.eocqrs.kafka.Params;
+import io.github.eocqrs.kafka.ParamsAttribute;
 import lombok.RequiredArgsConstructor;
 import org.cactoos.text.FormattedText;
 
@@ -9,21 +9,21 @@ import java.util.Collection;
 
 /**
  * Kafka params for {@link KfConsumerSettings}.
- * Decorates {@link Settings}.
+ * Decorates {@link Params}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
 @RequiredArgsConstructor
-public final class KfConsumerParams implements Settings {
+public final class KfConsumerParams implements Params {
 
   /**
    * The origin.
    */
-  private final Settings origin;
+  private final Params origin;
 
   @Override
-  public Collection<SettingsAttribute> all() {
+  public Collection<ParamsAttribute> all() {
     return this.origin.all();
   }
 

@@ -30,14 +30,14 @@ import java.util.Collection;
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.2
  */
-public interface Settings {
+public interface Params {
 
   /**
    * Returns a collection of all the settings attributes.
    *
    * @return A collection of SettingsAttribute objects.
    */
-  Collection<SettingsAttribute> all();
+  Collection<ParamsAttribute> all();
 
   /**
    * Returns the XML representation of the settings.

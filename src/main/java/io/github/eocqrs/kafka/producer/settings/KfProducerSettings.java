@@ -23,7 +23,7 @@
 package io.github.eocqrs.kafka.producer.settings;
 
 import com.jcabi.xml.XML;
-import io.github.eocqrs.kafka.Settings;
+import io.github.eocqrs.kafka.Params;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.Input;
@@ -44,8 +44,8 @@ import java.util.Map;
  */
 public final class KfProducerSettings<K, X> extends KfProducerSettingsEnvelope<K, X> {
 
-  public KfProducerSettings(final Settings settings) {
-    super(settings);
+  public KfProducerSettings(final Params params) {
+    super(params);
   }
 
   /**
