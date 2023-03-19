@@ -67,7 +67,7 @@ final class KfConsumerSettingsTest {
         final ConsumerSettings<String, String> settings =
           new KfConsumerSettings<>(
             new KfConsumerParams(
-              new KafkaParams(
+              new KfParams(
                 new BootstrapServers("localhost:9092"),
                 new GroupId("1"),
                 new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),

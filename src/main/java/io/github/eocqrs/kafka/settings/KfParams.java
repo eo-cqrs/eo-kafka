@@ -8,11 +8,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-public final class KafkaParams implements Settings {
+public final class KfParams implements Settings {
 
   private final Collection<SettingsAttribute> params;
 
-  public KafkaParams(final SettingsAttribute... args) {
+  public KfParams(final SettingsAttribute... args) {
     this.params = new ListOf<>(args);
   }
 

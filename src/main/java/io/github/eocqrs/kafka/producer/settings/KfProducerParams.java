@@ -2,7 +2,6 @@ package io.github.eocqrs.kafka.producer.settings;
 
 import io.github.eocqrs.kafka.Settings;
 import io.github.eocqrs.kafka.SettingsAttribute;
-import io.github.eocqrs.kafka.settings.KafkaParams;
 import lombok.RequiredArgsConstructor;
 import org.cactoos.text.FormattedText;
 

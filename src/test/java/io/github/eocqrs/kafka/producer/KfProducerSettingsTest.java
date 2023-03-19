@@ -82,7 +82,7 @@ final class KfProducerSettingsTest {
         final ProducerSettings<String, String> settings =
           new KfProducerSettings<>(
             new KfProducerParams(
-              new KafkaParams(
+              new KfParams(
                 new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer"),
                 new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
                 new BootstrapServers("localhost:9092")
