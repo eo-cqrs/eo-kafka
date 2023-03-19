@@ -30,6 +30,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
+@FunctionalInterface
 public interface ProducerSettings<K, X> {
 
   /**
