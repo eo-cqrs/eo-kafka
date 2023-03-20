@@ -44,6 +44,11 @@ import java.util.Map;
  */
 public final class KfProducerSettings<K, X> extends KfProducerSettingsEnvelope<K, X> {
 
+  /**
+   * A ctor takes a Params object.
+   *
+   * @param params Kafka parameters.
+   */
   public KfProducerSettings(final Params params) {
     super(params);
   }
