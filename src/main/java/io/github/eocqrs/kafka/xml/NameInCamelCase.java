@@ -50,13 +50,13 @@ public final class NameInCamelCase {
 
   @Override
   public String toString() {
-    final String[] result = this.origin.split("\\.");
+    final String[] words = this.origin.split("\\.");
     return new Concatenated(
-      new TextOf(result[0]),
+      new TextOf(words[0]),
       new Joined(
         "",
         new StringsInCamelCase(
-          new ListOf<>(result).subList(1, result.length)
+          new ListOf<>(words).subList(1, words.length)
         ).value()
       )
     ).toString();
