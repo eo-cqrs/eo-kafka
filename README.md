@@ -53,14 +53,44 @@ Data<String> string =
 ```
 
 ## Producer API
-To create Kafka Producer Settings (Config):
+To create Kafka Producer you can wrap original [KafkaProducer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html):
 ```java
-ProducerSettings<String, String> params =
-   new KfProducerSettings<>(
-      new XMLDocument(
-        new File("producer.xml") //xml file with all the params
-        )
+KafkaProducer origin = ...;
+Producer<String, String> producer = new KfProducer<>(origin);
+```
+Or construct it with [ProducerSettings](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/ProducerSettings.java) or even with XML file:
+```java
+ProducerSettings<String, User> settings = ...;
+Producer<String, User> producer = new KfProducer<>(settings);
+Producer<String, User> xml = 
+  new KfProducer(
+    new XMLDocument(
+      new File(
+        "producer.xml"
+     )
+   )
 );
+```
+To create Kafka Producer Settings (Config):
+Using objects:
+```java
+ProducerSettings<String, String> settings =
+      new KfProducerSettings<>(
+        new KfProducerParams(
+          new KfParams(
+            new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer"),
+            new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
+            new BootstrapServers("localhost:9092")
+        )
+    )
+);
+```
+Or using XML file:
+```java
+ProducerSettings<String, String> settings =
+  new KfProducerSettings<>(
+    "producer.xml"
+  );
 ```
 
 btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
@@ -70,18 +100,6 @@ btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20
   <keySerializer>org.apache.kafka.common.serialization.StringSerializer</keySerializer>
   <valueSerializer>org.apache.kafka.common.serialization.StringSerializer</valueSerializer>
 </producer>
-```
-
-To create Kafka Producer:
-```java
-Producer<String, String> producer =
-  new KfProducer<>(
-    new KfProducerSettings<String, String>(
-      new XMLDocument(
-        new File("producer.xml")
-        )
-    ).producer()
-);
 ```
 
 To send a [message](#messages-api):
@@ -113,15 +131,53 @@ try (
 ```
 
 ## Consumer API
-
-To create Kafka Consumer Settings (Config):
+To create Kafka Consumer you can wrap original [KafkaConsumer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html):
 ```java
-ConsumerSettings<String, String> params =
-   new KfConsumerSettings<>(
+KafkaConsumer origin = ...;
+Consumer<String, String> producer = new KfConsumer<>(origin);
+```
+
+Using XML:
+```java
+Consumer<String, String> consumer =
+    new KfConsumer<>(
       new XMLDocument(
-        new File("consumer.xml") //xml file with all the params
-        )
+        new File("consumer.xml")
+    )
 );
+
+```
+Also, can be created with [ConsumerSettings](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/ConsumerSettings.java):
+```java
+ConsumerSettings<String, User> settings = ...;
+Consumer<String, User> consumer = new KfConsumer<>(settings);
+```
+
+To create ConsumerSettings:
+```java
+ConsumerSettings<String, String> settings =
+    new KfConsumerSettings<>(
+        new KfConsumerParams(
+           new KfParams(
+              new BootstrapServers("localhost:9092"),
+              new GroupId("1"),
+              new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
+              new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
+     )
+   )
+);
+```
+
+XML File approach:
+```java
+final ConsumerSettings<String, String> settings =
+    new KfConsumerSettings<>(
+      new XMLDocument(
+        new File(
+          "consumer.xml"
+      )
+    )
+  );
 ```
 
 Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
@@ -134,11 +190,18 @@ Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Lan
 </consumer>
 ```
 
-Creating Kafka Consumer:
-TBD
-
 Consuming messages:
 TBD
+
+## Config API
+| Kafka Property       | eo-kafka API                                                                                                                              |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `bootstrap.servers`  | [BootstrapServers](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/settings/BootstrapServers.java)   |
+| `key.serializer`     | [KeySerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/settings/KeySerializer.java)         |
+| `value.serializer`   | [ValueSerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/settings/ValueSerializer.java)     |
+| `key.deserializer`   | [KeyDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/settings/KeyDeserializer.java)     |
+| `value.deserializer` | [ValueDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/settings/ValueDeserializer.java) |
+| `group.id`           | [GroupId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/settings/GroupId.java)                     |
 
 ## How to Contribute
 
