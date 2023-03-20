@@ -9,7 +9,13 @@ import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.kafka.producer.KfProducer;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
-import io.github.eocqrs.kafka.settings.*;
+import io.github.eocqrs.kafka.settings.ValueDeserializer;
+import io.github.eocqrs.kafka.settings.ValueSerializer;
+import io.github.eocqrs.kafka.settings.BootstrapServers;
+import io.github.eocqrs.kafka.settings.GroupId;
+import io.github.eocqrs.kafka.settings.KeyDeserializer;
+import io.github.eocqrs.kafka.settings.KeySerializer;
+import io.github.eocqrs.kafka.settings.KfParams;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -82,16 +88,15 @@ final class SimpleTest {
       consumer.subscribe(new ListOf<>("test-t"));
       producer.send(
         "my_key",
-        new KfData<>("data-from-test", "test-t", 1)
+        new KfData<>("data-from-test-producer", "test-t", 1)
       );
       MatcherAssert.assertThat(
         "Consumes data right",
-        consumer.iterate("test-t", Duration.ofMillis(5000L)).size(),
-        Matchers.equalTo(1)
+        consumer.iterate("test-t", Duration.ofMillis(0L)),
+        Matchers.hasSize(1)
       );
     } catch (final Exception ex) {
       throw new IllegalStateException(ex);
     }
   }
-
 }

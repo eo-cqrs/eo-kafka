@@ -33,12 +33,13 @@ SOFTWARE.
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <junit-api.version>5.9.2</junit-api.version>
-    <junit-params.version>5.9.2</junit-params.version>
     <assert4j-core.version>3.24.2</assert4j-core.version>
     <hamcrest.version>2.2</hamcrest.version>
     <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
     <docker-compose-maven-plugin.version>4.0.0</docker-compose-maven-plugin.version>
+    <test-containers.version>1.17.6</test-containers.version>
+    <junit-jupiter.version>5.9.2</junit-jupiter.version>
+    <cactoos.version>0.55.0</cactoos.version>
   </properties>
   <dependencies>
 <!--    <dependency>-->
@@ -54,7 +55,7 @@ SOFTWARE.
     <dependency>
       <groupId>org.cactoos</groupId>
       <artifactId>cactoos</artifactId>
-      <version>0.55.0</version>
+      <version>${cactoos.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -66,20 +67,20 @@ SOFTWARE.
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>RELEASE</version>
+      <version>${junit-jupiter.version}</version>
       <scope>test</scope>
     </dependency>
     <!-- https://mvnrepository.com/artifact/org.testcontainers/kafka -->
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>kafka</artifactId>
-      <version>1.17.6</version>
+      <version>${test-containers.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.17.6</version>
+      <version>${test-containers.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -104,46 +105,6 @@ SOFTWARE.
           </includes>
         </configuration>
       </plugin>
-<!--      <plugin>-->
-<!--        <groupId>com.dkanejs.maven.plugins</groupId>-->
-<!--        <artifactId>docker-compose-maven-plugin</artifactId>-->
-<!--        <version>${docker-compose-maven-plugin.version}</version>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <id>pull</id>-->
-<!--            <phase>compile</phase>-->
-<!--            <goals>-->
-<!--              <goal>pull</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <composeFile>${project.basedir}/docker-compose.yml</composeFile>-->
-<!--              <ignorePullFailures>true</ignorePullFailures>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--          <execution>-->
-<!--            <id>up</id>-->
-<!--            <phase>compile</phase>-->
-<!--            <goals>-->
-<!--              <goal>up</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <composeFile>${project.basedir}/docker-compose.yml</composeFile>-->
-<!--              <detachedMode>true</detachedMode>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--          <execution>-->
-<!--            <id>down</id>-->
-<!--            <phase>package</phase>-->
-<!--            <goals>-->
-<!--              <goal>down</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <composeFile>${project.basedir}/docker-compose.yml</composeFile>-->
-<!--              <removeVolumes>true</removeVolumes>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
     </plugins>
   </build>
 </project>
