@@ -91,7 +91,7 @@ final class SimpleTest {
         new KfData<>("data-from-test-producer", "test-t", 1)
       );
       MatcherAssert.assertThat(
-        "Consumes data right",
+        "Consumes right number of data",
         consumer.iterate("test-t", Duration.ofMillis(0L)),
         Matchers.hasSize(1)
       );
