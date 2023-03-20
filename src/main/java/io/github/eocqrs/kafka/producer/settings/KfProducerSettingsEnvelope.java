@@ -23,8 +23,8 @@ package io.github.eocqrs.kafka.producer.settings;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
-import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.Params;
+import io.github.eocqrs.kafka.ProducerSettings;
 import org.cactoos.Input;
 import org.cactoos.io.ResourceOf;
 

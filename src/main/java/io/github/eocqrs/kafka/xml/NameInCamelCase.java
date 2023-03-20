@@ -27,11 +27,6 @@ import org.cactoos.list.ListOf;
 import org.cactoos.text.Concatenated;
 import org.cactoos.text.Joined;
 import org.cactoos.text.TextOf;
-import org.cactoos.text.Upper;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * It takes a string in the form of `com.example.foo.bar`
