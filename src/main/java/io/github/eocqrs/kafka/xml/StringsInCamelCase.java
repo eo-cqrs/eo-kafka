@@ -50,13 +50,10 @@ public final class StringsInCamelCase implements Scalar<List<String>> {
   public List<String> value() {
     return this.origin.stream()
       .map(
-        word -> {
-          final char first = word.charAt(0);
-          return word.replaceFirst(
-            new TextOf(first).toString(),
-            new Upper(new TextOf(first)).toString()
-          );
-        }
+        word -> word.replaceFirst(
+          new TextOf(word.charAt(0)).toString(),
+          new Upper(new TextOf(word.charAt(0))).toString()
+        )
       ).toList();
   }
 }
