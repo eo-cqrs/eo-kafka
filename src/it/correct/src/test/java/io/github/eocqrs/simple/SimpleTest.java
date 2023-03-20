@@ -37,16 +37,6 @@ final class SimpleTest {
     new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.3.0"))
       .withEmbeddedZookeeper();
 
-  @BeforeEach
-  void startKafka() {
-    this.kafka.start();
-  }
-
-  @AfterEach
-  void stopKafka() {
-    this.kafka.stop();
-  }
-
   @Test
   public void kafkaRunning() {
     MatcherAssert.assertThat(
@@ -64,7 +54,7 @@ final class SimpleTest {
           new KfProducerSettings<>(
             new KfProducerParams(
               new KfParams(
-                new BootstrapServers(this.kafka.getBootstrapServers()),
+                new BootstrapServers("localhost:9092"),
                 new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
                 new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer")
               )
@@ -76,7 +66,7 @@ final class SimpleTest {
           new KfConsumerSettings<>(
             new KfConsumerParams(
               new KfParams(
-                new BootstrapServers(this.kafka.getBootstrapServers()),
+                new BootstrapServers("localhost:9092"),
                 new GroupId("1"),
                 new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
                 new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
