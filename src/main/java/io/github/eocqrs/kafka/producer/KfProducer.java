@@ -60,9 +60,7 @@ public final class KfProducer<K, X> implements Producer<K, X> {
    * @see ProducerSettings
    */
   public KfProducer(final ProducerSettings<K, X> settings) {
-    this(
-      settings.producer()
-    );
+    this(settings.producer());
   }
 
   /**
@@ -71,11 +69,7 @@ public final class KfProducer<K, X> implements Producer<K, X> {
    * @param settings XML settings
    */
   public KfProducer(final XML settings) {
-    this(
-      new KfProducerSettings<K, X>(
-        settings
-      ).producer()
-    );
+    this(new KfProducerSettings<K, X>(settings).producer());
   }
 
   @Override
@@ -85,8 +79,7 @@ public final class KfProducer<K, X> implements Producer<K, X> {
         data.topic(),
         data.partition(),
         key,
-        data.dataized()
-          .dataize()
+        data.dataized().dataize()
       )
     );
   }

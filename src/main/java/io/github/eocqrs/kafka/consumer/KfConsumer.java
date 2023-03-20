@@ -64,9 +64,7 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    * @see ConsumerSettings
    */
   public KfConsumer(final ConsumerSettings<K, X> settings) {
-    this(
-      settings.consumer()
-    );
+    this(settings.consumer());
   }
 
   /**
@@ -75,11 +73,7 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    * @param settings XML settings
    */
   public KfConsumer(final XML settings) {
-    this(
-      new KfConsumerSettings<>(
-        settings
-      )
-    );
+    this(new KfConsumerSettings<>(settings));
   }
 
   @Override
@@ -100,13 +94,13 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    */
   @Override
   public List<Dataized<X>> iterate(final String topic, final Duration timeout) {
-    final List<Dataized<X>> iterate = new ArrayList<>(13);
-    this.origin.poll(
-        timeout
-      ).records(topic)
+    final List<Dataized<X>> accumulator = new ArrayList<>(0);
+    this.origin
+      .poll(timeout)
+      .records(topic)
       .forEach(
         data ->
-          iterate.add(
+          accumulator.add(
             new KfData<>(
               data.value(),
               topic,
@@ -114,7 +108,7 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
             ).dataized()
           )
       );
-    return iterate;
+    return accumulator;
   }
 
   @Override
