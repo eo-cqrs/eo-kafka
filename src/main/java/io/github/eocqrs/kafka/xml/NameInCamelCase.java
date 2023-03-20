@@ -20,41 +20,45 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.xml;
 
-import io.github.eocqrs.kafka.ParamsAttr;
-import io.github.eocqrs.kafka.xml.NameInCamelCase;
-import org.cactoos.text.FormattedText;
+import lombok.RequiredArgsConstructor;
+import org.cactoos.list.ListOf;
+import org.cactoos.text.Concatenated;
+import org.cactoos.text.Joined;
+import org.cactoos.text.TextOf;
+import org.cactoos.text.Upper;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
 /**
- * It's a wrapper for a string value that can be converted to XML.
+ * It takes a string in the form of `com.example.foo.bar`
+ * and returns a string in the form of `comExampleFooBar`.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public abstract class AttrEnvelope implements ParamsAttr {
+@RequiredArgsConstructor
+public final class NameInCamelCase {
 
-  protected final String value;
-
-  protected final String name;
-
-  protected AttrEnvelope(final String value, final String name) {
-    this.value = value;
-    this.name = name;
-  }
+  /**
+   * The origin.
+   */
+  private final String origin;
 
   @Override
-  public final String asXml() {
-    return new FormattedText(
-      "<%s>%s</%s>",
-      new NameInCamelCase(this.name),
-      this.value,
-      new NameInCamelCase(this.name)
+  public String toString() {
+    final String[] result = this.origin.split("\\.");
+    return new Concatenated(
+      new TextOf(result[0]),
+      new Joined(
+        "",
+        new StringsInCamelCase(
+          new ListOf<>(result).subList(1, result.length)
+        ).value()
+      )
     ).toString();
-  }
-
-  @Override
-  public final String name() {
-    return this.name;
   }
 }

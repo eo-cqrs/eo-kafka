@@ -20,41 +20,29 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.xml;
 
-import io.github.eocqrs.kafka.ParamsAttr;
-import io.github.eocqrs.kafka.xml.NameInCamelCase;
-import org.cactoos.text.FormattedText;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * It's a wrapper for a string value that can be converted to XML.
+ * Test case for {@link NameInCamelCase}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public abstract class AttrEnvelope implements ParamsAttr {
+final class NameInCamelCaseTest {
 
-  protected final String value;
-
-  protected final String name;
-
-  protected AttrEnvelope(final String value, final String name) {
-    this.value = value;
-    this.name = name;
-  }
-
-  @Override
-  public final String asXml() {
-    return new FormattedText(
-      "<%s>%s</%s>",
-      new NameInCamelCase(this.name),
-      this.value,
-      new NameInCamelCase(this.name)
-    ).toString();
-  }
-
-  @Override
-  public final String name() {
-    return this.name;
+  @Test
+  void convertsInRightFormat() {
+    final String origin = "the.dotted.text.for.test";
+    MatcherAssert.assertThat(
+      "Converts with camel case formatting",
+      "theDottedTextForTest",
+      Matchers.equalTo(new NameInCamelCase(origin).toString())
+    );
   }
 }

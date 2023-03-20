@@ -20,41 +20,33 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.xml;
 
-import io.github.eocqrs.kafka.ParamsAttr;
-import io.github.eocqrs.kafka.xml.NameInCamelCase;
-import org.cactoos.text.FormattedText;
+import org.cactoos.list.ListOf;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * It's a wrapper for a string value that can be converted to XML.
+ * Test case for {@link StringsInCamelCase}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public abstract class AttrEnvelope implements ParamsAttr {
+final class StringsInCamelCaseTest {
 
-  protected final String value;
-
-  protected final String name;
-
-  protected AttrEnvelope(final String value, final String name) {
-    this.value = value;
-    this.name = name;
-  }
-
-  @Override
-  public final String asXml() {
-    return new FormattedText(
-      "<%s>%s</%s>",
-      new NameInCamelCase(this.name),
-      this.value,
-      new NameInCamelCase(this.name)
-    ).toString();
-  }
-
-  @Override
-  public final String name() {
-    return this.name;
+  @Test
+  void makesCamels() {
+    final List<String> strings = new ListOf<>("hi", "ruby");
+    MatcherAssert.assertThat(
+      "Transformed to camels",
+      new StringsInCamelCase(strings).value(),
+      Matchers.containsInAnyOrder("Hi", "Ruby")
+    );
   }
 }

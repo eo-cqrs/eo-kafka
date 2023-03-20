@@ -20,41 +20,43 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.xml;
 
-import io.github.eocqrs.kafka.ParamsAttr;
-import io.github.eocqrs.kafka.xml.NameInCamelCase;
-import org.cactoos.text.FormattedText;
+import lombok.RequiredArgsConstructor;
+import org.cactoos.Scalar;
+import org.cactoos.text.TextOf;
+import org.cactoos.text.Upper;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
- * It's a wrapper for a string value that can be converted to XML.
+ * It takes a collection of strings
+ * and returns a list of strings where
+ * the first letter of each string is capitalized.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public abstract class AttrEnvelope implements ParamsAttr {
+@RequiredArgsConstructor
+public final class StringsInCamelCase implements Scalar<List<String>> {
 
-  protected final String value;
-
-  protected final String name;
-
-  protected AttrEnvelope(final String value, final String name) {
-    this.value = value;
-    this.name = name;
-  }
+  /**
+   * The origin.
+   */
+  private final Collection<String> origin;
 
   @Override
-  public final String asXml() {
-    return new FormattedText(
-      "<%s>%s</%s>",
-      new NameInCamelCase(this.name),
-      this.value,
-      new NameInCamelCase(this.name)
-    ).toString();
-  }
-
-  @Override
-  public final String name() {
-    return this.name;
+  public List<String> value() {
+    return this.origin.stream()
+      .map(
+        word -> {
+          final char first = word.charAt(0);
+          return word.replaceFirst(
+            new TextOf(first).toString(),
+            new Upper(new TextOf(first)).toString()
+          );
+        }
+      ).toList();
   }
 }
