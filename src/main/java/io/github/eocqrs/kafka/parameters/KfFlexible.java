@@ -12,6 +12,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
+ * @todo #147:30m/DEV Update documentation
+ * Add use-cases to README for KfFlexible.
+ */
+/**
  * KfFlexibleSettings allow you to add custom settings.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
