@@ -29,11 +29,7 @@ import org.cactoos.text.Upper;
 
 import java.util.Collection;
 import java.util.List;
-/**
- * @todo #141:15m/DEV Transfer this StringsInCamelCase to cactoos.
- * We should create a pull request/issue
- * with suggestion of this class.
- * */
+
 /**
  * It takes a collection of strings
  * and returns a list of strings where
