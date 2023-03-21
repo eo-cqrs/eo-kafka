@@ -28,7 +28,7 @@ import org.cactoos.text.Concatenated;
 import org.cactoos.text.Joined;
 import org.cactoos.text.TextOf;
 /**
- * @todo #141:15m/DEV Transfer this class to cactoos.
+ * @todo #141:15m/DEV Transfer NameInCamelCase class to cactoos.
  * We should create a pull request/issue
  * with suggestion of this class.
  * */

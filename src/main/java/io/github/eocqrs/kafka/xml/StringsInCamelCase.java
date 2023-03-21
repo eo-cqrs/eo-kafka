@@ -30,7 +30,7 @@ import org.cactoos.text.Upper;
 import java.util.Collection;
 import java.util.List;
 /**
- * @todo #141:15m/DEV Transfer this class to cactoos.
+ * @todo #141:15m/DEV Transfer this StringsInCamelCase to cactoos.
  * We should create a pull request/issue
  * with suggestion of this class.
  * */
