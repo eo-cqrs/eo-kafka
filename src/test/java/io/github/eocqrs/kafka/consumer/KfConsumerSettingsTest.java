@@ -39,6 +39,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 /**
  * Test case for {@link KfConsumerSettings}.
  *
@@ -67,7 +69,7 @@ final class KfConsumerSettingsTest {
 
   @Test
   void constructsWithResourceOf() {
-    org.junit.jupiter.api.Assertions.assertDoesNotThrow(
+    assertDoesNotThrow(
       () -> {
         final ConsumerSettings<String, String> settings =
           new KfConsumerSettings<>(new ResourceOf("consumer.xml"));
@@ -78,7 +80,7 @@ final class KfConsumerSettingsTest {
 
   @Test
   void constructsWithString() {
-    org.junit.jupiter.api.Assertions.assertDoesNotThrow(
+    assertDoesNotThrow(
       () -> {
         final ConsumerSettings<String, String> settings = new KfConsumerSettings<>("consumer.xml");
         Assertions.assertThat(settings.consumer()).isNotNull();
@@ -88,7 +90,7 @@ final class KfConsumerSettingsTest {
 
   @Test
   void constructsWithSettingsObject() {
-    org.junit.jupiter.api.Assertions.assertDoesNotThrow(
+    assertDoesNotThrow(
       () -> {
         final ConsumerSettings<String, String> settings =
           new KfFlexible<>(
