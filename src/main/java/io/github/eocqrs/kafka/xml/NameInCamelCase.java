@@ -27,7 +27,11 @@ import org.cactoos.list.ListOf;
 import org.cactoos.text.Concatenated;
 import org.cactoos.text.Joined;
 import org.cactoos.text.TextOf;
-
+/**
+ * @todo #141:15m/DEV Transfer this class to cactoos.
+ * We should create a pull request/issue
+ * with suggestion of this class.
+ * */
 /**
  * It takes a string in the form of `com.example.foo.bar`
  * and returns a string in the form of `comExampleFooBar`.
