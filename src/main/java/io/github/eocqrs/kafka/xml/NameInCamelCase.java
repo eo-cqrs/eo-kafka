@@ -28,7 +28,6 @@ import org.cactoos.text.Capitalized;
 import org.cactoos.text.Concatenated;
 
 import java.util.stream.Collectors;
-
 /**
  * It takes a string in the form of `com.example.foo.bar`
  * and returns a string in the form of `comExampleFooBar`.
