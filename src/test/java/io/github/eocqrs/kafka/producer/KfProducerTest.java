@@ -44,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  * @todo #47:45m/DEV Consumer Producer communication.
  * We have to create an ITCase for communication between Consumer and Producer.
  */
+@SuppressWarnings("removal")
 class KfProducerTest {
 
   @Test

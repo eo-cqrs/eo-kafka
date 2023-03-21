@@ -20,31 +20,22 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
-
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+package io.github.eocqrs.kafka.parameters;
 
 /**
- * Test case for {@link KfParamsTest}.
+ * It's a wrapper for the `group.id` kafka attribute.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class KfParamsTest {
+public final class GroupId extends KfAttrEnvelope {
 
-  @Test
-  void representsXmlCorrectly() {
-    MatcherAssert.assertThat(
-      "Contains right tags",
-      new KfParams(
-        new GroupId("103"),
-        new KeySerializer("ks")
-      ).asXml(),
-      Matchers.equalTo(
-        "<groupId>103</groupId>\n<keySerializer>ks</keySerializer>"
-      )
-    );
+  /**
+   * Ctor.
+   *
+   * @param value The value.
+   */
+  public GroupId(final String value) {
+    super(value, "group.id");
   }
 }

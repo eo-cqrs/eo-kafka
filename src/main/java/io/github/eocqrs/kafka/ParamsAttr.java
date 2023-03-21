@@ -21,6 +21,8 @@
  */
 package io.github.eocqrs.kafka;
 
+import org.cactoos.Scalar;
+
 /**
  * Kafka property.
  *
@@ -28,7 +30,7 @@ package io.github.eocqrs.kafka;
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.2
  */
-public interface ParamsAttr {
+public interface ParamsAttr extends Scalar<String> {
 
   /**
    * Represents settings as XML.
@@ -43,4 +45,7 @@ public interface ParamsAttr {
    * @return The name of the class.
    */
   String name();
+
+  @Override
+  String value();
 }

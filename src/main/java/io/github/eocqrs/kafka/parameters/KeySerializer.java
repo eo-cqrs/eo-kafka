@@ -20,22 +20,22 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.parameters;
 
 /**
- * It's a wrapper for the `bootstrap.servers` kafka attribute.
+ * It's a wrapper for the `key.serializer` kafka attribute.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public final class BootstrapServers extends AttrEnvelope {
+public final class KeySerializer extends KfAttrEnvelope {
 
   /**
    * Ctor.
    *
    * @param value The value.
    */
-  public BootstrapServers(String value) {
-    super(value, "bootstrap.servers");
+  public KeySerializer(final String value) {
+    super(value, "key.serializer");
   }
 }

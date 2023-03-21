@@ -20,48 +20,22 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
-
-import io.github.eocqrs.kafka.Params;
-import io.github.eocqrs.kafka.ParamsAttr;
-import org.cactoos.list.ListOf;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.stream.Collectors;
+package io.github.eocqrs.kafka.parameters;
 
 /**
- * It's a collection of `{@link ParamsAttr}` objects.
+ * It's a wrapper for the `value.deserializer` kafka attribute.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public final class KfParams implements Params {
-
-  /**
-   * The params.
-   */
-  private final Collection<ParamsAttr> params;
+public final class ValueDeserializer extends KfAttrEnvelope {
 
   /**
    * Ctor.
    *
-   * @param args Kafka parameters.
+   * @param value The value.
    */
-  public KfParams(final ParamsAttr... args) {
-    this.params = new ListOf<>(args);
-  }
-
-  @Override
-  public Collection<ParamsAttr> all() {
-    return Collections.unmodifiableCollection(this.params);
-  }
-
-  @Override
-  public String asXml() {
-    return this.params
-      .stream()
-      .map(ParamsAttr::asXml)
-      .collect(Collectors.joining("\n"));
+  public ValueDeserializer(final String value) {
+    super(value, "value.deserializer");
   }
 }

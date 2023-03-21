@@ -27,7 +27,7 @@ import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
-import io.github.eocqrs.kafka.settings.*;
+import io.github.eocqrs.kafka.parameters.*;
 import org.cactoos.io.ResourceOf;
 import org.junit.jupiter.api.Test;
 
@@ -37,10 +37,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
- * Test case for {@link KfConsumerSettings}
+ * Test case for {@link KfConsumerSettings}.
  *
  * @since 0.0.0
  */
+@SuppressWarnings("removal")
 final class KfConsumerSettingsTest {
 
   @Test
@@ -87,7 +88,7 @@ final class KfConsumerSettingsTest {
     assertDoesNotThrow(
       () -> {
         final ConsumerSettings<String, String> settings =
-          new KfConsumerSettings<>(
+          new KfFlexibleSettings<>(
             new KfConsumerParams(
               new KfParams(
                 new BootstrapServers("localhost:9092"),

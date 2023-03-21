@@ -1,4 +1,4 @@
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.parameters;
 
 import io.github.eocqrs.kafka.ParamsAttr;
 import org.hamcrest.MatcherAssert;

@@ -20,47 +20,22 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
-
-import io.github.eocqrs.kafka.ParamsAttr;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+package io.github.eocqrs.kafka.parameters;
 
 /**
- * Test case for {@link GroupId}.
+ * It's a wrapper for the `key.deserializer` kafka attribute.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class GroupIdTest {
+public final class KeyDeserializer extends KfAttrEnvelope {
 
   /**
-   * Under test.
+   * Ctor.
+   *
+   * @param value The value.
    */
-  private ParamsAttr groupId;
-
-  @BeforeEach
-  void setUp() {
-    this.groupId = new GroupId("gid");
-  }
-
-  @Test
-  void writesRightName() {
-    MatcherAssert.assertThat(
-      "Name in right format",
-      this.groupId.name(),
-      Matchers.equalTo("group.id")
-    );
-  }
-
-  @Test
-  void writesRightXml() {
-    MatcherAssert.assertThat(
-      "XML in right format",
-      this.groupId.asXml(),
-      Matchers.equalTo("<groupId>gid</groupId>")
-    );
+  public KeyDeserializer(final String value) {
+    super(value, "key.deserializer");
   }
 }

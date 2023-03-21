@@ -36,6 +36,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
+@SuppressWarnings("removal")
 public final class KfProducer<K, X> implements Producer<K, X> {
 
   /**

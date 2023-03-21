@@ -19,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  *
  * @since 0.0.0
  */
+@SuppressWarnings("removal")
 class KfConsumerTest {
 
   @Test

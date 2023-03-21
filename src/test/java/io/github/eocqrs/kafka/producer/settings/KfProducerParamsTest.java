@@ -22,8 +22,8 @@
 
 package io.github.eocqrs.kafka.producer.settings;
 
-import io.github.eocqrs.kafka.settings.GroupId;
-import io.github.eocqrs.kafka.settings.KfParams;
+import io.github.eocqrs.kafka.parameters.GroupId;
+import io.github.eocqrs.kafka.parameters.KfParams;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;

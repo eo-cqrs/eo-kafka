@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.parameters;
 
 import io.github.eocqrs.kafka.ParamsAttr;
 import org.hamcrest.MatcherAssert;
@@ -29,29 +29,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link KeyDeserializer}.
+ * Test case for {@link BootstrapServers}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class KeyDeserializerTest {
+final class BootstrapServersTest {
 
   /**
    * Under test.
    */
-  private ParamsAttr key;
+  private ParamsAttr server;
 
   @BeforeEach
   void setUp() {
-    this.key = new KeyDeserializer("kd");
+    this.server = new BootstrapServers("bserver");
   }
 
   @Test
   void writesRightName() {
     MatcherAssert.assertThat(
       "Name in right format",
-      this.key.name(),
-      Matchers.equalTo("key.deserializer")
+      this.server.name(),
+      Matchers.equalTo("bootstrap.servers")
     );
   }
 
@@ -59,8 +59,8 @@ final class KeyDeserializerTest {
   void writesRightXml() {
     MatcherAssert.assertThat(
       "XML in right format",
-      this.key.asXml(),
-      Matchers.equalTo("<keyDeserializer>kd</keyDeserializer>")
+      this.server.asXml(),
+      Matchers.equalTo("<bootstrapServers>bserver</bootstrapServers>")
     );
   }
 }

@@ -20,22 +20,46 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.parameters;
+
+import io.github.eocqrs.kafka.ParamsAttr;
+import io.github.eocqrs.kafka.xml.NameInCamelCase;
+import org.cactoos.text.FormattedText;
 
 /**
- * It's a wrapper for the `group.id` kafka attribute.
+ * It's a wrapper for a string value that can be converted to XML.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public final class GroupId extends AttrEnvelope{
+public abstract class KfAttrEnvelope implements ParamsAttr {
 
-  /**
-   * Ctor.
-   *
-   * @param value The value.
-   */
-  public GroupId(final String value) {
-    super(value, "group.id");
+  protected final String value;
+
+  protected final String name;
+
+  protected KfAttrEnvelope(final String value, final String name) {
+    this.value = value;
+    this.name = name;
+  }
+
+  @Override
+  public final String asXml() {
+    return new FormattedText(
+      "<%s>%s</%s>",
+      new NameInCamelCase(this.name),
+      this.value,
+      new NameInCamelCase(this.name)
+    ).toString();
+  }
+
+  @Override
+  public final String name() {
+    return this.name;
+  }
+
+  @Override
+  public final String value() {
+    return this.value;
   }
 }

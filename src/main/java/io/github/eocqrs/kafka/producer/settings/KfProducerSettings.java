@@ -24,6 +24,7 @@ package io.github.eocqrs.kafka.producer.settings;
 
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Params;
+import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.Input;
@@ -31,13 +32,18 @@ import org.cactoos.Input;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
- * Kafka Producer Settings.
+ * Kafka Consumer Settings.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuk (l3r8y@duck.com)
+ * @see io.github.eocqrs.kafka.parameters.KfFlexibleSettings
+ * @deprecated You should use {@link io.github.eocqrs.kafka.parameters.KfFlexibleSettings}
+ * instead of {@link KfConsumerSettings}.
  * @since 0.0.0
  */
+@Deprecated(since = "0.0.2", forRemoval = true)
 public final class KfProducerSettings<K, X> extends KfProducerSettingsEnvelope<K, X> {
 
   /**

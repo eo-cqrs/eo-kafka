@@ -26,10 +26,10 @@ import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
-import io.github.eocqrs.kafka.settings.BootstrapServers;
-import io.github.eocqrs.kafka.settings.KeySerializer;
-import io.github.eocqrs.kafka.settings.KfParams;
-import io.github.eocqrs.kafka.settings.ValueSerializer;
+import io.github.eocqrs.kafka.parameters.BootstrapServers;
+import io.github.eocqrs.kafka.parameters.KeySerializer;
+import io.github.eocqrs.kafka.parameters.KfParams;
+import io.github.eocqrs.kafka.parameters.ValueSerializer;
 import org.cactoos.io.ResourceOf;
 import org.junit.jupiter.api.Test;
 
@@ -44,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  *
  * @since 0.0.0
  */
+@SuppressWarnings("removal")
 final class KfProducerSettingsTest {
 
   @Test

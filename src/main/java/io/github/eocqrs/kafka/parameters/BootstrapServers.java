@@ -20,47 +20,22 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
-
-import io.github.eocqrs.kafka.ParamsAttr;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+package io.github.eocqrs.kafka.parameters;
 
 /**
- * Test case for {@link BootstrapServers}.
+ * It's a wrapper for the `bootstrap.servers` kafka attribute.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class BootstrapServersTest {
+public final class BootstrapServers extends KfAttrEnvelope {
 
   /**
-   * Under test.
+   * Ctor.
+   *
+   * @param value The value.
    */
-  private ParamsAttr server;
-
-  @BeforeEach
-  void setUp() {
-    this.server = new BootstrapServers("bserver");
-  }
-
-  @Test
-  void writesRightName() {
-    MatcherAssert.assertThat(
-      "Name in right format",
-      this.server.name(),
-      Matchers.equalTo("bootstrap.servers")
-    );
-  }
-
-  @Test
-  void writesRightXml() {
-    MatcherAssert.assertThat(
-      "XML in right format",
-      this.server.asXml(),
-      Matchers.equalTo("<bootstrapServers>bserver</bootstrapServers>")
-    );
+  public BootstrapServers(final String value) {
+    super(value, "bootstrap.servers");
   }
 }

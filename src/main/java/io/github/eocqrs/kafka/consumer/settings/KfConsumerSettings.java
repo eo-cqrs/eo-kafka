@@ -36,8 +36,12 @@ import java.util.Map;
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuk (l3r8y@duck.com)
+ * @see io.github.eocqrs.kafka.parameters.KfFlexibleSettings
+ * @deprecated You should use {@link io.github.eocqrs.kafka.parameters.KfFlexibleSettings}
+ * instead of {@link KfConsumerSettings}.
  * @since 0.0.0
  */
+@Deprecated(since = "0.0.2", forRemoval = true)
 public final class KfConsumerSettings<K, X> extends KfConsumerSettingsEnvelope<K, X> {
 
 

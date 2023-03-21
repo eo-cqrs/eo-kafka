@@ -20,22 +20,47 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.parameters;
+
+import io.github.eocqrs.kafka.ParamsAttr;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
- * It's a wrapper for the `value.serializer` kafka attribute.
+ * Test case for {@link KeySerializer}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public final class ValueSerializer extends AttrEnvelope {
+final class KeySerializerTest {
 
   /**
-   * Ctor.
-   *
-   * @param value The value.
+   * Under test.
    */
-  public ValueSerializer(final String value) {
-    super(value, "value.serializer");
+  private ParamsAttr key;
+
+  @BeforeEach
+  void setUp() {
+    this.key = new KeySerializer("ks");
+  }
+
+  @Test
+  void writesRightName() {
+    MatcherAssert.assertThat(
+      "Name in right format",
+      this.key.name(),
+      Matchers.equalTo("key.serializer")
+    );
+  }
+
+  @Test
+  void writesRightXml() {
+    MatcherAssert.assertThat(
+      "XML in right format",
+      this.key.asXml(),
+      Matchers.equalTo("<keySerializer>ks</keySerializer>")
+    );
   }
 }

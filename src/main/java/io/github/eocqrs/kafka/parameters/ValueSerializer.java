@@ -20,22 +20,22 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.settings;
+package io.github.eocqrs.kafka.parameters;
 
 /**
- * It's a wrapper for the `value.deserializer` kafka attribute.
+ * It's a wrapper for the `value.serializer` kafka attribute.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public final class ValueDeserializer extends AttrEnvelope {
+public final class ValueSerializer extends KfAttrEnvelope {
 
   /**
    * Ctor.
    *
    * @param value The value.
    */
-  public ValueDeserializer(final String value) {
-    super(value, "value.deserializer");
+  public ValueSerializer(final String value) {
+    super(value, "value.serializer");
   }
 }
