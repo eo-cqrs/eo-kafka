@@ -28,11 +28,7 @@ import org.cactoos.text.Capitalized;
 import org.cactoos.text.Concatenated;
 
 import java.util.stream.Collectors;
-/**
- * @todo #141:15m/DEV Transfer NameInCamelCase class to cactoos.
- * We should create a pull request/issue
- * with suggestion of this class.
- * */
+
 /**
  * It takes a string in the form of `com.example.foo.bar`
  * and returns a string in the form of `comExampleFooBar`.
