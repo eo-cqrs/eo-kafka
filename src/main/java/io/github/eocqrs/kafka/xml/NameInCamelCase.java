@@ -23,13 +23,9 @@
 package io.github.eocqrs.kafka.xml;
 
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.cactoos.Text;
-import org.cactoos.func.FuncOf;
-import org.cactoos.iterable.IterableOf;
 import org.cactoos.list.ListOf;
-import org.cactoos.proc.ForEach;
-import org.cactoos.text.*;
+import org.cactoos.text.Capitalized;
+import org.cactoos.text.Concatenated;
 
 import java.util.stream.Collectors;
 /**
