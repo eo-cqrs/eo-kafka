@@ -24,12 +24,12 @@ package io.github.eocqrs.kafka.producer;
 
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ProducerSettings;
-import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
-import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
 import io.github.eocqrs.kafka.parameters.BootstrapServers;
 import io.github.eocqrs.kafka.parameters.KeySerializer;
 import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueSerializer;
+import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
+import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
 import org.cactoos.io.ResourceOf;
 import org.junit.jupiter.api.Test;
 
