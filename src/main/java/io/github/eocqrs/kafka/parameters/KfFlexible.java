@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @since 0.0.2
  */
 @RequiredArgsConstructor
-public final class KfFlexibleSettings<K, X>
+public final class KfFlexible<K, X>
   implements ConsumerSettings<K, X>, ProducerSettings<K, X> {
 
   private final Params params;

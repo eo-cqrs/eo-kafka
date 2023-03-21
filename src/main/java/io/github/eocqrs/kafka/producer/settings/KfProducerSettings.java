@@ -25,6 +25,7 @@ package io.github.eocqrs.kafka.producer.settings;
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Params;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
+import io.github.eocqrs.kafka.parameters.KfFlexible;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.Input;
@@ -38,8 +39,8 @@ import java.util.Map;
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuk (l3r8y@duck.com)
- * @see io.github.eocqrs.kafka.parameters.KfFlexibleSettings
- * @deprecated You should use {@link io.github.eocqrs.kafka.parameters.KfFlexibleSettings}
+ * @see KfFlexible
+ * @deprecated You should use {@link KfFlexible}
  * instead of {@link KfConsumerSettings}.
  * @since 0.0.0
  */

@@ -8,25 +8,25 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
- * Test case for {@link KfFlexibleSettings}.
+ * Test case for {@link KfFlexible}.
  *
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.2
  */
-final class KfFlexibleSettingsTest {
+final class KfFlexibleTest {
 
   @Test
   void createsConsumerWithCustomSettings() {
     try (
       final KafkaConsumer<Object, Object> consumer =
-        new KfFlexibleSettings<>(
+        new KfFlexible<>(
           new KfConsumerParams(
             new KfParams(
               new BootstrapServers("localhost:9092"),
               new GroupId("1"),
               new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
               new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
-              new KfFlexibleSettingsTest.HeartbeatIntervalMs("4234")
+              new KfFlexibleTest.HeartbeatIntervalMs("4234")
             )
           )
         ).consumer()

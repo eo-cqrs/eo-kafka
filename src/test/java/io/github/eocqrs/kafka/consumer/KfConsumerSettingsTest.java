@@ -27,14 +27,17 @@ import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
-import io.github.eocqrs.kafka.parameters.*;
+import io.github.eocqrs.kafka.parameters.BootstrapServers;
+import io.github.eocqrs.kafka.parameters.GroupId;
+import io.github.eocqrs.kafka.parameters.KfFlexible;
+import io.github.eocqrs.kafka.parameters.KfParams;
+import io.github.eocqrs.kafka.parameters.KeyDeserializer;
+import io.github.eocqrs.kafka.parameters.ValueDeserializer;
+import org.assertj.core.api.Assertions;
 import org.cactoos.io.ResourceOf;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * Test case for {@link KfConsumerSettings}.
@@ -58,37 +61,37 @@ final class KfConsumerSettingsTest {
           )
         )
     ) {
-      assertThat(consumer).isNotNull();
+      Assertions.assertThat(consumer).isNotNull();
     } catch (final Exception ignored) { }
   }
 
   @Test
   void constructsWithResourceOf() {
-    assertDoesNotThrow(
+    org.junit.jupiter.api.Assertions.assertDoesNotThrow(
       () -> {
         final ConsumerSettings<String, String> settings =
           new KfConsumerSettings<>(new ResourceOf("consumer.xml"));
-        assertThat(settings.consumer()).isNotNull();
+        Assertions.assertThat(settings.consumer()).isNotNull();
       }
     );
   }
 
   @Test
   void constructsWithString() {
-    assertDoesNotThrow(
+    org.junit.jupiter.api.Assertions.assertDoesNotThrow(
       () -> {
         final ConsumerSettings<String, String> settings = new KfConsumerSettings<>("consumer.xml");
-        assertThat(settings.consumer()).isNotNull();
+        Assertions.assertThat(settings.consumer()).isNotNull();
       }
     );
   }
 
   @Test
   void constructsWithSettingsObject() {
-    assertDoesNotThrow(
+    org.junit.jupiter.api.Assertions.assertDoesNotThrow(
       () -> {
         final ConsumerSettings<String, String> settings =
-          new KfFlexibleSettings<>(
+          new KfFlexible<>(
             new KfConsumerParams(
               new KfParams(
                 new BootstrapServers("localhost:9092"),
@@ -98,7 +101,7 @@ final class KfConsumerSettingsTest {
               )
             )
           );
-        assertThat(settings.consumer()).isNotNull();
+        Assertions.assertThat(settings.consumer()).isNotNull();
       }
     );
   }
