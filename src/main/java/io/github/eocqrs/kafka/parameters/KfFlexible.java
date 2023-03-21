@@ -38,6 +38,11 @@ public final class KfFlexible<K, X>
   }
 
   /**
+   * @todo #147:30m/DEV Implement via new class.
+   * Implement method as `Configuration` class
+   * which implement `Scalar<Map<String, Object>>` interface.
+   */
+  /**
    * It takes all the parameters in the `params` object
    * and returns a map of the parameter names and values.
    *
