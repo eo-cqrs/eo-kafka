@@ -32,10 +32,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @todo #127:30m/DEV Readme update.
- * We have to update documentation and code examples in README.
- */
-/**
  * Kafka Producer Settings.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
