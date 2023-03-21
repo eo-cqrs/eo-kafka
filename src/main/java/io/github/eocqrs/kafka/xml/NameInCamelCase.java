@@ -23,10 +23,15 @@
 package io.github.eocqrs.kafka.xml;
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import org.cactoos.Text;
+import org.cactoos.func.FuncOf;
+import org.cactoos.iterable.IterableOf;
 import org.cactoos.list.ListOf;
-import org.cactoos.text.Concatenated;
-import org.cactoos.text.Joined;
-import org.cactoos.text.TextOf;
+import org.cactoos.proc.ForEach;
+import org.cactoos.text.*;
+
+import java.util.stream.Collectors;
 /**
  * @todo #141:15m/DEV Transfer NameInCamelCase class to cactoos.
  * We should create a pull request/issue
@@ -51,13 +56,12 @@ public final class NameInCamelCase {
   public String toString() {
     final String[] words = this.origin.split("\\.");
     return new Concatenated(
-      new TextOf(words[0]),
-      new Joined(
-        "",
-        new StringsInCamelCase(
-          new ListOf<>(words).subList(1, words.length)
-        ).value()
-      )
+      words[0],
+      new ListOf<>(words)
+        .subList(1, words.length)
+        .stream()
+        .map(word -> new Capitalized(word).toString())
+        .collect(Collectors.joining(""))
     ).toString();
   }
 }
