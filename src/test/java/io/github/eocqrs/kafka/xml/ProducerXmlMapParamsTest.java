@@ -27,6 +27,7 @@ import com.jcabi.xml.XMLDocument;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
+import org.cactoos.io.ResourceOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,7 +63,7 @@ final class ProducerXmlMapParamsTest {
   @Test
   void generatesRightKeySerializer() throws Exception {
     final Map<String, Object> map =
-      new ProducerXmlMapParams(this.xml)
+      new ProducerXmlMapParams("src/test/resources/settings.xml")
         .value();
     MatcherAssert.assertThat(
       "Producer key.serializer in right format",
@@ -74,8 +75,11 @@ final class ProducerXmlMapParamsTest {
   @Test
   void generatesRightValueSerializer() throws Exception {
     final Map<String, Object> map =
-      new ProducerXmlMapParams(this.xml)
-        .value();
+      new ProducerXmlMapParams(
+        new ResourceOf(
+          "src/test/resources/settings.xml"
+        )
+      ).value();
     MatcherAssert.assertThat(
       "Producer value.serializer in right format",
       map.get("value.serializer"),

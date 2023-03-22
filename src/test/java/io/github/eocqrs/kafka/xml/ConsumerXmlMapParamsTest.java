@@ -27,6 +27,7 @@ import com.jcabi.xml.XMLDocument;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
+import org.cactoos.io.ResourceOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,7 +63,7 @@ final class ConsumerXmlMapParamsTest {
   @Test
   void generatesRightKeyDeserializer() throws Exception {
     final Map<String, Object> map =
-      new ConsumerXmlMapParams(this.xml)
+      new ConsumerXmlMapParams("src/test/resources/consumer.xml")
         .value();
     MatcherAssert.assertThat(
       "Consumer key.deserializer in right format",
@@ -74,8 +75,9 @@ final class ConsumerXmlMapParamsTest {
   @Test
   void generatesRightValueDeserializer() throws Exception {
     final Map<String, Object> map =
-      new ConsumerXmlMapParams(this.xml)
-        .value();
+      new ConsumerXmlMapParams(
+        new ResourceOf("src/test/resources/consumer.xml")
+      ).value();
     MatcherAssert.assertThat(
       "Consumer value.deserializer in right format",
       map.get("value.deserializer"),
