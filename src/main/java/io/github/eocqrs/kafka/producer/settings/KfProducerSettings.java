@@ -24,7 +24,6 @@ package io.github.eocqrs.kafka.producer.settings;
 
 import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Params;
-import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import io.github.eocqrs.kafka.parameters.KfFlexible;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -40,10 +39,12 @@ import java.util.Map;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @see KfFlexible
+ * @see io.github.eocqrs.kafka.parameters.KfXmlFlexible
  * @deprecated You should use {@link KfFlexible}
- * instead of {@link KfConsumerSettings}.
+ * or {@link io.github.eocqrs.kafka.parameters.KfXmlFlexible} instead.
  * @since 0.0.0
- */
+ * */
+@SuppressWarnings("removal")
 @Deprecated(since = "0.0.2", forRemoval = true)
 public final class KfProducerSettings<K, X> extends KfProducerSettingsEnvelope<K, X> {
 

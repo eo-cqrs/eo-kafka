@@ -1,4 +1,4 @@
-package io.github.eocqrs.kafka.consumer.settings;
+package io.github.eocqrs.kafka.parameters;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
@@ -13,7 +13,7 @@ import org.cactoos.io.ResourceOf;
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public abstract class KfConsumerSettingsEnvelope<K, X> implements ConsumerSettings<K, X> {
+public abstract class KfFlexibleEnvelope<K, X> implements ConsumerSettings<K, X> {
 
   /**
    * Settings in XML.
@@ -25,7 +25,7 @@ public abstract class KfConsumerSettingsEnvelope<K, X> implements ConsumerSettin
    *
    * @param params The settings object.
    */
-  protected KfConsumerSettingsEnvelope(final Params params) {
+  protected KfFlexibleEnvelope(final Params params) {
     this.settings = new XMLDocument(params.asXml());
   }
 
@@ -35,7 +35,7 @@ public abstract class KfConsumerSettingsEnvelope<K, X> implements ConsumerSettin
    * @param name Name of resource.
    * @throws Exception When something went wrong.
    */
-  protected KfConsumerSettingsEnvelope(final String name) throws Exception {
+  protected KfFlexibleEnvelope(final String name) throws Exception {
     this(new ResourceOf(name));
   }
 
@@ -45,7 +45,7 @@ public abstract class KfConsumerSettingsEnvelope<K, X> implements ConsumerSettin
    * @param resource Resource with settings.
    * @throws Exception When something went wrong.
    */
-  protected KfConsumerSettingsEnvelope(final Input resource) throws Exception {
+  protected KfFlexibleEnvelope(final Input resource) throws Exception {
     this(new XMLDocument(resource.stream()));
   }
 
@@ -54,7 +54,7 @@ public abstract class KfConsumerSettingsEnvelope<K, X> implements ConsumerSettin
    *
    * @param settings Settings as XML.
    */
-  protected KfConsumerSettingsEnvelope(final XML settings) {
+  protected KfFlexibleEnvelope(final XML settings) {
     this.settings = settings;
   }
 }

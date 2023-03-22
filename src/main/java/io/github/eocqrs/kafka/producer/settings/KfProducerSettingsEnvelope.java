@@ -31,9 +31,12 @@ import org.cactoos.io.ResourceOf;
 /**
  * Envelope for {@link ProducerSettings}.
  *
+ * @deprecated Used only in deprecated class {@link KfProducerSettings}.
+ * @see io.github.eocqrs.kafka.ProducerSettings ProduserSettings has to be removed.
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.2
  */
+@Deprecated(since = "0.0.2", forRemoval = true)
 public abstract class KfProducerSettingsEnvelope<K, X> implements ProducerSettings<K, X> {
 
   /**
