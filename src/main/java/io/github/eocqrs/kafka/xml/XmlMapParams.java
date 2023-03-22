@@ -58,7 +58,7 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
   private final KfCustomer customer;
 
   @Override
-  public Map<String, Object> value() throws Exception {
+  public final Map<String, Object> value() throws Exception {
     final String parent = this.customer.toString().toLowerCase(Locale.ROOT);
     return new XMLDocument(this.configuration.toString())
       .nodes(new Concatenated("//", parent, "/*").toString())
