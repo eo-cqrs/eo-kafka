@@ -8,10 +8,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 
 /**
- * @todo #147:30m/DEV Opportunity for XML configuration
- * We have to implement creating of settings from XML file.
- */
-/**
  * @todo #147:30m/DEV Update documentation
  * Add use-cases to README for KfFlexible.
  */

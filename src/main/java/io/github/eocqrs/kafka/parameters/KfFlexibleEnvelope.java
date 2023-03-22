@@ -19,25 +19,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.github.eocqrs.kafka.producer.settings;
+
+package io.github.eocqrs.kafka.parameters;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
+import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Params;
 import io.github.eocqrs.kafka.ProducerSettings;
 import org.cactoos.Input;
 import org.cactoos.io.ResourceOf;
 
 /**
- * Envelope for {@link ProducerSettings}.
+ * Envelope for {@link ConsumerSettings}.
  *
- * @deprecated Used only in deprecated class {@link KfProducerSettings}.
- * @see io.github.eocqrs.kafka.ProducerSettings ProduserSettings has to be removed.
- * @author Ivan Ivanchuck (l3r8y@duck.com)
+ * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-@Deprecated(since = "0.0.2", forRemoval = true)
-public abstract class KfProducerSettingsEnvelope<K, X> implements ProducerSettings<K, X> {
+public abstract class KfFlexibleEnvelope<K, X>
+  implements ConsumerSettings<K, X>, ProducerSettings<K, X> {
 
   /**
    * Settings in XML.
@@ -49,27 +49,26 @@ public abstract class KfProducerSettingsEnvelope<K, X> implements ProducerSettin
    *
    * @param params The settings object.
    */
-  protected KfProducerSettingsEnvelope(final Params params) {
+  protected KfFlexibleEnvelope(final Params params) {
     this.settings = new XMLDocument(params.asXml());
   }
 
   /**
-   * A ctor that takes a String and converts it to Input.
+   * A constructor that takes a String and converts it to ResourceOf.
    *
-   * @param name Name of xml configuration.
-   * @throws Exception When something went wrong.
+   * @param name Name of resource.
    */
-  protected KfProducerSettingsEnvelope(final String name) throws Exception {
+  protected KfFlexibleEnvelope(final String name) throws Exception {
     this(new ResourceOf(name));
   }
 
   /**
-   * A ctor that takes an Input and converts it to XMLDocument.
+   * A constructor that takes an Input and converts it to XMLDocument.
    *
-   * @param resource Resources.
+   * @param resource Resource with settings.
    * @throws Exception When something went wrong.
    */
-  protected KfProducerSettingsEnvelope(final Input resource) throws Exception {
+  protected KfFlexibleEnvelope(final Input resource) throws Exception {
     this(new XMLDocument(resource.stream()));
   }
 
@@ -78,9 +77,7 @@ public abstract class KfProducerSettingsEnvelope<K, X> implements ProducerSettin
    *
    * @param settings Settings as XML.
    */
-  protected KfProducerSettingsEnvelope(final XML settings) {
+  protected KfFlexibleEnvelope(final XML settings) {
     this.settings = settings;
   }
-
 }
-
