@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * @todo #154:30m/DEV /Tests for {@link io.github.eocqrs.kafka.parameters.KfMapParams}.
+ * @todo #154:30m/DEV /Tests for {@link io.github.eocqrs.kafka.parameters.KfXmlMapParams}.
  * Write unit tests.
  */
 /**
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @since 0.0.2
  */
 @RequiredArgsConstructor
-public final class KfMapParams implements Scalar<Map<String, Object>> {
+public final class KfXmlMapParams implements Scalar<Map<String, Object>> {
 
   /**
    * It's a regex that matches all capital letters, except the first one.
@@ -51,7 +51,7 @@ public final class KfMapParams implements Scalar<Map<String, Object>> {
       .map(xml -> xml.nodes("//*").get(0).node().getNodeName())
       .collect(
         Collectors.toMap(
-          name -> KfMapParams.CAPITALS
+          name -> KfXmlMapParams.CAPITALS
             .matcher(name)
             .replaceAll(".$1")
             .toLowerCase(Locale.ROOT),

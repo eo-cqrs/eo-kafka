@@ -23,7 +23,7 @@
 package io.github.eocqrs.kafka.parameters;
 
 /**
- * Type of customers for {@link KfMapParams}.
+ * Type of customers for {@link KfXmlMapParams}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2

@@ -32,7 +32,7 @@ public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X>
   @SneakyThrows
   public KafkaConsumer<K, X> consumer() {
     return new KafkaConsumer<K, X>(
-      new KfMapParams(this.settings, KfCustomer.CONSUMER).value()
+      new KfXmlMapParams(this.settings, KfCustomer.CONSUMER).value()
     );
   }
 
@@ -40,7 +40,7 @@ public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X>
   @SneakyThrows
   public KafkaProducer<K, X> producer() {
     return new KafkaProducer<K, X>(
-      new KfMapParams(this.settings, KfCustomer.PRODUCER).value()
+      new KfXmlMapParams(this.settings, KfCustomer.PRODUCER).value()
     );
   }
 
