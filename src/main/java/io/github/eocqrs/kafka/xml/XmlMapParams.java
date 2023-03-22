@@ -25,7 +25,9 @@ package io.github.eocqrs.kafka.xml;
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import lombok.RequiredArgsConstructor;
+import org.cactoos.Input;
 import org.cactoos.Scalar;
+import org.cactoos.io.ResourceOf;
 import org.cactoos.text.Concatenated;
 
 import java.util.Locale;
@@ -39,7 +41,6 @@ import java.util.stream.Collectors;
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-@RequiredArgsConstructor
 abstract class XmlMapParams implements Scalar<Map<String, Object>> {
 
   /**
@@ -56,6 +57,39 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
    * Consumer or Producer.
    */
   private final KfCustomer customer;
+
+  /**
+   * Ctor.
+   *
+   * @param config XML config.
+   * @param cust   Customer type.
+   */
+  protected XmlMapParams(final XML config, final KfCustomer cust) {
+    this.configuration = config;
+    this.customer = cust;
+  }
+
+  /**
+   * A ctor that takes an Input and converts it to XMLDocument.
+   *
+   * @param resource Resource with settings.
+   * @param cust  Customer type.
+   * @throws Exception When something went wrong.
+   */
+  protected XmlMapParams(final Input resource, final KfCustomer cust) throws Exception {
+    this(new XMLDocument(resource.stream()), cust);
+  }
+
+  /**
+   * A constructor that takes a String and converts it to ResourceOf.
+   *
+   * @param name Name of resource.
+   * @param cust Customer type.
+   * @throws Exception When something went wrong.
+   */
+  protected XmlMapParams(final String name, final KfCustomer cust) throws Exception {
+    this(new ResourceOf(name), cust);
+  }
 
   @Override
   public final Map<String, Object> value() throws Exception {

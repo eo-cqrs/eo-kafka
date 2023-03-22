@@ -23,6 +23,7 @@
 package io.github.eocqrs.kafka.xml;
 
 import com.jcabi.xml.XML;
+import org.cactoos.Input;
 
 /**
  * Consumer XML Params.
@@ -39,5 +40,25 @@ final class ConsumerXmlMapParams extends XmlMapParams {
    */
   ConsumerXmlMapParams(final XML configuration) {
     super(configuration, KfCustomer.CONSUMER);
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param resource The resource with xml settings.
+   * @throws Exception When something went wrong.
+   */
+  ConsumerXmlMapParams(final Input resource) throws Exception {
+    super(resource, KfCustomer.CONSUMER);
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param name Name of the resource.
+   * @throws Exception When something went wrong.
+   */
+  ConsumerXmlMapParams(final String name) throws Exception {
+    super(name, KfCustomer.CONSUMER);
   }
 }

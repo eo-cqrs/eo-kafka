@@ -23,6 +23,7 @@
 package io.github.eocqrs.kafka.xml;
 
 import com.jcabi.xml.XML;
+import org.cactoos.Input;
 
 /**
  * Producer XML Params.
@@ -39,5 +40,25 @@ final class ProducerXmlMapParams extends XmlMapParams {
    */
   ProducerXmlMapParams(final XML configuration) {
     super(configuration, KfCustomer.PRODUCER);
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param resource The resource with xml settings.
+   * @throws Exception When something went wrong.
+   */
+  ProducerXmlMapParams(final Input resource) throws Exception {
+    super(resource, KfCustomer.PRODUCER);
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param name Name of the resource.
+   * @throws Exception When something went wrong.
+   */
+  ProducerXmlMapParams(final String name) throws Exception {
+    super(name, KfCustomer.PRODUCER);
   }
 }
