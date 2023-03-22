@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.parameters;
+package io.github.eocqrs.kafka.xml;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -34,12 +34,18 @@ import org.junit.jupiter.api.Test;
 final class KfXmlFlexibleTest {
 
   @Test
-  void createsCustomConsumer(){
-    Assertions.assertDoesNotThrow(() -> new KfXmlFlexible<String, String>("consumer.xml").consumer());
+  void createsCustomConsumer() {
+    Assertions.assertDoesNotThrow(
+      () ->
+        new KfXmlFlexible<String, String>("consumer.xml").consumer()
+    );
   }
 
   @Test
-  void createsCustomProducer(){
-    Assertions.assertDoesNotThrow(() -> new KfXmlFlexible<String, String>("settings.xml").producer());
+  void createsCustomProducer() {
+    Assertions.assertDoesNotThrow(
+      () ->
+        new KfXmlFlexible<String, String>("settings.xml").producer()
+    );
   }
 }

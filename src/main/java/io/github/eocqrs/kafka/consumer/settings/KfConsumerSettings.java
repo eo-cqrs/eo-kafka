@@ -26,6 +26,7 @@ import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Params;
 import io.github.eocqrs.kafka.parameters.KfFlexibleEnvelope;
 import io.github.eocqrs.kafka.parameters.KfFlexible;
+import io.github.eocqrs.kafka.xml.KfXmlFlexible;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -40,9 +41,9 @@ import java.util.Map;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @see KfFlexible
- * @see io.github.eocqrs.kafka.parameters.KfXmlFlexible
+ * @see KfXmlFlexible
  * @deprecated You should use {@link KfFlexible}
- * or {@link io.github.eocqrs.kafka.parameters.KfXmlFlexible} instead.
+ * or {@link KfXmlFlexible} instead.
  * @since 0.0.0
  */
 @Deprecated(since = "0.0.2", forRemoval = true)
