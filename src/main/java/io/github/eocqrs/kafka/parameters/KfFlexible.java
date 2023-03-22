@@ -2,14 +2,10 @@ package io.github.eocqrs.kafka.parameters;
 
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Params;
-import io.github.eocqrs.kafka.ParamsAttr;
 import io.github.eocqrs.kafka.ProducerSettings;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
-
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @todo #147:30m/DEV Opportunity for XML configuration
@@ -33,11 +29,11 @@ public final class KfFlexible<K, X>
 
   @Override
   public KafkaConsumer<K, X> consumer() {
-    return new KafkaConsumer<>(new KfObjMapParams(this.params).value());
+    return new KafkaConsumer<>(new MapParams(this.params).value());
   }
 
   @Override
   public KafkaProducer<K, X> producer() {
-    return new KafkaProducer<>(new KfObjMapParams(this.params).value());
+    return new KafkaProducer<>(new MapParams(this.params).value());
   }
 }

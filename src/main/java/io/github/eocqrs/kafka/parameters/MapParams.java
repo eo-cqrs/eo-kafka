@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @todo #147:30m/DEV /Tests for {@link io.github.eocqrs.kafka.parameters.KfObjMapParams}.
+ * @todo #147:30m/DEV /Tests for {@link io.github.eocqrs.kafka.parameters.MapParams}.
  * We have to write unit tests.
  */
 /**
@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
  * @since 0.0.2
  */
 @RequiredArgsConstructor
-final class KfObjMapParams implements Scalar<Map<String, Object>> {
+final class MapParams implements Scalar<Map<String, Object>> {
 
   /**
    * The origin.
