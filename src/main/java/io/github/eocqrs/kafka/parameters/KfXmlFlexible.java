@@ -24,8 +24,7 @@ public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X>
    *
    * @param name Name of XML configuration placed in resources folder.
    */
-  @SneakyThrows
-  public KfXmlFlexible(final String name) {
+  public KfXmlFlexible(final String name) throws Exception {
     super(name);
   }
 
