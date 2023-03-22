@@ -33,29 +33,11 @@ public final class KfFlexible<K, X>
 
   @Override
   public KafkaConsumer<K, X> consumer() {
-    return new KafkaConsumer<>(this.configuration());
+    return new KafkaConsumer<>(new KfObjMapParams(this.params).value());
   }
 
   @Override
   public KafkaProducer<K, X> producer() {
-    return new KafkaProducer<>(this.configuration());
-  }
-
-  /**
-   * @todo #147:30m/DEV Implement via new class.
-   * Implement method as `Configuration` class
-   * which implement `Scalar<Map<String, Object>>` interface.
-   */
-  /**
-   * It takes all the parameters in the `params` object
-   * and returns a map of the parameter names and values.
-   *
-   * @return A map of the parameters and their values.
-   */
-  private Map<String, Object> configuration() {
-    return this.params
-      .all()
-      .stream()
-      .collect(Collectors.toMap(ParamsAttr::name, ParamsAttr::value));
+    return new KafkaProducer<>(new KfObjMapParams(this.params).value());
   }
 }
