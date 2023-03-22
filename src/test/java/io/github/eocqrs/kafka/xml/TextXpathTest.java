@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  *
  * @since 0.0.0
  */
-class TextXpathTest {
+final class TextXpathTest {
 
   @Test
   void readsBootStrapServers() throws FileNotFoundException {
