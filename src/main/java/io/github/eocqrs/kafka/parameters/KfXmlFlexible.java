@@ -25,8 +25,14 @@ import java.util.stream.Collectors;
 public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X>
   implements ConsumerSettings<K, X>, ProducerSettings<K, X> {
 
-  public KfXmlFlexible(final String path) throws Exception {
-    super(path);
+  /**
+   * Ctor.
+   *
+   * @param name Name of XML configuration placed in resources folder.
+   * @throws Exception When something went wrong.
+   */
+  public KfXmlFlexible(final String name) throws Exception {
+    super(name);
   }
 
   @Override
