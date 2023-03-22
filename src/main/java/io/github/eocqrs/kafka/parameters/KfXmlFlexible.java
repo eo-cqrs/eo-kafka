@@ -1,7 +1,5 @@
 package io.github.eocqrs.kafka.parameters;
 
-import io.github.eocqrs.kafka.ConsumerSettings;
-import io.github.eocqrs.kafka.ProducerSettings;
 import lombok.SneakyThrows;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -16,8 +14,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X>
-  implements ConsumerSettings<K, X>, ProducerSettings<K, X> {
+public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X> {
 
   /**
    * Ctor.

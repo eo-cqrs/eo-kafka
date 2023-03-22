@@ -26,6 +26,7 @@ import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Params;
+import io.github.eocqrs.kafka.ProducerSettings;
 import org.cactoos.Input;
 import org.cactoos.io.ResourceOf;
 
@@ -35,7 +36,8 @@ import org.cactoos.io.ResourceOf;
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public abstract class KfFlexibleEnvelope<K, X> implements ConsumerSettings<K, X> {
+public abstract class KfFlexibleEnvelope<K, X>
+  implements ConsumerSettings<K, X>, ProducerSettings<K, X> {
 
   /**
    * Settings in XML.

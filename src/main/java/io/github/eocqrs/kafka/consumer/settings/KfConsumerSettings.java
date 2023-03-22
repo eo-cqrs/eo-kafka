@@ -28,6 +28,7 @@ import io.github.eocqrs.kafka.parameters.KfFlexibleEnvelope;
 import io.github.eocqrs.kafka.parameters.KfFlexible;
 import io.github.eocqrs.kafka.xml.TextXpath;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.cactoos.Input;
 
 import java.util.HashMap;
@@ -116,4 +117,8 @@ public final class KfConsumerSettings<K, X> extends KfFlexibleEnvelope<K, X> {
     return new KafkaConsumer<>(config);
   }
 
+  @Override
+  public KafkaProducer<K, X> producer() {
+    throw new UnsupportedOperationException("#producer()");
+  }
 }
