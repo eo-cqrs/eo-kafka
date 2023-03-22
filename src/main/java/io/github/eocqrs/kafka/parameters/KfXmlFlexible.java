@@ -10,6 +10,7 @@ import org.cactoos.text.Concatenated;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +25,11 @@ import java.util.stream.Collectors;
  */
 public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X>
   implements ConsumerSettings<K, X>, ProducerSettings<K, X> {
+
+  /**
+   * It's a regex that matches all capital letters, except the first one.
+   */
+  private static final Pattern CAPITALS = Pattern.compile("(?<!^)([A-Z])");
 
   /**
    * Ctor.
@@ -61,7 +67,10 @@ public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X>
       .map(xml -> xml.nodes("//*").get(0).node().getNodeName())
       .collect(
         Collectors.toMap(
-          name -> name.replaceAll("(?<!^)([A-Z])", ".$1").toLowerCase(Locale.ROOT),
+          name -> KfXmlFlexible.CAPITALS
+            .matcher(name)
+            .replaceAll(".$1")
+            .toLowerCase(Locale.ROOT),
           name -> new TextXpath(this.settings, "//".concat(name)).toString()
         )
       );
