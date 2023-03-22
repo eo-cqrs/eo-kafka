@@ -13,6 +13,10 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
+ * @todo #154:30m/DEV /Tests for {@link io.github.eocqrs.kafka.parameters.KfMapParams}.
+ * Write unit tests.
+ */
+/**
  * It takes an XML document and a customer name, and returns a map of the customer's data.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
