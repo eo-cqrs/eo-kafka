@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  * @since 0.0.2
  */
 @RequiredArgsConstructor
-public final class KfXmlMapParams implements Scalar<Map<String, Object>> {
+final class KfXmlMapParams implements Scalar<Map<String, Object>> {
 
   /**
    * It's a regex that matches all capital letters, except the first one.
