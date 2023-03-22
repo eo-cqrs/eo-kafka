@@ -30,7 +30,7 @@ import org.cactoos.text.FormattedText;
 import java.util.Collection;
 
 /**
- * Kafka Producer parameters.
+ * Kafka Producer parameters for {@link io.github.eocqrs.kafka.producer.KfProducer}.
  * Decorates {@link Params}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)

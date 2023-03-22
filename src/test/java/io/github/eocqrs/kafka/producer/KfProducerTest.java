@@ -22,20 +22,20 @@
 
 package io.github.eocqrs.kafka.producer;
 
-import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Producer;
-import io.github.eocqrs.kafka.ProducerSettings;
-import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
+import io.github.eocqrs.kafka.parameters.BootstrapServers;
+import io.github.eocqrs.kafka.parameters.KeySerializer;
+import io.github.eocqrs.kafka.parameters.KfFlexible;
+import io.github.eocqrs.kafka.parameters.KfParams;
+import io.github.eocqrs.kafka.parameters.ValueSerializer;
+import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
+import io.github.eocqrs.kafka.xml.KfXmlFlexible;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.io.IOException;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
+import static org.assertj.core.api.Assertions.assertThat;
 /**
- * Test case for {@link KfProducer}
+ * Test case for {@link io.github.eocqrs.kafka.producer.KfProducer}
  *
  * @since 0.0.0
  */
@@ -44,49 +44,33 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  * @todo #47:45m/DEV Consumer Producer communication.
  * We have to create an ITCase for communication between Consumer and Producer.
  */
-@SuppressWarnings("removal")
-class KfProducerTest {
+final class KfProducerTest {
 
   @Test
-  void constructsProducer() throws IOException {
+  void constructsProducerWithXML() throws Exception {
     final Producer<String, String> producer =
       new KfProducer<>(
-        new KfProducerSettings<String, String>(
-          new XMLDocument(
-            new File("src/test/resources/settings.xml")
+        new KfXmlFlexible<String, String>("settings.xml")
+          .producer()
+      );
+    assertThat(producer).isNotNull();
+    assertDoesNotThrow(
+      producer::close
+    );
+  }
+
+  @Test
+  void constructsProducerWithParams() {
+    final Producer<String, String> producer =
+      new KfProducer<>(
+        new KfFlexible<>(
+          new KfProducerParams(
+            new KfParams(
+              new BootstrapServers("localhost:9092"),
+              new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
+              new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer")
+            )
           )
-        ).producer()
-      );
-    assertThat(producer).isNotNull();
-    assertDoesNotThrow(
-      producer::close
-    );
-  }
-
-  @Test
-  void constructsProducerFromSettings() throws IOException {
-    final ProducerSettings<String, String> settings =
-      new KfProducerSettings<>(
-        new XMLDocument(
-          new File("src/test/resources/settings.xml")
-        )
-      );
-    final Producer<String, String> producer =
-      new KfProducer<>(
-        settings
-      );
-    assertThat(producer).isNotNull();
-    assertDoesNotThrow(
-      producer::close
-    );
-  }
-
-  @Test
-  void constructsProducerFromXML() throws IOException {
-    final Producer<String, String> producer =
-      new KfProducer<>(
-        new XMLDocument(
-          new File("src/test/resources/settings.xml")
         )
       );
     assertThat(producer).isNotNull();

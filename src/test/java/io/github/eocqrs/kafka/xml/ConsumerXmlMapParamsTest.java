@@ -24,7 +24,6 @@ package io.github.eocqrs.kafka.xml;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
-import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;

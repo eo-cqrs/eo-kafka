@@ -28,10 +28,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 
 /**
- * @todo #154:30m/DEV Get rid of deprecated api.
- * We have to remove <b>all</b> deprecated api, before release `0.0.3`.
- */
-/**
  * Allow creating custom Consumer/Producer from XML.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)

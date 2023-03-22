@@ -26,7 +26,6 @@ import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.ProducerSettings;
-import io.github.eocqrs.kafka.producer.settings.KfProducerSettings;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
@@ -62,15 +61,6 @@ public final class KfProducer<K, X> implements Producer<K, X> {
    */
   public KfProducer(final ProducerSettings<K, X> settings) {
     this(settings.producer());
-  }
-
-  /**
-   * Ctor.
-   *
-   * @param settings XML settings
-   */
-  public KfProducer(final XML settings) {
-    this(new KfProducerSettings<K, X>(settings).producer());
   }
 
   @Override

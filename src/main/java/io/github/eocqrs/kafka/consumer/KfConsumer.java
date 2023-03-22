@@ -22,11 +22,9 @@
 
 package io.github.eocqrs.kafka.consumer;
 
-import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Dataized;
-import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import io.github.eocqrs.kafka.data.KfData;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
@@ -41,7 +39,6 @@ import java.util.List;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-@SuppressWarnings("removal")
 public final class KfConsumer<K, X> implements Consumer<K, X> {
 
   /**
@@ -66,15 +63,6 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    */
   public KfConsumer(final ConsumerSettings<K, X> settings) {
     this(settings.consumer());
-  }
-
-  /**
-   * Ctor.
-   *
-   * @param settings XML settings
-   */
-  public KfConsumer(final XML settings) {
-    this(new KfConsumerSettings<>(settings));
   }
 
   @Override

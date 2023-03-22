@@ -22,7 +22,8 @@
 
 package io.github.eocqrs.kafka.xml;
 
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import org.junit.jupiter.api.Test;
 
 /**
@@ -35,7 +36,7 @@ final class KfXmlFlexibleTest {
 
   @Test
   void createsCustomConsumer() {
-    Assertions.assertDoesNotThrow(
+    assertDoesNotThrow(
       () ->
         new KfXmlFlexible<String, String>("consumer.xml").consumer()
     );
@@ -43,7 +44,7 @@ final class KfXmlFlexibleTest {
 
   @Test
   void createsCustomProducer() {
-    Assertions.assertDoesNotThrow(
+    assertDoesNotThrow(
       () ->
         new KfXmlFlexible<String, String>("settings.xml").producer()
     );

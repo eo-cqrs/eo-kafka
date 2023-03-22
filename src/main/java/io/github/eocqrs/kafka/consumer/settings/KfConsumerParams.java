@@ -8,7 +8,7 @@ import org.cactoos.text.FormattedText;
 import java.util.Collection;
 
 /**
- * Kafka params for {@link KfConsumerSettings}.
+ * Kafka params for {@link io.github.eocqrs.kafka.consumer.KfConsumer}.
  * Decorates {@link Params}.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)

@@ -1,15 +1,16 @@
 package io.github.eocqrs.kafka.consumer;
 
-import com.jcabi.xml.XML;
-import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Consumer;
-import io.github.eocqrs.kafka.ConsumerSettings;
-import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
+import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
+import io.github.eocqrs.kafka.parameters.BootstrapServers;
+import io.github.eocqrs.kafka.parameters.GroupId;
+import io.github.eocqrs.kafka.parameters.KeyDeserializer;
+import io.github.eocqrs.kafka.parameters.KfFlexible;
+import io.github.eocqrs.kafka.parameters.KfParams;
+import io.github.eocqrs.kafka.parameters.ValueDeserializer;
+import io.github.eocqrs.kafka.xml.KfXmlFlexible;
 import org.cactoos.list.ListOf;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -19,17 +20,14 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  *
  * @since 0.0.0
  */
-@SuppressWarnings("removal")
 class KfConsumerTest {
 
   @Test
-  void subscribes() throws FileNotFoundException {
+  void subscribes() throws Exception {
     final Consumer<String, String> consumer =
       new KfConsumer<>(
-        new KfConsumerSettings<String, String>(
-          new XMLDocument(
-            new File("src/test/resources/consumer.xml")
-          )
+        new KfXmlFlexible<String, String>(
+          "consumer.xml"
         ).consumer()
       );
     assertDoesNotThrow(
@@ -38,50 +36,35 @@ class KfConsumerTest {
           new ListOf<>("transactions-info")
         )
     );
+    assertDoesNotThrow(
+      consumer::close
+    );
   }
 
   @Test
-  void constructsConsumer() throws FileNotFoundException {
+  void constructsConsumerWithXML() throws Exception {
     final Consumer<String, String> consumer =
       new KfConsumer<>(
-        new KfConsumerSettings<String, String>(
-          new XMLDocument(
-            new File(
-              "src/test/resources/consumer.xml"
+        new KfXmlFlexible<String, String>("consumer.xml")
+          .consumer()
+      );
+    assertThat(consumer).isNotNull();
+  }
+
+  @Test
+  void constructsConsumerWithParams() {
+    final Consumer<String, String> consumer =
+      new KfConsumer<>(
+        new KfFlexible<>(
+          new KfConsumerParams(
+            new KfParams(
+              new BootstrapServers("localhost:9092"),
+              new GroupId("1"),
+              new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
+              new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
             )
           )
-        ).consumer()
-      );
-    assertThat(consumer).isNotNull();
-  }
-
-  @Test
-  void constructsConsumerWithSettings() throws FileNotFoundException {
-    final ConsumerSettings<String, String> settings =
-      new KfConsumerSettings<>(
-        new XMLDocument(
-          new File(
-            "src/test/resources/consumer.xml"
-          )
         )
-      );
-    final Consumer<String, String> consumer =
-      new KfConsumer<>(
-        settings
-      );
-    assertThat(consumer).isNotNull();
-  }
-
-  @Test
-  void constructsConsumerFromXML() throws FileNotFoundException {
-    final XML settings = new XMLDocument(
-      new File(
-        "src/test/resources/consumer.xml"
-      )
-    );
-    final Consumer<String, String> consumer =
-      new KfConsumer<>(
-        settings
       );
     assertThat(consumer).isNotNull();
   }
