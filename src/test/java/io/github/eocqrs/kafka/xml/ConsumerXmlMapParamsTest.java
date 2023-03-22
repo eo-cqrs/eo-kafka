@@ -24,6 +24,7 @@ package io.github.eocqrs.kafka.xml;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
+import io.github.eocqrs.kafka.consumer.settings.KfConsumerSettings;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -63,7 +64,7 @@ final class ConsumerXmlMapParamsTest {
   @Test
   void generatesRightKeyDeserializer() throws Exception {
     final Map<String, Object> map =
-      new ConsumerXmlMapParams("src/test/resources/consumer.xml")
+      new ConsumerXmlMapParams("consumer.xml")
         .value();
     MatcherAssert.assertThat(
       "Consumer key.deserializer in right format",
@@ -76,7 +77,7 @@ final class ConsumerXmlMapParamsTest {
   void generatesRightValueDeserializer() throws Exception {
     final Map<String, Object> map =
       new ConsumerXmlMapParams(
-        new ResourceOf("src/test/resources/consumer.xml")
+        new ResourceOf("consumer.xml")
       ).value();
     MatcherAssert.assertThat(
       "Consumer value.deserializer in right format",

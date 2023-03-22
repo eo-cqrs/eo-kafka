@@ -63,7 +63,7 @@ final class ProducerXmlMapParamsTest {
   @Test
   void generatesRightKeySerializer() throws Exception {
     final Map<String, Object> map =
-      new ProducerXmlMapParams("src/test/resources/settings.xml")
+      new ProducerXmlMapParams("settings.xml")
         .value();
     MatcherAssert.assertThat(
       "Producer key.serializer in right format",
@@ -77,7 +77,7 @@ final class ProducerXmlMapParamsTest {
     final Map<String, Object> map =
       new ProducerXmlMapParams(
         new ResourceOf(
-          "src/test/resources/settings.xml"
+          "settings.xml"
         )
       ).value();
     MatcherAssert.assertThat(

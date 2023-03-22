@@ -36,10 +36,10 @@ final class ConsumerXmlMapParams extends XmlMapParams {
   /**
    * Ctor.
    *
-   * @param configuration XML config.
+   * @param config XML config.
    */
-  ConsumerXmlMapParams(final XML configuration) {
-    super(configuration, KfCustomer.CONSUMER);
+  ConsumerXmlMapParams(final XML config) {
+    super(config, KfCustomer.CONSUMER);
   }
 
   /**

@@ -36,10 +36,10 @@ final class ProducerXmlMapParams extends XmlMapParams {
   /**
    * Ctor.
    *
-   * @param configuration XML config.
+   * @param config XML config.
    */
-  ProducerXmlMapParams(final XML configuration) {
-    super(configuration, KfCustomer.PRODUCER);
+  ProducerXmlMapParams(final XML config) {
+    super(config, KfCustomer.PRODUCER);
   }
 
   /**
