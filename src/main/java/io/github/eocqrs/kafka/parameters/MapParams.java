@@ -31,10 +31,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @todo #147:30m/DEV /Tests for {@link io.github.eocqrs.kafka.parameters.MapParams}.
- * We have to write unit tests.
- */
-/**
  * It converts a `Params` object into a `Map<String, Object>`.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
