@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  *
  * @since 0.0.0
  */
-class KfConsumerTest {
+final class KfConsumerTest {
 
   @Test
   void subscribes() throws Exception {
