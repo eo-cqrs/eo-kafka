@@ -27,7 +27,6 @@ import com.jcabi.xml.XMLDocument;
 import org.cactoos.Input;
 import org.cactoos.Scalar;
 import org.cactoos.io.ResourceOf;
-import org.cactoos.text.Concatenated;
 import org.cactoos.text.FormattedText;
 
 import java.util.Locale;
