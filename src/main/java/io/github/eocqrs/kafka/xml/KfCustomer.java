@@ -29,6 +29,26 @@ package io.github.eocqrs.kafka.xml;
  * @since 0.0.2
  */
 public enum KfCustomer {
-  CONSUMER,
-  PRODUCER
+  CONSUMER("consumer"),
+  PRODUCER("producer");
+
+  /**
+   * The name.
+   */
+  private final String name;
+
+  /**
+   * Ctor.
+   *
+   * @param name The name.
+   */
+  KfCustomer(final String name) {
+    this.name = name;
+  }
+
+
+  @Override
+  public String toString() {
+    return this.name;
+  }
 }

@@ -24,7 +24,6 @@ package io.github.eocqrs.kafka.xml;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
-import lombok.RequiredArgsConstructor;
 import org.cactoos.Input;
 import org.cactoos.Scalar;
 import org.cactoos.io.ResourceOf;
@@ -93,7 +92,7 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
 
   @Override
   public final Map<String, Object> value() throws Exception {
-    final String parent = this.customer.toString().toLowerCase(Locale.ROOT);
+    final String parent = this.customer.toString();
     return new XMLDocument(this.configuration.toString())
       .nodes(new Concatenated("//", parent, "/*").toString())
       .stream()
