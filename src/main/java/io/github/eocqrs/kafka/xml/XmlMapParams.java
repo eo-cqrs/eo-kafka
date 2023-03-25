@@ -28,6 +28,7 @@ import org.cactoos.Input;
 import org.cactoos.Scalar;
 import org.cactoos.io.ResourceOf;
 import org.cactoos.text.Concatenated;
+import org.cactoos.text.FormattedText;
 
 import java.util.Locale;
 import java.util.Map;
@@ -92,9 +93,8 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
 
   @Override
   public final Map<String, Object> value() throws Exception {
-    final String parent = this.customer.toString();
     return new XMLDocument(this.configuration.toString())
-      .nodes(new Concatenated("//", parent, "/*").toString())
+      .nodes(new FormattedText("//%s/*", this.customer).toString())
       .stream()
       .map(Object::toString)
       .map(XMLDocument::new)
