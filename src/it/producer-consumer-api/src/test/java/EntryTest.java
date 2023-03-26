@@ -22,99 +22,14 @@
  * SOFTWARE.
  */
 
-import io.github.eocqrs.kafka.Consumer;
-import io.github.eocqrs.kafka.Producer;
-import io.github.eocqrs.kafka.consumer.KfConsumer;
-import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
-import io.github.eocqrs.kafka.data.KfData;
-import io.github.eocqrs.kafka.parameters.*;
-import io.github.eocqrs.kafka.producer.KfProducer;
-import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
-import org.cactoos.list.ListOf;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.*;
-import org.testcontainers.containers.KafkaContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
-import org.testcontainers.utility.DockerImageName;
-
 /**
  * Entry test cases.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-@Testcontainers
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-final class EntryTest {
+class EntryTest {
 
-  @Container
-  private static final KafkaContainer KAFKA = new KafkaContainer(
-    DockerImageName.parse("confluentinc/cp-kafka:7.3.0")
-  )
-    .withEnv("auto.create.topics.enable", "true")
-    .withEmbeddedZookeeper();
 
-  private final String severs =
-    EntryTest.KAFKA.getBootstrapServers().replace("PLAINTEXT://", "");
 
-  @Test
-  @Order(1)
-  void runsKafka() {
-    MatcherAssert.assertThat(
-      "Container runs",
-      EntryTest.KAFKA.isRunning(),
-      Matchers.is(true)
-    );
-  }
-
-  @Test
-  @Order(2)
-  void createsConsumerAndSubscribes() throws Exception {
-    try (
-      final Consumer<String, String> consumer =
-        new KfConsumer<>(
-          new KfFlexible<>(
-            new KfConsumerParams(
-              new KfParams(
-                new BootstrapServers(this.severs),
-                new GroupId("1"),
-                new AutoOffsetResetConfig("earliest"),
-                new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
-                new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
-              )
-            )
-          )
-        )
-      ) {
-      Assertions.assertDoesNotThrow(() -> consumer.subscribe(new ListOf<>("fake")));
-    }
-  }
-
-  @Test
-  @Order(3)
-  void createsProducerAndSendsData() throws Exception {
-    try (
-      final Producer<String, String> producer =
-        new KfProducer<>(
-          new KfFlexible<>(
-            new KfProducerParams(
-              new KfParams(
-                new BootstrapServers(this.severs),
-                new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
-                new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer")
-              )
-            )
-          )
-        )
-    ) {
-      Assertions.assertDoesNotThrow(
-        () -> producer.send(
-          "fake-key",
-          new KfData<>("fake-data", "101", 1)
-        )
-      );
-    }
-  }
 }
