@@ -364,15 +364,20 @@ SOFTWARE.
     </profile>
     <profile>
       <id>integration-test</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
       <build>
         <plugins>
           <plugin>
             <artifactId>maven-invoker-plugin</artifactId>
             <version>${maven-invoker-plugin.version}</version>
             <configuration>
+              <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
               <settingsFile>src/it/settings.xml</settingsFile>
               <postBuildHookScript>verify</postBuildHookScript>
               <streamLogs>true</streamLogs>
+              <streamLogsOnFailures>true</streamLogsOnFailures>
             </configuration>
             <executions>
               <execution>
