@@ -23,7 +23,6 @@
 package io.github.eocqrs.kafka.consumer;
 
 import io.github.eocqrs.kafka.Consumer;
-import io.github.eocqrs.kafka.Dataized;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.parameters.BootstrapServers;
 import io.github.eocqrs.kafka.parameters.GroupId;
@@ -32,8 +31,6 @@ import io.github.eocqrs.kafka.parameters.KfFlexible;
 import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueDeserializer;
 import io.github.eocqrs.kafka.xml.KfXmlFlexible;
-import java.time.Duration;
-import java.util.List;
 import org.cactoos.list.ListOf;
 import org.junit.jupiter.api.Test;
 
