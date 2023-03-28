@@ -149,8 +149,7 @@ Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Lan
 </consumer>
 ```
 
-Consuming messages:
-Firstly, you need to be subscribed on a particular topic and only then iterate over data in the topic:
+Consuming [messages](#messages-api):
 ```java
 try (
   final Consumer<String, String> consumer =
@@ -168,6 +167,7 @@ try (
         )
       )
   ) {
+  // you need to be subscribed on a topic to iterate over data in the topic
       consumer.subscribe(new ListOf<>("orders-saga-init")));
       List<Dataized<String>> result = consumer.iterate("orders-saga-init", Duration.ofSeconds(5L));
     }
