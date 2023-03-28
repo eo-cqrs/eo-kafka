@@ -8,10 +8,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 
 /**
- * @todo #147:30m/DEV Update documentation
- * Add use-cases to README for KfFlexible.
- */
-/**
  * KfFlexibleSettings allow you to add custom settings.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
