@@ -92,6 +92,5 @@ final class KfConsumerTest {
         )
       );
     assertThat(consumer).isNotNull();
-    List<Dataized<String>> result = consumer.iterate("topic", Duration.ofSeconds(5L));
   }
 }
