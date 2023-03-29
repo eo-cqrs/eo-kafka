@@ -23,9 +23,6 @@
 package io.github.eocqrs.kafka.parameters;
 
 /**
- * @todo #181:15m/DEV Add Acks to README API documentation
- */
-/**
  * It's a wrapper for the `acks` kafka attribute.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
