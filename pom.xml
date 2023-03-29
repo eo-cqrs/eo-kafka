@@ -49,6 +49,17 @@ SOFTWARE.
         <role>Developer</role>
       </roles>
     </developer>
+    <developer>
+      <id>2</id>
+      <name>Ivan Ivanchuk</name>
+      <email>l3r8y@duck.com</email>
+      <url>https://www.l3r8y.ru</url>
+      <organization>Objectionary</organization>
+      <organizationUrl>https://www.objectionary.com/</organizationUrl>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </developer>
   </developers>
   <issueManagement>
     <system>GitHub</system>
