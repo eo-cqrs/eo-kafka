@@ -36,6 +36,9 @@ import org.junit.jupiter.api.Test;
  */
 final class RetriesTest {
 
+  /**
+   * Under test.
+   */
   private ParamsAttr retries;
 
   @BeforeEach

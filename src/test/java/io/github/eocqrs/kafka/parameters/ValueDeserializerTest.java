@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
  * @since 0.0.2
  */
 final class ValueDeserializerTest {
+
   /**
    * Under test.
    */
