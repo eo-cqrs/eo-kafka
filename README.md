@@ -159,7 +159,7 @@ try (
             new KfParams(
               new BootstrapServers(this.severs),
               new GroupId("1"),
-              new AutoOffsetResetConfig("earliest"),
+              new AutoOffsetReset("earliest"),
               new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
               new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
             )
