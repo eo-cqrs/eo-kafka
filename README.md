@@ -208,7 +208,7 @@ before sending us your pull request please run full Maven build:
 $ mvn clean install
 ```
 
-You will need Maven 3.3+ and Java 17+.
+You will need Maven 3.8.7+ and Java 17+.
 
 If you want to contribute to the next release version of eo-kafka, please check the [project board](https://github.com/orgs/eo-cqrs/projects/2/views/1).
 
