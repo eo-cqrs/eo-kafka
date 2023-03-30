@@ -42,7 +42,7 @@ final class PartitionAssignmentStrategyTest {
       "XML in right format",
       this.strategy.asXml(),
       Matchers.equalTo(
-        "<partitionAssignmentStrategy>sticky</partitionAssignmentStrategy>"
+        "<partitionAssignmentStrategy>org.apache.kafka.clients.consumer.CooperativeStickyAssignor</partitionAssignmentStrategy>"
       )
     );
   }
