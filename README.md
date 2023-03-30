@@ -159,7 +159,7 @@ try (
             new KfParams(
               new BootstrapServers(this.severs),
               new GroupId("1"),
-              new AutoOffsetResetConfig("earliest"),
+              new AutoOffsetReset("earliest"),
               new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
               new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
             )
@@ -183,6 +183,7 @@ try (
 | `key.deserializer`   | [KeyDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeyDeserializer.java)     | keyDeserializer
 | `value.deserializer` | [ValueDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueDeserializer.java) | valueDeserializer
 | `group.id`           | [GroupId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupId.java)                     | groupId
+| `auto.offset.reset`  | [AutoOffsetReset](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/AutoOffsetReset.java) | autoOffsetReset
  | `client.id`          | [ClientId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ClientId.java) | clientId
 | `acks` | [Acks](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Acks.java) | acks
 | `security.protocol` | [SecurityProtocol](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SecurityProtocol.java) | securityProtocol
