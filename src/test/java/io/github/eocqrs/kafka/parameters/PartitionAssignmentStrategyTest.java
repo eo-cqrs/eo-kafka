@@ -1,7 +1,7 @@
 package io.github.eocqrs.kafka.parameters;
 
 import io.github.eocqrs.kafka.ParamsAttr;
-import org.apache.kafka.clients.consumer.StickyAssignor;
+import org.apache.kafka.clients.consumer.CooperativeStickyAssignor;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +22,9 @@ final class PartitionAssignmentStrategyTest {
 
   @BeforeEach
   void setUp() {
-    this.strategy = new PartitionAssignmentStrategy("sticky");
+    this.strategy = new PartitionAssignmentStrategy(
+      CooperativeStickyAssignor.class.getName()
+    );
   }
 
   @Test
