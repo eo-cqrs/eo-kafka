@@ -175,23 +175,25 @@ try (
 ```
 
 ## Config API
-| Kafka Property       | eo-kafka API                                                                                                                              |
-|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| `bootstrap.servers`  | [BootstrapServers](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BootstrapServers.java) |
-| `key.serializer`     | [KeySerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeySerializer.java)         |
-| `value.serializer`   | [ValueSerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueSerializer.java)     |
-| `key.deserializer`   | [KeyDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeyDeserializer.java)     |
-| `value.deserializer` | [ValueDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueDeserializer.java) |
-| `group.id`           | [GroupId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupId.java)                     |
-| `security.protocol` | [SecurityProtocol](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SecurityProtocol.java)
-| `acks` | [Acks](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Acks.java)
- | `client.id`          | [ClientId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ClientId.java)
-| `batch.size`         | [BatchSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BatchSize.java)
-| `buffer.memory`      | [BufferMemory](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BufferMemory.java)
-| `linger.ms` | [LingerMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/LingerMs.java)
-| `retries` | [Retries](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Retries.java)
-| `retry.backoff.ms` | [RetryBackoffMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/RetryBackoffMs.java)
-| `compression.type` | [CompressionType](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/CompressionType.java)
+| Kafka Property       | eo-kafka API                                                                                                                              | XML tag
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------| ----------------------
+| `bootstrap.servers`  | [BootstrapServers](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BootstrapServers.java) | bootstrapServers
+| `key.serializer`     | [KeySerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeySerializer.java)         | keySerializer
+| `value.serializer`   | [ValueSerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueSerializer.java)     | valueSerializer
+| `key.deserializer`   | [KeyDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeyDeserializer.java)     | keyDeserializer
+| `value.deserializer` | [ValueDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueDeserializer.java) | valueDeserializer
+| `group.id`           | [GroupId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupId.java)                     | groupId
+ | `client.id`          | [ClientId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ClientId.java) | clientId
+| `acks` | [Acks](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Acks.java) | acks
+| `security.protocol` | [SecurityProtocol](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SecurityProtocol.java) | securityProtocol
+| `sasl.jaas.config` | [SaslJaasConfig](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SaslJaasConfig.java) | saslJaasConfig
+| `sasl.mechanism` | [SaslMechanism](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SaslMechanism.java) | saslMechanism
+| `batch.size`         | [BatchSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BatchSize.java) | batchSize
+| `buffer.memory`      | [BufferMemory](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BufferMemory.java) | bufferMemory
+| `linger.ms` | [LingerMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/LingerMs.java) | lingerMs
+| `retries` | [Retries](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Retries.java) | retries
+| `retry.backoff.ms` | [RetryBackoffMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/RetryBackoffMs.java) | retryBackoffMs
+| `compression.type` | [CompressionType](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/CompressionType.java) | compressionType
 
 ## How to Contribute
 
