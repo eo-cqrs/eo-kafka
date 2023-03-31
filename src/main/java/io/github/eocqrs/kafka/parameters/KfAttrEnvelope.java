@@ -45,12 +45,11 @@ public abstract class KfAttrEnvelope implements ParamsAttr {
 
   @Override
   public final String asXml() {
-    return new FormattedText(
-      "<%s>%s</%s>",
+    return "<%s>%s</%s>".formatted(
       new NameInCamelCase(this.name),
       this.value,
       new NameInCamelCase(this.name)
-    ).toString();
+    );
   }
 
   @Override

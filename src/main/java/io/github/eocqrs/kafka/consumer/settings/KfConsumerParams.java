@@ -29,9 +29,7 @@ public final class KfConsumerParams implements Params {
 
   @Override
   public String asXml() {
-    return new FormattedText(
-      "<consumer>\n%s\n</consumer>\n",
-      this.origin.asXml()
-    ).toString();
+    return "<consumer>\n%s\n</consumer>\n"
+      .formatted(this.origin.asXml());
   }
 }

@@ -52,9 +52,7 @@ public final class KfProducerParams implements Params {
 
   @Override
   public String asXml() {
-    return new FormattedText(
-      "<producer>\n%s\n</producer>\n",
-      this.origin.asXml()
-    ).toString();
+    return "<producer>\n%s\n</producer>\n"
+      .formatted(this.origin.asXml());
   }
 }

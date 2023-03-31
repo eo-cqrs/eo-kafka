@@ -93,7 +93,7 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
   @Override
   public final Map<String, Object> value() throws Exception {
     return new XMLDocument(this.configuration.toString())
-      .nodes(new FormattedText("//%s/*", this.customer).toString())
+      .nodes("//%s/*".formatted(this.customer))
       .stream()
       .map(Object::toString)
       .map(XMLDocument::new)
@@ -104,7 +104,7 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
             .matcher(name)
             .replaceAll(".$1")
             .toLowerCase(Locale.ROOT),
-          name -> new TextXpath(this.configuration, "//".concat(name)).toString()
+          name -> new TextXpath(this.configuration, "//%s".formatted(name)).toString()
         )
       );
   }
