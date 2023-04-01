@@ -280,7 +280,7 @@ SOFTWARE.
       <plugin>
         <groupId>ru.l3r8y</groupId>
         <artifactId>sa-tan</artifactId>
-        <version>0.1.4</version>
+        <version>0.1.5</version>
         <executions>
           <execution>
             <goals>
