@@ -32,8 +32,8 @@ import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import io.github.eocqrs.kafka.xml.KfXmlFlexible;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 /**
  * Test case for {@link io.github.eocqrs.kafka.producer.KfProducer}
  *

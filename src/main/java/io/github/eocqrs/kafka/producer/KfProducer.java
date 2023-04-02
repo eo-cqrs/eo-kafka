@@ -19,10 +19,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 package io.github.eocqrs.kafka.producer;
 
-import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.ProducerSettings;
@@ -35,7 +33,6 @@ import org.apache.kafka.clients.producer.ProducerRecord;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-@SuppressWarnings("removal")
 public final class KfProducer<K, X> implements Producer<K, X> {
 
   /**

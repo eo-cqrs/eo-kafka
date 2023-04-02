@@ -23,10 +23,11 @@
 package io.github.eocqrs.kafka.parameters;
 
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
-import java.util.Map;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+
+import java.util.Map;
 
 /**
  * Test case for {@link MapParams}.

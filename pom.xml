@@ -97,6 +97,10 @@ SOFTWARE.
     <maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
     <slf4j.version>2.0.7</slf4j.version>
     <jtcop.version>0.1.9</jtcop.version>
+    <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+    <checkstyle.version>8.15</checkstyle.version>
+    <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
+    <sa-tan.version>0.1.5</sa-tan.version>
   </properties>
   <dependencies>
     <dependency>
@@ -280,12 +284,37 @@ SOFTWARE.
       <plugin>
         <groupId>ru.l3r8y</groupId>
         <artifactId>sa-tan</artifactId>
-        <version>0.1.5</version>
+        <version>${sa-tan.version}</version>
         <executions>
           <execution>
             <goals>
               <goal>search</goal>
             </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>${maven-checkstyle-plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>${checkstyle.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>verify-style</id>
+            <phase>process-classes</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+            <configuration>
+              <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+              <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+            </configuration>
           </execution>
         </executions>
       </plugin>
@@ -361,7 +390,7 @@ SOFTWARE.
           <plugin>
             <groupId>org.sonatype.plugins</groupId>
             <artifactId>nexus-staging-maven-plugin</artifactId>
-            <version>1.6.13</version>
+            <version>${nexus-staging-maven-plugin.version}</version>
             <extensions>true</extensions>
             <configuration>
               <serverId>ossrh</serverId>

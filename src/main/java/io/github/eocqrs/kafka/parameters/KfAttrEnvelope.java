@@ -24,7 +24,6 @@ package io.github.eocqrs.kafka.parameters;
 
 import io.github.eocqrs.kafka.ParamsAttr;
 import io.github.eocqrs.kafka.xml.NameInCamelCase;
-import org.cactoos.text.FormattedText;
 
 /**
  * It's a wrapper for a string value that can be converted to XML.

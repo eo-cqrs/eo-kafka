@@ -36,7 +36,7 @@ import lombok.RequiredArgsConstructor;
 public final class KfData<X> implements Data<X> {
 
   /**
-   * Data type
+   * Data type.
    */
   private final X data;
   /**

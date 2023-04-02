@@ -24,14 +24,15 @@ package io.github.eocqrs.kafka.xml;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Map;
 import org.cactoos.io.ResourceOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Map;
 
 /**
  * Test case for {@link ProducerXmlMapParams}.
