@@ -3,7 +3,6 @@ package io.github.eocqrs.kafka.consumer.settings;
 import io.github.eocqrs.kafka.Params;
 import io.github.eocqrs.kafka.ParamsAttr;
 import lombok.RequiredArgsConstructor;
-import org.cactoos.text.FormattedText;
 
 import java.util.Collection;
 

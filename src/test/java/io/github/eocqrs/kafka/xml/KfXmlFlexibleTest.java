@@ -22,9 +22,9 @@
 
 package io.github.eocqrs.kafka.xml;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * Test case for {@link KfXmlFlexible}.

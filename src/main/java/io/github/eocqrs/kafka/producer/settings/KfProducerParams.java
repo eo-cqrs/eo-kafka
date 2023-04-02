@@ -25,12 +25,12 @@ package io.github.eocqrs.kafka.producer.settings;
 import io.github.eocqrs.kafka.Params;
 import io.github.eocqrs.kafka.ParamsAttr;
 import lombok.RequiredArgsConstructor;
-import org.cactoos.text.FormattedText;
 
 import java.util.Collection;
 
 /**
- * Kafka Producer parameters for {@link io.github.eocqrs.kafka.producer.KfProducer}.
+ * Kafka Producer parameters for
+ * {@link io.github.eocqrs.kafka.producer.KfProducer}.
  * Decorates {@link Params}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)

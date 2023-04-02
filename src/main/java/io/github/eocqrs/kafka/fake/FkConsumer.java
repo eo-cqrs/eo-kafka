@@ -42,12 +42,12 @@ import java.util.List;
 public final class FkConsumer<K, X> implements Consumer<K, X> {
 
   @Override
-  public void subscribe(Collection<String> topics) {
+  public void subscribe(final Collection<String> topics) {
     throw new UnsupportedOperationException("#subscribe()");
   }
 
   @Override
-  public List<Dataized<X>> iterate(String topic, Duration timeout) {
+  public List<Dataized<X>> iterate(final String topic, final Duration timeout) {
     throw new UnsupportedOperationException("#iterate()");
   }
 

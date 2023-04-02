@@ -27,7 +27,6 @@ import com.jcabi.xml.XMLDocument;
 import org.cactoos.Input;
 import org.cactoos.Scalar;
 import org.cactoos.io.ResourceOf;
-import org.cactoos.text.FormattedText;
 
 import java.util.Locale;
 import java.util.Map;
@@ -35,7 +34,8 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * It takes an XML document and a customer name, and returns a map of the customer's data.
+ * It takes an XML document and a customer name,
+ * and returns a map of the customer's data.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
@@ -75,7 +75,8 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
    * @param cust  Customer type.
    * @throws Exception When something went wrong.
    */
-  protected XmlMapParams(final Input resource, final KfCustomer cust) throws Exception {
+  protected XmlMapParams(final Input resource, final KfCustomer cust)
+    throws Exception {
     this(new XMLDocument(resource.stream()), cust);
   }
 
@@ -86,7 +87,8 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
    * @param cust Customer type.
    * @throws Exception When something went wrong.
    */
-  protected XmlMapParams(final String name, final KfCustomer cust) throws Exception {
+  protected XmlMapParams(final String name, final KfCustomer cust)
+    throws Exception {
     this(new ResourceOf(name), cust);
   }
 
@@ -100,11 +102,16 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
       .map(xml -> xml.nodes("//*").get(0).node().getNodeName())
       .collect(
         Collectors.toMap(
-          name -> XmlMapParams.CAPITALS
-            .matcher(name)
-            .replaceAll(".$1")
-            .toLowerCase(Locale.ROOT),
-          name -> new TextXpath(this.configuration, "//%s".formatted(name)).toString()
+          name ->
+            XmlMapParams.CAPITALS
+              .matcher(name)
+              .replaceAll(".$1")
+              .toLowerCase(Locale.ROOT),
+          name ->
+            new TextXpath(
+              this.configuration,
+              "//%s".formatted(name)
+            ).toString()
         )
       );
   }
