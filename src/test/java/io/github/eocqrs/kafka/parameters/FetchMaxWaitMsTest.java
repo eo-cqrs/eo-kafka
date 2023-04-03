@@ -59,7 +59,7 @@ final class FetchMaxWaitMsTest {
   void writesRightXml() {
     MatcherAssert.assertThat(
       "XML in right format",
-      this.wait.name(),
+      this.wait.asXml(),
       Matchers.equalTo("<fetchMaxWaitMs>100</fetchMaxWaitMs>")
     );
   }
