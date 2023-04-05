@@ -35,6 +35,5 @@ and fix all documentation.
   <suppress checks="JavadocMethod" files=".*\.java$" lines="23-9999"/>
   <suppress checks="HiddenField" files=".*\.java$" lines="23-9999"/>
   <suppress checks="VisibilityModifier" files="KfFlexibleEnvelope.java" lines="44"/>
-  <suppress checks="VisibilityModifier" files="KfAttrEnvelope.java" lines="36"/>
-  <suppress checks="VisibilityModifier" files="KfAttrEnvelope.java" lines="38"/>
+  <suppress checks="VisibilityModifier" files="KfAttrEnvelope.java" lines="36-45"/>
 </suppressions>

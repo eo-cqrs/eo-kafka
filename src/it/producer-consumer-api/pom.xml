@@ -42,15 +42,11 @@ SOFTWARE.
     <testcontainers.version>1.17.6</testcontainers.version>
   </properties>
   <dependencies>
-    <!--    <dependency>-->
-    <!--      <groupId>@project.groupId@</groupId>-->
-    <!--      <artifactId>@project.artifactId@</artifactId>-->
-    <!--      <version>@project.version@</version>-->
-    <!--    </dependency>-->
     <dependency>
-      <groupId>io.github.eo-cqrs</groupId>
-      <artifactId>eo-kafka</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>@project.groupId@</groupId>
+      <artifactId>@project.artifactId@</artifactId>
+      <version>@project.version@</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -92,12 +88,6 @@ SOFTWARE.
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>${mockito-core.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.github.eo-cqrs</groupId>
-      <artifactId>eo-kafka</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
