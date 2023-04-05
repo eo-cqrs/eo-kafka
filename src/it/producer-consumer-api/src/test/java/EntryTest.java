@@ -27,13 +27,24 @@ import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.consumer.KfConsumer;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.data.KfData;
-import io.github.eocqrs.kafka.parameters.*;
+import io.github.eocqrs.kafka.parameters.BootstrapServers;
+import io.github.eocqrs.kafka.parameters.GroupId;
+import io.github.eocqrs.kafka.parameters.KeyDeserializer;
+import io.github.eocqrs.kafka.parameters.KeySerializer;
+import io.github.eocqrs.kafka.parameters.KfFlexible;
+import io.github.eocqrs.kafka.parameters.KfParams;
+import io.github.eocqrs.kafka.parameters.ValueDeserializer;
+import io.github.eocqrs.kafka.parameters.ValueSerializer;
 import io.github.eocqrs.kafka.producer.KfProducer;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -80,7 +91,6 @@ final class EntryTest {
               new KfParams(
                 new BootstrapServers(this.severs),
                 new GroupId("1"),
-                new AutoOffsetResetConfig("earliest"),
                 new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
                 new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
               )
