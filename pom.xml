@@ -72,7 +72,7 @@ SOFTWARE.
   <licenses>
     <license>
       <name>MIT</name>
-      <url>https://github.com/eo-cqrs/eo-kafka/blob/master/LICENSE</url>
+      <url>https://github.com/eo-cqrs/eo-kafka/blob/master/LICENSE.txt</url>
       <distribution>site</distribution>
     </license>
   </licenses>
