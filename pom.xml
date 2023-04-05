@@ -419,7 +419,7 @@ SOFTWARE.
       <id>invoker</id>
       <activation>
         <os>
-          <family>unix</family>
+          <family>linux</family>
         </os>
       </activation>
       <build>
