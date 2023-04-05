@@ -11,9 +11,30 @@ jobs:
     name: Build
     strategy:
       matrix:
-        os: [ubuntu-20.04, windows-2022, macos-12]
+        os: [windows-2022, macos-12]
         java: [17]
     runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+      - uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-jdk-${{ matrix.java }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-jdk-${{ matrix.java }}-maven-
+      - run: mvn clean install --errors --batch-mode
+
+  it-test:
+    name: Build Integrations
+    strategy:
+      matrix:
+        os-integration: [ubuntu-20.04]
+        java: [17]
+    runs-on: ${{ matrix.os-integration }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v3
