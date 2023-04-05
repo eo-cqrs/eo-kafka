@@ -51,6 +51,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
 /**
+ * @todo #81 Tests to produce-consume data.
+ * Write a test which will be check how consumer
+ * reads data from producer.
+ */
+/**
  * Entry test cases.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
