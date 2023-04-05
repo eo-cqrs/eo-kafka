@@ -33,10 +33,22 @@ import io.github.eocqrs.kafka.xml.NameInCamelCase;
  */
 public abstract class KfAttrEnvelope implements ParamsAttr {
 
+  /**
+   * The value.
+   */
   protected final String value;
 
+  /**
+   * The name.
+   */
   protected final String name;
 
+  /**
+   * Ctor.
+   *
+   * @param value The value
+   * @param name The name
+   */
   protected KfAttrEnvelope(final String value, final String name) {
     this.value = value;
     this.name = name;
