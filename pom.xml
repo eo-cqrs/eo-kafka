@@ -421,6 +421,7 @@ SOFTWARE.
         <os>
           <family>linux</family>
         </os>
+        <activeByDefault>false</activeByDefault>
       </activation>
       <build>
         <plugins>
