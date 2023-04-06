@@ -418,9 +418,6 @@ SOFTWARE.
     <profile>
       <id>invoker</id>
       <activation>
-        <os>
-          <family>linux</family>
-        </os>
         <activeByDefault>false</activeByDefault>
       </activation>
       <build>
