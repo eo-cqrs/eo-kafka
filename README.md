@@ -20,7 +20,7 @@ Project architect: [@h1alexbel](https://github.com/h1alexbel)
 
 EO Kafka Producers and consumers for working with Apache Kafka message broker.
 
-Read [Kafka Producers and Consumers for Elegant Microservices](https://h1alexbel.github.io/2023/03/26/eo-kafka-for-elegant-microservices.html), the blog post about `eo-kafka`.
+Read [_Kafka Producers and Consumers for Elegant Microservices_](https://h1alexbel.github.io/2023/03/26/eo-kafka-for-elegant-microservices.html), the blog post about `eo-kafka`.
 
 **Motivation**. We are not happy with Spring Kafka, because it is very procedural and not object-oriented.
 eo-kafka is suggesting to do almost exactly the same, but through objects.
