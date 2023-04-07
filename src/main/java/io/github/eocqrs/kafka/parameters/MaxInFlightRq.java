@@ -23,7 +23,7 @@
 package io.github.eocqrs.kafka.parameters;
 
 /**
- * Wrapper for the `max.in.flight.requests.per.connection`
+ * Wrapper for the `max.in.flight.requests.per.connection`.
  *
  * @author Aliaksei Bialiauski (abialiaski.dev@gmail.com)
  * @since 0.0.3
