@@ -211,6 +211,7 @@ try (
 | `max.block.ms`                  | [MaxBlockMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxBlockMs.java)                                   | maxBlockMs
 | `max.request.size`              | [MaxRqSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxRqSize.java)                                     | maxRequestSize
 | `group.instance.id`             | [GroupInstanceId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupInstanceId.java)                                              | groupInstanceId
+| `max.in.flight.requests.per.connection`             | [MaxInFlightRq](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxInFlightRq.java)                                              | maxInFlightRequestsPerConnection
 
 ## How to Contribute
 
