@@ -209,7 +209,8 @@ try (
 | `send.buffer.bytes`             | [SendBufferBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SendBufferBytes.java)                         | sendBufferBytes
 | `receive.buffer.bytes`          | [ReceiveBufferBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ReceiveBufferBytes.java)                   | receiveBufferBytes
 | `max.block.ms`                  | [MaxBlockMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxBlockMs.java)                                   | maxBlockMs
-| `max.request.size`              | [MaxRqSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxRqSize.java)                                    | maxRequestSize
+| `max.request.size`              | [MaxRqSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxRqSize.java)                                     | maxRequestSize
+| `group.instance.id`             | [GroupInstanceId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupInstanceId.java)                                              | groupInstanceId
 
 ## How to Contribute
 
