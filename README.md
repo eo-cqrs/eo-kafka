@@ -208,7 +208,8 @@ try (
 | `fetch.min.bytes`               | [FetchMinBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/FetchMinBytes.java)                             | fetchMinBytes
 | `send.buffer.bytes`             | [SendBufferBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SendBufferBytes.java)                         | sendBufferBytes
 | `receive.buffer.bytes`          | [ReceiveBufferBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ReceiveBufferBytes.java)                   | receiveBufferBytes
-| `max.block.ms`                  | [MaxBlockMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxBlockMs.java)                            | maxBlockMs
+| `max.block.ms`                  | [MaxBlockMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxBlockMs.java)                                   | maxBlockMs
+| `max.request.size`              | [MaxRqSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxRqSize.java)                                    | maxRequestSize
 
 ## How to Contribute
 
