@@ -61,7 +61,9 @@ final class MaxInFlightRqTest {
       "XML in right format",
       this.requests.asXml(),
       Matchers.equalTo(
-        "<maxInFlightRequestsPerConnection>20</maxInFlightRequestsPerConnection>"
+        "<maxInFlightRequestsPerConnection>" +
+          "20" +
+          "</maxInFlightRequestsPerConnection>"
       )
     );
   }
