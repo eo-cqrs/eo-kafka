@@ -27,7 +27,7 @@ eo-kafka is suggesting to do almost exactly the same, but through objects.
 
 **Principles**. These are the [design principles](https://www.elegantobjects.org/#principles) behind eo-kafka.
 
-**How to use**. All you need is this (get the latest version here):
+**How to use**. All you need is this (get the latest version [here](https://search.maven.org/artifact/io.github.eo-cqrs/eo-kafka)):
 
 Maven:
 ```xml
