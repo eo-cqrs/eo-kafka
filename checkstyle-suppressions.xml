@@ -30,7 +30,6 @@ and fix all documentation.
 <!DOCTYPE suppressions PUBLIC "-//Checkstyle//DTD SuppressionFilter Configuration 1.0//EN" "https://checkstyle.org/dtds/suppressions_1_0.dtd">
 <suppressions>
   <suppress checks="LineLength" files=".*\.java$" lines="0-23"/>
-  <suppress checks="JavadocType" files=".*\.java$" lines="23-9999"/>
   <suppress checks="JavadocVariable" files=".*\.java$" lines="23-9999"/>
   <suppress checks="JavadocMethod" files=".*\.java$" lines="23-9999"/>
   <suppress checks="HiddenField" files=".*\.java$" lines="23-9999"/>
