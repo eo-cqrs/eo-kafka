@@ -22,11 +22,11 @@
 
 package io.github.eocqrs.kafka.consumer.settings;
 
-import io.github.eocqrs.kafka.parameters.GroupId;
-import io.github.eocqrs.kafka.parameters.KfParams;
+import io.github.eocqrs.kafka.Params;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 /**
  * Test case for {@link KfConsumerParams}.
@@ -38,16 +38,12 @@ final class KfConsumerParamsTest {
 
   @Test
   void representsXmlCorrectly() {
+    final Params mock = Mockito.mock(Params.class);
+    Mockito.when(mock.asXml()).thenReturn("<groupId>103</groupId>");
     MatcherAssert.assertThat(
       "Represents right XML settings",
-      new KfConsumerParams(
-        new KfParams(
-          new GroupId("103")
-        )
-      ).asXml(),
-      Matchers.equalTo(
-        "<consumer>\n<groupId>103</groupId>\n</consumer>\n"
-      )
+      new KfConsumerParams(mock).asXml(),
+      Matchers.equalTo("<consumer>\n<groupId>103</groupId>\n</consumer>\n")
     );
   }
 }

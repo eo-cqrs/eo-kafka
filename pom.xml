@@ -104,6 +104,7 @@ SOFTWARE.
     <maven-invoker-plugin.version>3.5.1</maven-invoker-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
+    <mockito-core.version>5.2.0</mockito-core.version>
   </properties>
   <dependencies>
     <dependency>
@@ -160,6 +161,12 @@ SOFTWARE.
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>${assert4j-core.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito-core.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
