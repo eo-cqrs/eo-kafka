@@ -105,7 +105,7 @@ SOFTWARE.
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-gpg-plugin.version>3.0.1</maven-gpg-plugin.version>
     <mockito-core.version>5.2.0</mockito-core.version>
-    <mockito-junit-jupiter.version>4.8.1</mockito-junit-jupiter.version>
+    <mockito-junit-jupiter.version>5.2.0</mockito-junit-jupiter.version>
   </properties>
   <dependencies>
     <dependency>
