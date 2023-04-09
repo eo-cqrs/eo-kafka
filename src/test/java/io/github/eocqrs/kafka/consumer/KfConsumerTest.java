@@ -53,19 +53,19 @@ final class KfConsumerTest {
 
   @Test
   void subscribes(
-    @Mock final ConsumerSettings<String, String> settingsMock,
-    @Mock final KafkaConsumer<String, String> consumerMock
+    @Mock final ConsumerSettings<String, String> settings,
+    @Mock final KafkaConsumer<String, String> consumer
     ) {
-    Mockito.when(settingsMock.consumer()).thenReturn(consumerMock);
-    final Consumer<String, String> consumer = new KfConsumer<>(settingsMock);
+    Mockito.when(settings.consumer()).thenReturn(consumer);
+    final Consumer<String, String> underTest = new KfConsumer<>(settings);
     assertDoesNotThrow(
       () ->
-        consumer.subscribe(
+        underTest.subscribe(
           new ListOf<>("transactions-info")
         )
     );
     assertDoesNotThrow(
-      consumer::close
+      underTest::close
     );
   }
 
