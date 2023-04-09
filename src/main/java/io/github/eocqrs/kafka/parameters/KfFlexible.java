@@ -32,6 +32,8 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 /**
  * KfFlexibleSettings allow you to add custom settings.
  *
+ * @param <K> The key
+ * @param <X> The value
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */

@@ -32,6 +32,8 @@ import org.cactoos.io.ResourceOf;
 /**
  * Envelope for {@link ConsumerSettings}.
  *
+ * @param <K> The key
+ * @param <X> The value
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */

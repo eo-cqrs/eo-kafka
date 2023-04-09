@@ -25,6 +25,7 @@ package io.github.eocqrs.kafka;
 /**
  * Dataized.
  *
+ * @param <T> The generic type for key
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */

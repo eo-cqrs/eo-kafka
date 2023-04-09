@@ -28,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Kafka Dataized data.
  *
+ * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */

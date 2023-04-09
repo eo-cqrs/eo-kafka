@@ -30,6 +30,8 @@ import java.util.List;
 /**
  * Consumer.
  *
+ * @param <K> The key
+ * @param <X> The value
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0

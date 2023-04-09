@@ -30,6 +30,8 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 /**
  * Allow creating custom Consumer/Producer from XML.
  *
+ * @param <K> The key
+ * @param <X> The value
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */

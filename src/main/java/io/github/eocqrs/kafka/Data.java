@@ -25,6 +25,7 @@ package io.github.eocqrs.kafka;
 /**
  * Message Data.
  *
+ * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
