@@ -19,6 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/*
+ * @todo #10:45m/DEV Fake Producer implementation
+ */
 
 package io.github.eocqrs.kafka.fake;
 
@@ -28,12 +31,10 @@ import io.github.eocqrs.kafka.Producer;
 /**
  * Fake Producer.
  *
+ * @param <K> The key
+ * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
- */
-
-/**
- * @todo #10:45m/DEV Fake Producer implementation
  */
 public final class FkProducer<K, X> implements Producer<K, X> {
 

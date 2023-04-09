@@ -19,6 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+/*
+ * @todo #49:45m/DEV Fake Consumer implementation
+ */
 
 package io.github.eocqrs.kafka.fake;
 
@@ -32,12 +35,10 @@ import java.util.List;
 /**
  * Fake Consumer.
  *
+ * @param <K> The key
+ * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
- */
-
-/**
- * @todo #49:45m/DEV Fake Consumer implementation
  */
 public final class FkConsumer<K, X> implements Consumer<K, X> {
 
