@@ -30,7 +30,11 @@ import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueSerializer;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import io.github.eocqrs.kafka.xml.KfXmlFlexible;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -44,19 +48,23 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  * @todo #47:45m/DEV Consumer Producer communication.
  * We have to create an ITCase for communication between Consumer and Producer.
  */
+@ExtendWith(MockitoExtension.class)
 final class KfProducerTest {
 
   @Test
-  void constructsProducerWithXML() throws Exception {
-    final Producer<String, String> producer =
-      new KfProducer<>(
-        new KfXmlFlexible<String, String>("settings.xml")
-          .producer()
-      );
+  void constructsProducerWithExistingProducer(@Mock final KafkaProducer<String, String> mock) {
+    final Producer<String, String> producer = new KfProducer<>(mock);
     assertThat(producer).isNotNull();
-    assertDoesNotThrow(
-      producer::close
+    assertDoesNotThrow(producer::close);
+  }
+
+  @Test
+  void constructsProducerWithXml() throws Exception {
+    final Producer<String, String> producer = new KfProducer<>(
+      new KfXmlFlexible<>("settings.xml")
     );
+    assertThat(producer).isNotNull();
+    assertDoesNotThrow(producer::close);
   }
 
   @Test
@@ -74,8 +82,6 @@ final class KfProducerTest {
         )
       );
     assertThat(producer).isNotNull();
-    assertDoesNotThrow(
-      producer::close
-    );
+    assertDoesNotThrow(producer::close);
   }
 }

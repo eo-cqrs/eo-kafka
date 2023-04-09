@@ -23,6 +23,7 @@
 package io.github.eocqrs.kafka.consumer;
 
 import io.github.eocqrs.kafka.Consumer;
+import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.parameters.BootstrapServers;
 import io.github.eocqrs.kafka.parameters.GroupId;
@@ -31,8 +32,13 @@ import io.github.eocqrs.kafka.parameters.KfFlexible;
 import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueDeserializer;
 import io.github.eocqrs.kafka.xml.KfXmlFlexible;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.cactoos.list.ListOf;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -42,16 +48,16 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
  *
  * @since 0.0.0
  */
+@ExtendWith(MockitoExtension.class)
 final class KfConsumerTest {
 
   @Test
-  void subscribes() throws Exception {
-    final Consumer<String, String> consumer =
-      new KfConsumer<>(
-        new KfXmlFlexible<String, String>(
-          "consumer.xml"
-        ).consumer()
-      );
+  void subscribes(
+    @Mock final ConsumerSettings<String, String> settingsMock,
+    @Mock final KafkaConsumer<String, String> consumerMock
+    ) {
+    Mockito.when(settingsMock.consumer()).thenReturn(consumerMock);
+    final Consumer<String, String> consumer = new KfConsumer<>(settingsMock);
     assertDoesNotThrow(
       () ->
         consumer.subscribe(
