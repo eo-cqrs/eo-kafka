@@ -29,7 +29,13 @@ package io.github.eocqrs.kafka.xml;
  * @since 0.0.2
  */
 public enum KfCustomer {
+  /**
+   * The consumer.
+   */
   CONSUMER("consumer"),
+  /**
+   * The producer.
+   */
   PRODUCER("producer");
 
   /**

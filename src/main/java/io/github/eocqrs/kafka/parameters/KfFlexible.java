@@ -41,6 +41,9 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 public final class KfFlexible<K, X>
   implements ConsumerSettings<K, X>, ProducerSettings<K, X> {
 
+  /**
+   * The params.
+   */
   private final Params params;
 
   @Override

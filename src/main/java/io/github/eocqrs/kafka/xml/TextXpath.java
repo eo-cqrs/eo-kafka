@@ -32,7 +32,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public final class TextXpath {
 
+  /**
+   * The XML file.
+   */
   private final XML xml;
+  /**
+   * The XML element that xpath belongs to.
+   */
   private final String node;
 
   @Override
