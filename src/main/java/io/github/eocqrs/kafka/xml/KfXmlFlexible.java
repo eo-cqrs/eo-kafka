@@ -41,6 +41,7 @@ public final class KfXmlFlexible<K, X> extends KfFlexibleEnvelope<K, X> {
    * Ctor.
    *
    * @param name Name of XML configuration placed in resources folder.
+   * @throws Exception When something went wrong.
    */
   public KfXmlFlexible(final String name) throws Exception {
     super(name);

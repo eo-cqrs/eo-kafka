@@ -58,6 +58,7 @@ public abstract class KfFlexibleEnvelope<K, X>
    * A constructor that takes a String and converts it to ResourceOf.
    *
    * @param name Name of resource.
+   * @throws Exception When something went wrong.
    */
   protected KfFlexibleEnvelope(final String name) throws Exception {
     this(new ResourceOf(name));
