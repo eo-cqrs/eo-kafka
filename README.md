@@ -22,7 +22,9 @@ Project architect: [@h1alexbel](https://github.com/h1alexbel)
 
 EO Kafka Producers and consumers for working with Apache Kafka message broker.
 
-Read [_Kafka Producers and Consumers for Elegant Microservices_](https://h1alexbel.github.io/2023/03/26/eo-kafka-for-elegant-microservices.html), the blog post about `eo-kafka`.
+Read [_Kafka Producers and Consumers for Elegant Microservices_](https://h1alexbel.github.io/2023/03/26/eo-kafka-for-elegant-microservices.html), the blog post about `EO-Kafka`
+<br>
+and [_EO-Kafka with Spring_](https://h1alexbel.github.io/2023/04/15/eo-kafka-with-spring.html), how to connect `EO-Kafka` with Spring.
 
 **Motivation**. We are not happy with Spring Kafka, because it is very procedural and not object-oriented.
 eo-kafka is suggesting to do almost exactly the same, but through objects.
@@ -36,6 +38,20 @@ Maven:
 <dependency>
   <groupId>io.github.eo-cqrs</groupId>
   <artifactId>eo-kafka</artifactId>
+</dependency>
+```
+
+To use it with [Spring Boot](https://spring.io/):
+```xml
+<dependency>
+  <groupId>io.github.eo-cqrs</groupId>
+  <artifactId>eo-kafka</artifactId>
+  <exclusions>
+    <exclusion>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+    </exclusion>
+  </exclusions>
 </dependency>
 ```
 
