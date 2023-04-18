@@ -43,6 +43,13 @@ public interface Consumer<K, X> extends Closeable {
    *
    * @param topics topics to subscribe
    */
+  void subscribe(String... topics);
+
+  /**
+   * Subscribe.
+   *
+   * @param topics topics to subscribe
+   */
   void subscribe(Collection<String> topics);
 
   /**
