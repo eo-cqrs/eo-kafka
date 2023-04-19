@@ -27,6 +27,7 @@ import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Dataized;
 import io.github.eocqrs.kafka.data.KfData;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.cactoos.list.ListOf;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -65,6 +66,11 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    */
   public KfConsumer(final ConsumerSettings<K, X> settings) {
     this(settings.consumer());
+  }
+
+  @Override
+  public void subscribe(final String... topics) {
+    this.subscribe(new ListOf<>(topics));
   }
 
   @Override

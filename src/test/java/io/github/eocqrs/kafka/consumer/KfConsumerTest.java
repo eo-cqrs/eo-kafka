@@ -59,10 +59,10 @@ final class KfConsumerTest {
     Mockito.when(settings.consumer()).thenReturn(consumer);
     final Consumer<String, String> underTest = new KfConsumer<>(settings);
     assertDoesNotThrow(
-      () ->
-        underTest.subscribe(
-          new ListOf<>("transactions-info")
-        )
+      () -> {
+        underTest.subscribe(new ListOf<>("transactions-info"));
+        underTest.subscribe("transactions-info");
+      }
     );
     assertDoesNotThrow(
       underTest::close
