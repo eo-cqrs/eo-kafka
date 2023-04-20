@@ -99,7 +99,7 @@ SOFTWARE.
     <jtcop.version>0.1.11</jtcop.version>
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
     <checkstyle.version>8.15</checkstyle.version>
-    <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
+    <maven-checkstyle-plugin.version>3.2.2</maven-checkstyle-plugin.version>
     <sa-tan.version>0.1.5</sa-tan.version>
     <maven-invoker-plugin.version>3.5.1</maven-invoker-plugin.version>
     <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
