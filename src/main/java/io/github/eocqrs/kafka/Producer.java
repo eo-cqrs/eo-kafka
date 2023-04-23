@@ -23,7 +23,7 @@
 package io.github.eocqrs.kafka;
 
 import java.io.Closeable;
-import java.util.concurrent.CompletableFuture;
+
 /*
 * @todo #204:DEV/30min Make send return CompletableFuture.
 *  A more correct way to implement the #send
