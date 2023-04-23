@@ -24,6 +24,7 @@
 
 package io.github.eocqrs.kafka.producer;
 
+import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.data.KfData;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -33,9 +34,8 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test case for {@link KfCallback}.
@@ -56,6 +56,30 @@ final class KfCallbackTest {
               recordMetadata.topic(),
               Matchers.equalTo("fake-topic")
           )
+        )
+    ) {
+      producer.send(
+        "fake-key",
+        new KfData<>("fake-data", "fake-topic", 101)
+      );
+    }
+  }
+
+  @Test
+  void sendsWithCallbackViaSettings(
+    @Mock final KafkaProducer<String, String> origin,
+    @Mock final ProducerSettings<String, String> settings
+  ) {
+    Mockito.when(settings.producer()).thenReturn(origin);
+    try (
+      final KfCallback<String, String> producer =
+        new KfCallback<>(
+          settings,
+          (recordMetadata, e) ->
+            MatcherAssert.assertThat(
+              recordMetadata.topic(),
+              Matchers.equalTo("fake-topic")
+            )
         )
     ) {
       producer.send(
