@@ -57,7 +57,10 @@ public final class KfCallback<K, X> implements Producer<K, X> {
    * @param settings The producer settings
    * @param callback The callback
    */
-  public KfCallback(final ProducerSettings<K, X> settings, final Callback callback) {
+  public KfCallback(
+    final ProducerSettings<K, X> settings,
+    final Callback callback
+  ) {
     this(settings.producer(), callback);
   }
 
