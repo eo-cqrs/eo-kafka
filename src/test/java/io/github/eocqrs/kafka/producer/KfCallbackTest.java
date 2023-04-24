@@ -26,6 +26,7 @@ package io.github.eocqrs.kafka.producer;
 
 import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.data.KfData;
+import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -58,7 +59,7 @@ final class KfCallbackTest {
           )
         )
     ) {
-      producer.send(
+      final Future<RecordMetadata> future = producer.send(
         "fake-key",
         new KfData<>("fake-data", "fake-topic", 101)
       );
@@ -82,7 +83,7 @@ final class KfCallbackTest {
             )
         )
     ) {
-      producer.send(
+      final Future<RecordMetadata> future = producer.send(
         "fake-key",
         new KfData<>("fake-data", "fake-topic", 101)
       );
