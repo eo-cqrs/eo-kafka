@@ -31,6 +31,7 @@ import io.github.eocqrs.kafka.Dataized;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
+import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 
 /**
  * Fake Consumer.
@@ -49,6 +50,11 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
 
   @Override
   public void subscribe(final Collection<String> topics) {
+    throw new UnsupportedOperationException("#subscribe()");
+  }
+
+  @Override
+  public void subscribe(final ConsumerRebalanceListener listener, final String... topics) {
     throw new UnsupportedOperationException("#subscribe()");
   }
 
