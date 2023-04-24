@@ -54,7 +54,8 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
   }
 
   @Override
-  public void subscribe(final ConsumerRebalanceListener listener, final String... topics) {
+  public void subscribe(final ConsumerRebalanceListener listener,
+                        final String... topics) {
     throw new UnsupportedOperationException("#subscribe()");
   }
 
