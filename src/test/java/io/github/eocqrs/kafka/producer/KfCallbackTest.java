@@ -32,6 +32,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -56,12 +57,18 @@ final class KfCallbackTest {
             MatcherAssert.assertThat(
               recordMetadata.topic(),
               Matchers.equalTo("fake-topic")
-          )
+            )
         )
     ) {
-      final Future<RecordMetadata> future = producer.send(
-        "fake-key",
-        new KfData<>("fake-data", "fake-topic", 101)
+      Assertions.assertDoesNotThrow(
+        () -> producer.send(
+          "fake-key",
+          new KfData<>(
+            "fake-data",
+            "fake-topic",
+            101
+          )
+        )
       );
     }
   }
@@ -83,9 +90,15 @@ final class KfCallbackTest {
             )
         )
     ) {
-      final Future<RecordMetadata> future = producer.send(
-        "fake-key",
-        new KfData<>("fake-data", "fake-topic", 101)
+      Assertions.assertDoesNotThrow(
+        () -> producer.send(
+          "fake-key",
+          new KfData<>(
+            "fake-data",
+            "fake-topic",
+            101
+          )
+        )
       );
     }
   }
