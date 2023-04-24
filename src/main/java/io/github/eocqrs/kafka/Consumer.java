@@ -26,6 +26,7 @@ import java.io.Closeable;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
+import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 
 /**
  * Consumer.
@@ -51,6 +52,14 @@ public interface Consumer<K, X> extends Closeable {
    * @param topics topics to subscribe
    */
   void subscribe(Collection<String> topics);
+
+  /**
+   * Subscribe.
+   *
+   * @param listener rebalance listener
+   * @param topics   topics to subscribe
+   */
+  void subscribe(ConsumerRebalanceListener listener, String... topics);
 
   /**
    * Dataized.

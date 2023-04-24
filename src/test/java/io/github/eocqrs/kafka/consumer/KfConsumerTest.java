@@ -32,7 +32,10 @@ import io.github.eocqrs.kafka.parameters.KfFlexible;
 import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueDeserializer;
 import io.github.eocqrs.kafka.xml.KfXmlFlexible;
+import java.util.Collection;
+import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.TopicPartition;
 import org.cactoos.list.ListOf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,13 +58,22 @@ final class KfConsumerTest {
   void subscribes(
     @Mock final ConsumerSettings<String, String> settings,
     @Mock final KafkaConsumer<String, String> consumer
-    ) {
+  ) {
     Mockito.when(settings.consumer()).thenReturn(consumer);
     final Consumer<String, String> underTest = new KfConsumer<>(settings);
     assertDoesNotThrow(
       () -> {
         underTest.subscribe(new ListOf<>("transactions-info"));
         underTest.subscribe("transactions-info");
+        underTest.subscribe(new ConsumerRebalanceListener() {
+          @Override
+          public void onPartitionsRevoked(final Collection<TopicPartition> partitions) {
+          }
+
+          @Override
+          public void onPartitionsAssigned(final Collection<TopicPartition> partitions) {
+          }
+        }, "transactions-info");
       }
     );
     assertDoesNotThrow(

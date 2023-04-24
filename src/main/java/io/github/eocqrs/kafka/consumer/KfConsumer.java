@@ -26,6 +26,7 @@ import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
 import io.github.eocqrs.kafka.Dataized;
 import io.github.eocqrs.kafka.data.KfData;
+import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.cactoos.list.ListOf;
 
@@ -76,6 +77,11 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
   @Override
   public void subscribe(final Collection<String> topics) {
     this.origin.subscribe(topics);
+  }
+
+  @Override
+  public void subscribe(final ConsumerRebalanceListener listener, final String... topics) {
+    this.origin.subscribe(new ListOf<>(topics), listener);
   }
 
   /**
