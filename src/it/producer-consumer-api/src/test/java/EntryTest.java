@@ -41,13 +41,14 @@ import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.KafkaContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.utility.DockerImageName;
 
 /**
@@ -61,19 +62,25 @@ import org.testcontainers.utility.DockerImageName;
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-@Testcontainers
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 final class EntryTest {
 
-  @Container
   private static final KafkaContainer KAFKA = new KafkaContainer(
     DockerImageName.parse("confluentinc/cp-kafka:7.3.0")
   )
-    .withEnv("auto.create.topics.enable", "true")
+    .withEnv("KAFKA_CREATE_TOPICS", "TEST-TOPIC")
+    .withReuse(true)
+    .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger("testcontainers.kafka")))
     .withEmbeddedZookeeper();
 
-  private final String severs =
-    EntryTest.KAFKA.getBootstrapServers().replace("PLAINTEXT://", "");
+  private static String servers = null;
+
+  @BeforeAll
+  static void setup() {
+    EntryTest.KAFKA.start();
+    EntryTest.servers =
+      EntryTest.KAFKA.getBootstrapServers().replace("PLAINTEXT://", "");
+  }
 
   @Test
   @Order(1)
@@ -94,7 +101,7 @@ final class EntryTest {
           new KfFlexible<>(
             new KfConsumerParams(
               new KfParams(
-                new BootstrapServers(this.severs),
+                new BootstrapServers(EntryTest.servers),
                 new GroupId("1"),
                 new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
                 new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
@@ -116,18 +123,18 @@ final class EntryTest {
           new KfFlexible<>(
             new KfProducerParams(
               new KfParams(
-                new BootstrapServers(this.severs),
+                new BootstrapServers(EntryTest.servers),
                 new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
                 new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer")
               )
             )
           )
         )
-    ) {
+      ) {
       Assertions.assertDoesNotThrow(
         () -> producer.send(
           "fake-key",
-          new KfData<>("fake-data", "101", 1)
+          new KfData<>("fake-data", "TEST-TOPIC", 1)
         )
       );
     }
