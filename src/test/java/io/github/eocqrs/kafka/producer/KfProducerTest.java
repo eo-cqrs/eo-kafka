@@ -38,15 +38,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 /**
  * Test case for {@link io.github.eocqrs.kafka.producer.KfProducer}
  *
  * @since 0.0.0
- */
-
-/**
- * @todo #47:45m/DEV Consumer Producer communication.
- * We have to create an ITCase for communication between Consumer and Producer.
  */
 @ExtendWith(MockitoExtension.class)
 final class KfProducerTest {
