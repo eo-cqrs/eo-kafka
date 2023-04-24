@@ -23,12 +23,15 @@
 package io.github.eocqrs.kafka;
 
 import java.io.Closeable;
+import java.util.concurrent.Future;
+import org.apache.kafka.clients.producer.RecordMetadata;
 
 /*
-* @todo #204:DEV/30min Make send return CompletableFuture.
-*  A more correct way to implement the #send
-*  method should have the return type CompletableFuture
-* */
+ * @todo #204:DEV/30min Make send return CompletableFuture.
+ *  A more correct way to implement the #send
+ *  method should have the return type CompletableFuture
+ * */
+
 /**
  * Producer.
  *
@@ -44,6 +47,7 @@ public interface Producer<K, X> extends Closeable {
    *
    * @param key  message key
    * @param data data wrapper to process
+   * @return Future with RecordMetadata.
    */
-  void send(K key, Data<X> data);
+  Future<RecordMetadata> send(K key, Data<X> data);
 }

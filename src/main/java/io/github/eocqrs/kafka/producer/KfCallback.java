@@ -27,9 +27,11 @@ package io.github.eocqrs.kafka.producer;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.ProducerSettings;
+import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
 
 /*
  * @todo #204:DEV/30min Integration test for `KfCallback`
@@ -80,8 +82,8 @@ public final class KfCallback<K, X> implements Producer<K, X> {
   }
 
   @Override
-  public void send(final K key, final Data<X> data) {
-    this.origin.send(
+  public Future<RecordMetadata> send(final K key, final Data<X> data) {
+    return this.origin.send(
       new ProducerRecord<>(
         data.topic(),
         data.partition(),
