@@ -33,6 +33,10 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
+/*
+ * @todo #204:DEV/30min Integration test for `KfCallback`
+ *  Create an integration test to test the callback mechanism.
+ * */
 /**
  * Kafka Producer with callback, decorator for {@link Producer}.
  *
