@@ -24,6 +24,9 @@
 
 package io.github.eocqrs.kafka.fake;
 
+import java.util.Collection;
+import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
+import org.apache.kafka.common.TopicPartition;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -41,30 +44,42 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 final class FkConsumerTest {
 
-    @Test
-    void createsFakeConsumer() {
-      final FkConsumer<String, String> consumer = new FkConsumer<>();
-      MatcherAssert.assertThat(consumer, Matchers.is(Matchers.notNullValue()));
-      assertThrows(
-        UnsupportedOperationException.class,
-        () -> consumer.subscribe("123")
-      );
-      assertThrows(
-        UnsupportedOperationException.class,
-        () -> consumer.subscribe(new ArrayList<>(0))
-      );
-      assertThrows(
-        UnsupportedOperationException.class,
-        () -> consumer.iterate("123", Duration.ofMillis(100L))
-      );
-      assertThrows(
-        UnsupportedOperationException.class,
-        () -> consumer.iterate("123", Duration.ofMillis(100L))
-      );
-      assertThrows(
-        UnsupportedOperationException.class,
-        consumer::close
-      );
-    }
+  @Test
+  void createsFakeConsumer() {
+    final FkConsumer<String, String> consumer = new FkConsumer<>();
+    MatcherAssert.assertThat(consumer, Matchers.is(Matchers.notNullValue()));
+    assertThrows(
+      UnsupportedOperationException.class,
+      () -> consumer.subscribe("123")
+    );
+    assertThrows(
+      UnsupportedOperationException.class,
+      () -> consumer.subscribe(new ArrayList<>(0))
+    );
+    assertThrows(
+      UnsupportedOperationException.class,
+      () -> consumer.subscribe(new ConsumerRebalanceListener() {
+        @Override
+        public void onPartitionsRevoked(final Collection<TopicPartition> partitions) {
+        }
+
+        @Override
+        public void onPartitionsAssigned(final Collection<TopicPartition> partitions) {
+        }
+      }, "fake")
+    );
+    assertThrows(
+      UnsupportedOperationException.class,
+      () -> consumer.iterate("123", Duration.ofMillis(100L))
+    );
+    assertThrows(
+      UnsupportedOperationException.class,
+      () -> consumer.iterate("123", Duration.ofMillis(100L))
+    );
+    assertThrows(
+      UnsupportedOperationException.class,
+      consumer::close
+    );
+  }
 
 }
