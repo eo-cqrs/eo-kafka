@@ -30,7 +30,7 @@ import lombok.RequiredArgsConstructor;
  * @since 0.0.0
  */
 @RequiredArgsConstructor
-public final class TextXpath {
+final class TextXpath {
 
   /**
    * The XML file.

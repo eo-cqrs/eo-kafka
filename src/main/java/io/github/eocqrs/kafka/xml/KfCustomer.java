@@ -28,7 +28,7 @@ package io.github.eocqrs.kafka.xml;
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2
  */
-public enum KfCustomer {
+enum KfCustomer {
   /**
    * The consumer.
    */
