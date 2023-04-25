@@ -38,7 +38,7 @@ import org.apache.kafka.clients.producer.RecordMetadata;
  *  Create an integration test to test the callback mechanism.
  * */
 /**
- * Kafka Producer with callback, decorator for {@link Producer}.
+ * Kafka Producer with callback, decorator for {@link KafkaProducer}.
  *
  * @param <K> The key
  * @param <X> The value

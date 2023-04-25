@@ -35,6 +35,7 @@ import io.github.eocqrs.kafka.parameters.KfFlexible;
 import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueDeserializer;
 import io.github.eocqrs.kafka.parameters.ValueSerializer;
+import io.github.eocqrs.kafka.producer.KfCallback;
 import io.github.eocqrs.kafka.producer.KfProducer;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import org.cactoos.list.ListOf;
@@ -50,6 +51,8 @@ import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.utility.DockerImageName;
+
+import java.io.IOException;
 
 /**
  * @todo #81 Tests to produce-consume data.
@@ -94,7 +97,7 @@ final class EntryTest {
 
   @Test
   @Order(2)
-  void createsConsumerAndSubscribes() throws Exception {
+  void createsConsumerAndSubscribes() throws IOException {
     try (
       final Consumer<String, String> consumer =
         new KfConsumer<>(
@@ -116,7 +119,7 @@ final class EntryTest {
 
   @Test
   @Order(3)
-  void createsProducerAndSendsData() throws Exception {
+  void createsProducerAndSendsData() throws IOException {
     try (
       final Producer<String, String> producer =
         new KfProducer<>(
@@ -136,6 +139,35 @@ final class EntryTest {
           "fake-key",
           new KfData<>("fake-data", "TEST-TOPIC", 1)
         )
+      );
+    }
+  }
+
+  @Test
+  @Order(4)
+  void createsProducerWithCallback() throws IOException {
+    try (
+      final Producer<String, String> producer =
+        new KfCallback<>(
+          new KfFlexible<>(
+            new KfProducerParams(
+              new KfParams(
+                new BootstrapServers(EntryTest.servers),
+                new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
+                new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer")
+              )
+            )
+          ),
+          (recordMetadata, e) ->
+            MatcherAssert.assertThat(
+              recordMetadata.topic(),
+              Matchers.equalTo("TEST-TOPIC")
+            )
+        )
+    ) {
+      producer.send(
+        "test-key",
+        new KfData<>("test-data", "TEST-TOPIC", 1)
       );
     }
   }
