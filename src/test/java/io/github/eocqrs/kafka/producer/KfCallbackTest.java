@@ -26,10 +26,7 @@ package io.github.eocqrs.kafka.producer;
 
 import io.github.eocqrs.kafka.ProducerSettings;
 import io.github.eocqrs.kafka.data.KfData;
-import java.util.concurrent.Future;
-import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;

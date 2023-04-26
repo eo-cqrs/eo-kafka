@@ -128,6 +128,26 @@ try (final Producer<String, String> producer = ...) {
 }
 ```
 
+Also, you can create [KfCallback](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/producer/KfCallback.java), Kafka Producer with Async [Callback](https://kafka.apache.org/26/javadoc/org/apache/kafka/clients/producer/Callback.html) support:
+```java
+final Producer<String, String> producer =
+  new KfCallback<>(
+    new KfFlexible<>(
+      new KfProducerParams(
+        new KfParams(
+          // producer params
+        )
+      )
+    ),
+    new Callback() {
+      @Override
+      public void onCompletion(final RecordMetadata meta, final Exception ex) {
+        // logic
+      }
+    }
+);    
+```
+
 ## Consumer API
 To create Kafka Consumer you can wrap original [KafkaConsumer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html):
 ```java
@@ -194,6 +214,7 @@ try (
     }
   }
 ```
+Also, you can `subscribe` with 
 
 ## Config API
 | Kafka Property                  | eo-kafka API                                                                                                                                                    | XML tag
