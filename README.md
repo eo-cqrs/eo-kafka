@@ -214,7 +214,19 @@ try (
     }
   }
 ```
-Also, you can `subscribe` with 
+Also, you can `subscribe` with [ConsumerRebalanceListener](https://kafka.apache.org/24/javadoc/index.html?org/apache/kafka/clients/consumer/ConsumerRebalanceListener.html):
+```java
+consumer.subscribe(new ConsumerRebalanceListener() {
+    @Override
+    public void onPartitionsRevoked(final Collection<TopicPartition> partitions) {
+    }
+    @Override
+    public void onPartitionsAssigned(final Collection<TopicPartition> partitions) {
+    }
+  }, "<your topic>");
+ }
+);
+```
 
 ## Config API
 | Kafka Property                  | eo-kafka API                                                                                                                                                    | XML tag
