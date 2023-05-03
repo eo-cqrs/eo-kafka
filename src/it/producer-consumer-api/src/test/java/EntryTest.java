@@ -88,6 +88,10 @@ import static org.assertj.core.api.Assertions.*;
  */
 
 /**
+ * @todo #236:30m/DEV Enable tests
+ */
+
+/**
  * Entry test cases.
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
