@@ -266,8 +266,6 @@ final class EntryTest {
 //    ).get();
     consumer.subscribe(Collections.singletonList("TEST-TOPIC"));
     producer.send(new ProducerRecord<>("TEST-TOPIC", "testcontainers", "rulezzz")).get();
-
-
     Unreliables.retryUntilTrue(
       10,
       TimeUnit.SECONDS,
