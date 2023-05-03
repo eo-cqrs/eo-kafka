@@ -34,6 +34,9 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+/**
+ * @todo #236:30m/DEV Unsubscribe is not implemented
+ */
 
 /**
  * Kafka Consumer.
@@ -86,15 +89,7 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
   }
 
   /**
-   * @todo #41:30m/DEV Data polling
-   * <pre>
-   * example:
-   * origin.poll(timeout)
-   *       .records(topic)
-   *       .forEach(...ConsumerRecord) {
-   *         ...
-   *       };
-   * </pre>
+   * @todo #236:30m/DEV ConsumerRecords data polling
    */
   @Override
   public List<Dataized<X>> iterate(final String topic, final Duration timeout) {

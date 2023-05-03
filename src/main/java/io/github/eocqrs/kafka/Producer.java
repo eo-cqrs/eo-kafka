@@ -25,6 +25,9 @@ package io.github.eocqrs.kafka;
 import java.io.Closeable;
 import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.RecordMetadata;
+/**
+ * @todo #236:30m/DEV Producer send data without partition
+ */
 
 /**
  * Producer.
