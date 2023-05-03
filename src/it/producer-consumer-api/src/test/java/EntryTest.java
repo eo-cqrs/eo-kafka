@@ -110,7 +110,6 @@ final class EntryTest {
       )
     )
     .withExternalZookeeper("localhost:2181");
-//    .withEmbeddedZookeeper();
 
   private static String servers;
 
@@ -199,19 +198,6 @@ final class EntryTest {
     final AdminClient admin = AdminClient.create(
       ImmutableMap.of(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, EntryTest.servers)
     );
-//    final Producer<String, String> producer =
-//      new KfProducer<>(
-//        new KfFlexible<>(
-//          new KfProducerParams(
-//            new KfParams(
-//              new BootstrapServers(EntryTest.servers),
-//              new KeySerializer("org.apache.kafka.common.serialization.StringSerializer"),
-//              new ValueSerializer("org.apache.kafka.common.serialization.StringSerializer"),
-//              new ClientId(UUID.randomUUID().toString())
-//            )
-//          )
-//        )
-//      );
     final KafkaProducer<String, String> producer = new KafkaProducer<>(
       ImmutableMap.of(
         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -234,36 +220,12 @@ final class EntryTest {
       new StringDeserializer(),
       new StringDeserializer()
     );
-//    final Consumer<String, String> consumer =
-//      new KfConsumer<>(
-//        new KfFlexible<>(
-//          new KfConsumerParams(
-//            new KfParams(
-//              new BootstrapServers(EntryTest.servers),
-//              new GroupId("1"),
-//              new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
-//              new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
-//              new ClientId(UUID.randomUUID().toString())
-//            )
-//          )
-//        )
-//      );
     final Collection<NewTopic> topics =
       Collections.singletonList(
         new NewTopic("TEST-TOPIC", 1, (short) 1)
       );
     admin.createTopics(topics)
       .all().get(30L, TimeUnit.SECONDS);
-
-//    consumer.subscribe("TEST-TOPIC");
-//    producer.send(
-//      "integration-test-inc-1",
-//      new KfData<>(
-//        "test data",
-//        "TEST-TOPIC",
-//        0
-//      )
-//    ).get();
     consumer.subscribe(Collections.singletonList("TEST-TOPIC"));
     producer.send(new ProducerRecord<>("TEST-TOPIC", "testcontainers", "rulezzz")).get();
     Unreliables.retryUntilTrue(
@@ -283,8 +245,6 @@ final class EntryTest {
       }
     );
     consumer.unsubscribe();
-//    producer.close();
-//    consumer.close();
   }
 
   @Disabled
