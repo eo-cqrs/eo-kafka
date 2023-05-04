@@ -80,7 +80,7 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
   }
 
   /*
-   * @todo #54:60m/DEV Fake close is not implemented
+   * @todo #54:60m/DEV Fake consumer close is not implemented
    */
   @Override
   public void close() {

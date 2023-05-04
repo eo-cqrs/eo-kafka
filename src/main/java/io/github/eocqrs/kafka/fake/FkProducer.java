@@ -46,7 +46,7 @@ public final class FkProducer<K, X> implements Producer<K, X> {
   }
 
   /*
-   * @todo #44:60m/DEV Fake close is not implemented
+   * @todo #44:60m/DEV Fake producer close is not implemented
    */
   @Override
   public void close() {
