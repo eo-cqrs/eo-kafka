@@ -78,6 +78,10 @@ final class FkConsumerTest {
     );
     assertThrows(
       UnsupportedOperationException.class,
+      consumer::unsubscribe
+    );
+    assertThrows(
+      UnsupportedOperationException.class,
       consumer::close
     );
   }
