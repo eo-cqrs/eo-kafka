@@ -111,6 +111,11 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
   }
 
   @Override
+  public void unsubscribe() {
+    this.origin.unsubscribe();
+  }
+
+  @Override
   public void close() {
     this.origin.close();
   }

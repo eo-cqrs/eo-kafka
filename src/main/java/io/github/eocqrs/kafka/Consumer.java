@@ -26,6 +26,7 @@ import java.io.Closeable;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
+
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 
 /**
@@ -69,4 +70,9 @@ public interface Consumer<K, X> extends Closeable {
    * @return Dataized polled data.
    */
   List<Dataized<X>> iterate(String topic, Duration timeout);
+
+  /**
+   * Unsubscribe.
+   */
+  void unsubscribe();
 }

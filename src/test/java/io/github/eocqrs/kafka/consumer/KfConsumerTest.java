@@ -32,7 +32,9 @@ import io.github.eocqrs.kafka.parameters.KfFlexible;
 import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueDeserializer;
 import io.github.eocqrs.kafka.xml.KfXmlFlexible;
+
 import java.util.Collection;
+
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
@@ -55,7 +57,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 final class KfConsumerTest {
 
   @Test
-  void subscribes(
+  void subscribesWithoutException(
     @Mock final ConsumerSettings<String, String> settings,
     @Mock final KafkaConsumer<String, String> consumer
   ) {
@@ -79,6 +81,18 @@ final class KfConsumerTest {
     assertDoesNotThrow(
       underTest::close
     );
+  }
+
+  @Test
+  void unsubscribesWithoutException(
+    @Mock final ConsumerSettings<String, String> settings,
+    @Mock final KafkaConsumer<String, String> origin
+  ) {
+    Mockito.when(settings.consumer()).thenReturn(origin);
+    final Consumer<String, String> consumer =
+      new KfConsumer<>(settings);
+    assertDoesNotThrow(consumer::unsubscribe);
+    assertDoesNotThrow(consumer::close);
   }
 
   @Test

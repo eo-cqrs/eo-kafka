@@ -65,6 +65,11 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
   }
 
   @Override
+  public void unsubscribe() {
+    throw new UnsupportedOperationException("#unsubscribe()");
+  }
+
+  @Override
   public void close() {
     throw new UnsupportedOperationException("#close()");
   }
