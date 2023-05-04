@@ -25,6 +25,7 @@
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.Dataized;
 import io.github.eocqrs.kafka.Producer;
+import io.github.eocqrs.kafka.admin.CreateTopics;
 import io.github.eocqrs.kafka.consumer.KfConsumer;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.data.KfData;
@@ -82,12 +83,6 @@ import java.util.concurrent.TimeUnit;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * @todo #81 Tests to produce-consume data.
- * Write a test which will be check how consumer
- * reads data from producer.
- */
-
-/**
  * @todo #236:30m/DEV Enable tests
  */
 
@@ -103,7 +98,6 @@ final class EntryTest {
   private static final KafkaContainer KAFKA = new KafkaContainer(
     DockerImageName.parse("confluentinc/cp-kafka:7.3.0")
   )
-    .withEnv("auto.create.topics.enable", "true")
     .withEnv("KAFKA_CREATE_TOPICS", "TEST-TOPIC")
     .withReuse(true)
     .withLogConsumer(
@@ -113,7 +107,7 @@ final class EntryTest {
         )
       )
     )
-    .withExternalZookeeper("localhost:2181");
+    .withEmbeddedZookeeper();
 
   private static String servers;
 
@@ -202,6 +196,10 @@ final class EntryTest {
     final AdminClient admin = AdminClient.create(
       ImmutableMap.of(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, EntryTest.servers)
     );
+    new CreateTopics(
+      admin,
+      new NewTopic("TEST-TOPIC", 1, (short) 1)
+    ).value().get(30L, TimeUnit.SECONDS);
     final KafkaProducer<String, String> producer = new KafkaProducer<>(
       ImmutableMap.of(
         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -224,12 +222,6 @@ final class EntryTest {
       new StringDeserializer(),
       new StringDeserializer()
     );
-    final Collection<NewTopic> topics =
-      Collections.singletonList(
-        new NewTopic("TEST-TOPIC", 1, (short) 1)
-      );
-    admin.createTopics(topics)
-      .all().get(30L, TimeUnit.SECONDS);
     consumer.subscribe(Collections.singletonList("TEST-TOPIC"));
     producer.send(new ProducerRecord<>("TEST-TOPIC", "testcontainers", "rulezzz")).get();
     Unreliables.retryUntilTrue(
