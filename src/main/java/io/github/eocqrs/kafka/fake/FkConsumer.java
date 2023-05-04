@@ -54,7 +54,8 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
   }
 
   /*
-   * @todo #54:60m/DEV Fake subscribe with ConsumerRebalanceListener is not implemented
+   * @todo #54:60m/DEV Fake subscribe with
+   *    ConsumerRebalanceListener is not implemented
    */
   @Override
   public void subscribe(final ConsumerRebalanceListener listener,
