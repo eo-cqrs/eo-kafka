@@ -19,9 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/*
- * @todo #10:45m/DEV Fake Producer implementation
- */
 
 package io.github.eocqrs.kafka.fake;
 
@@ -40,11 +37,17 @@ import org.apache.kafka.clients.producer.RecordMetadata;
  */
 public final class FkProducer<K, X> implements Producer<K, X> {
 
+  /*
+   * @todo #44:60m/DEV Fake send is not implemented
+   */
   @Override
   public Future<RecordMetadata> send(final K key, final Data<X> message) {
     throw new UnsupportedOperationException("#send()");
   }
 
+  /*
+   * @todo #44:60m/DEV Fake close is not implemented
+   */
   @Override
   public void close() {
     throw new UnsupportedOperationException("#close()");

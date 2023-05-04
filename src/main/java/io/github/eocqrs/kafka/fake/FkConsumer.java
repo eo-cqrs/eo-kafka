@@ -19,9 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-/*
- * @todo #49:45m/DEV Fake Consumer implementation
- */
 
 package io.github.eocqrs.kafka.fake;
 
@@ -43,6 +40,9 @@ import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
  */
 public final class FkConsumer<K, X> implements Consumer<K, X> {
 
+  /*
+   * @todo #54:60m/DEV Fake subscribe is not implemented
+   */
   @Override
   public void subscribe(final String... topics) {
     throw new UnsupportedOperationException("#subscribe()");
@@ -53,22 +53,34 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
     throw new UnsupportedOperationException("#subscribe()");
   }
 
+  /*
+   * @todo #54:60m/DEV Fake subscribe with ConsumerRebalanceListener is not implemented
+   */
   @Override
   public void subscribe(final ConsumerRebalanceListener listener,
                         final String... topics) {
     throw new UnsupportedOperationException("#subscribe()");
   }
 
+  /*
+   * @todo #54:60m/DEV Fake iterate is not implemented
+   */
   @Override
   public List<Dataized<X>> iterate(final String topic, final Duration timeout) {
     throw new UnsupportedOperationException("#iterate()");
   }
 
+  /*
+   * @todo #54:60m/DEV Fake unsubscribe is not implemented
+   */
   @Override
   public void unsubscribe() {
     throw new UnsupportedOperationException("#unsubscribe()");
   }
 
+  /*
+   * @todo #54:60m/DEV Fake close is not implemented
+   */
   @Override
   public void close() {
     throw new UnsupportedOperationException("#close()");
