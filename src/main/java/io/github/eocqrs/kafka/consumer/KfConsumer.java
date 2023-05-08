@@ -84,7 +84,6 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
 
   /**
    * @todo #289:30m/DEV ConsumerRecords wrapping up
-   * we have to wrap the ConsumerRecords into some object
    */
   @Override
   public ConsumerRecords<K, X> records(
