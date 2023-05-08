@@ -37,7 +37,7 @@ SOFTWARE.
     <junit.version>5.9.3</junit.version>
     <hamcrest.version>2.2</hamcrest.version>
     <commons-lang3.version>3.12.0</commons-lang3.version>
-    <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+    <maven-surefire-plugin.version>3.1.0</maven-surefire-plugin.version>
     <mockito-core.version>5.3.1</mockito-core.version>
     <testcontainers.version>1.18.0</testcontainers.version>
   </properties>
