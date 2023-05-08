@@ -26,7 +26,7 @@ import java.io.Closeable;
 import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.RecordMetadata;
 /**
- * @todo #236:30m/DEV Producer send data without partition
+ * @todo #287:30m/DEV Producer send is not flexible enough
  */
 
 /**
