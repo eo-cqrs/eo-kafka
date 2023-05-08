@@ -23,12 +23,11 @@
 package io.github.eocqrs.kafka.fake;
 
 import io.github.eocqrs.kafka.Consumer;
-import io.github.eocqrs.kafka.Dataized;
+import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 
 import java.time.Duration;
 import java.util.Collection;
-import java.util.List;
-import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 
 /**
  * Fake Consumer.
@@ -64,11 +63,12 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
   }
 
   /*
-   * @todo #54:60m/DEV Fake iterate is not implemented
+   * @todo #54:60m/DEV Fake records is not implemented
    */
   @Override
-  public List<Dataized<X>> iterate(final String topic, final Duration timeout) {
-    throw new UnsupportedOperationException("#iterate()");
+  public ConsumerRecords<K, X> records(final String topic,
+                                       final Duration timeout) {
+    throw new UnsupportedOperationException("#records()");
   }
 
   /*

@@ -22,12 +22,12 @@
 
 package io.github.eocqrs.kafka;
 
+import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+
 import java.io.Closeable;
 import java.time.Duration;
 import java.util.Collection;
-import java.util.List;
-
-import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 
 /**
  * Consumer.
@@ -63,13 +63,13 @@ public interface Consumer<K, X> extends Closeable {
   void subscribe(ConsumerRebalanceListener listener, String... topics);
 
   /**
-   * Dataized.
+   * Fetch Records.
    *
    * @param topic   topic to poll
    * @param timeout max time to wait
-   * @return Dataized polled data.
+   * @return Records.
    */
-  List<Dataized<X>> iterate(String topic, Duration timeout);
+  ConsumerRecords<K, X> records(String topic, Duration timeout);
 
   /**
    * Unsubscribe.
