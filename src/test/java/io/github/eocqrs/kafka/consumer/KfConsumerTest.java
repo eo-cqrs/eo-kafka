@@ -33,6 +33,7 @@ import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueDeserializer;
 import io.github.eocqrs.kafka.xml.KfXmlFlexible;
 
+import java.time.Duration;
 import java.util.Collection;
 
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
@@ -80,6 +81,21 @@ final class KfConsumerTest {
     );
     assertDoesNotThrow(
       underTest::close
+    );
+  }
+
+  @Test
+  void recordsPollingDoesntThrowException(
+    @Mock final ConsumerSettings<String, String> settings,
+    @Mock final KafkaConsumer<String, String> origin
+  ) {
+    Mockito.when(settings.consumer()).thenReturn(origin);
+    final Consumer<String, String> consumer =
+      new KfConsumer<>(settings);
+    assertDoesNotThrow(() ->
+      consumer.records(
+        "TEST", Duration.ofSeconds(5L)
+      )
     );
   }
 
