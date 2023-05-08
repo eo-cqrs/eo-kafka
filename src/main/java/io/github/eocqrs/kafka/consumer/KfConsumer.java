@@ -87,8 +87,9 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
    * we have to wrap the ConsumerRecords into some object
    */
   @Override
-  public ConsumerRecords<K, X> records(final String topic,
-                                       final Duration timeout) {
+  public ConsumerRecords<K, X> records(
+    final String topic, final Duration timeout
+  ) {
     this.subscribe(topic);
     return this.origin.poll(timeout);
   }

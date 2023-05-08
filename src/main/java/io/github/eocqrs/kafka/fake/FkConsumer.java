@@ -66,8 +66,9 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
    * @todo #54:60m/DEV Fake records is not implemented
    */
   @Override
-  public ConsumerRecords<K, X> records(final String topic,
-                                       final Duration timeout) {
+  public ConsumerRecords<K, X> records(
+    final String topic, final Duration timeout
+  ) {
     throw new UnsupportedOperationException("#records()");
   }
 
