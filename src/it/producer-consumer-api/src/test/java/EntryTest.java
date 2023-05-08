@@ -24,7 +24,6 @@
 
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.Producer;
-import io.github.eocqrs.kafka.admin.CreateTopics;
 import io.github.eocqrs.kafka.consumer.KfConsumer;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.data.KfData;
@@ -41,9 +40,6 @@ import io.github.eocqrs.kafka.parameters.ValueSerializer;
 import io.github.eocqrs.kafka.producer.KfCallback;
 import io.github.eocqrs.kafka.producer.KfProducer;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
-import org.apache.kafka.clients.admin.AdminClient;
-import org.apache.kafka.clients.admin.AdminClientConfig;
-import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -61,7 +57,6 @@ import org.rnorth.ducttape.unreliables.Unreliables;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
-import org.testcontainers.shaded.com.google.common.collect.ImmutableMap;
 import org.testcontainers.utility.DockerImageName;
 
 import java.io.IOException;
@@ -185,15 +180,7 @@ final class EntryTest {
 
   @Test
   @Order(5)
-  void createsProducerAndSendsMessage() throws Exception {
-    final AdminClient admin = AdminClient.create(
-      ImmutableMap.of(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, EntryTest.servers)
-    );
-    new CreateTopics(
-      admin,
-      new NewTopic("TEST-TOPIC", 1, (short) 1)
-    ).value()
-      .get(30L, TimeUnit.SECONDS);
+  void createsProducerAndSendsMessage() {
     final Producer<String, String> producer = new KfProducer<>(
       new KfFlexible<>(
         new KfProducerParams(
@@ -220,7 +207,7 @@ final class EntryTest {
           )
         )
       );
-    producer.send("testcontainers", new KfData<>("rulezzz", "TEST-TOPIC", 0));
+    producer.send("testcontainers", new KfData<>("rulezzzd", "TEST-TOPIC", 0));
     Unreliables.retryUntilTrue(
       10,
       TimeUnit.SECONDS,
