@@ -70,11 +70,11 @@ final class FkConsumerTest {
     );
     assertThrows(
       UnsupportedOperationException.class,
-      () -> consumer.iterate("123", Duration.ofMillis(100L))
+      () -> consumer.records("123", Duration.ofMillis(100L))
     );
     assertThrows(
       UnsupportedOperationException.class,
-      () -> consumer.iterate("123", Duration.ofMillis(100L))
+      () -> consumer.records("123", Duration.ofMillis(100L))
     );
     assertThrows(
       UnsupportedOperationException.class,

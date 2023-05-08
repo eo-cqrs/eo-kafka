@@ -24,19 +24,13 @@ package io.github.eocqrs.kafka.consumer;
 
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
-import io.github.eocqrs.kafka.Dataized;
-import io.github.eocqrs.kafka.data.KfData;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.cactoos.list.ListOf;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-/**
- * @todo #236:30m/DEV Unsubscribe is not implemented
- */
 
 /**
  * Kafka Consumer.
@@ -89,25 +83,15 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
   }
 
   /**
-   * @todo #236:30m/DEV ConsumerRecords data polling
+   * @todo #289:30m/DEV ConsumerRecords wrapping up
+   * we have to wrap the ConsumerRecords into some object
    */
   @Override
-  public List<Dataized<X>> iterate(final String topic, final Duration timeout) {
-    final List<Dataized<X>> accumulator = new ArrayList<>(0);
-    this.origin
-      .poll(timeout)
-      .records(topic)
-      .forEach(
-        data ->
-          accumulator.add(
-            new KfData<>(
-              data.value(),
-              topic,
-              data.partition()
-            ).dataized()
-          )
-      );
-    return accumulator;
+  public ConsumerRecords<K, X> records(
+    final String topic, final Duration timeout
+  ) {
+    this.subscribe(topic);
+    return this.origin.poll(timeout);
   }
 
   @Override
