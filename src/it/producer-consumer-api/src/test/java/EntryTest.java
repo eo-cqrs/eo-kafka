@@ -207,7 +207,7 @@ final class EntryTest {
           )
         )
       );
-    producer.send("testcontainers", new KfData<>("rulezzzd", "TEST-TOPIC", 0));
+    producer.send("testcontainers", new KfData<>("rulezzz", "TEST-TOPIC", 0));
     Unreliables.retryUntilTrue(
       10,
       TimeUnit.SECONDS,
