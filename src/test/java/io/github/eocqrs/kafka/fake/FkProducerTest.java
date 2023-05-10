@@ -40,9 +40,7 @@ final class FkProducerTest {
 
   @Test
   void createsFakeProducer() {
-    final Producer<String, String> producer = new FkProducer<>(
-      null
-    );
+    final Producer<String, String> producer = new FkProducer<>();
     assertThrows(
       UnsupportedOperationException.class,
       () ->
