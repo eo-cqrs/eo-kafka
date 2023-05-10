@@ -46,5 +46,5 @@ public interface Producer<K, X> extends Closeable {
    * @param data data wrapper to process
    * @return Future with RecordMetadata.
    */
-  Future<RecordMetadata> send(K key, Data<X> data);
+  Future<RecordMetadata> send(K key, Data<X> data) throws Exception;
 }
