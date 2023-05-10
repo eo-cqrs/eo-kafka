@@ -180,7 +180,7 @@ final class EntryTest {
 
   @Test
   @Order(5)
-  void createsProducerAndSendsMessage() {
+  void createsProducerAndSendsMessage() throws Exception {
     final Producer<String, String> producer = new KfProducer<>(
       new KfFlexible<>(
         new KfProducerParams(
@@ -229,7 +229,7 @@ final class EntryTest {
 
   @Test
   @Order(4)
-  void createsProducerWithCallback() throws IOException {
+  void createsProducerWithCallback() throws Exception {
     try (
       final Producer<String, String> producer =
         new KfCallback<>(
