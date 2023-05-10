@@ -24,11 +24,9 @@ package io.github.eocqrs.kafka.fake;
 
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
+import org.apache.kafka.clients.producer.RecordMetadata;
 
 import java.util.concurrent.Future;
-
-import org.apache.kafka.clients.producer.RecordMetadata;
-import org.xembly.Directives;
 
 /**
  * Fake Producer.
@@ -40,21 +38,15 @@ import org.xembly.Directives;
  */
 public final class FkProducer<K, X> implements Producer<K, X> {
 
-  private final FkBroker broker;
-
-  public FkProducer(final FkBroker brkr) {
-    this.broker = brkr;
-  }
-
   /*
    * @todo #44:60m/DEV Fake send is not implemented
    */
   @Override
-  public Future<RecordMetadata> send(final K key, final Data<X> message) throws Exception {
-    this.broker.apply(new Directives(
-      )
-    );
-    throw new RuntimeException();
+  public Future<RecordMetadata> send(
+    final K key,
+    final Data<X> message
+  ) throws Exception {
+    throw new UnsupportedOperationException("#send");
   }
 
   /*
@@ -62,6 +54,6 @@ public final class FkProducer<K, X> implements Producer<K, X> {
    */
   @Override
   public void close() {
-    this.broker.unlock();
+    throw new UnsupportedOperationException("#close");
   }
 }
