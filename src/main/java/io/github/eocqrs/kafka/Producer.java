@@ -24,6 +24,7 @@ package io.github.eocqrs.kafka;
 
 import java.io.Closeable;
 import java.util.concurrent.Future;
+
 import org.apache.kafka.clients.producer.RecordMetadata;
 /**
  * @todo #287:30m/DEV Producer send is not flexible enough
@@ -45,6 +46,7 @@ public interface Producer<K, X> extends Closeable {
    * @param key  message key
    * @param data data wrapper to process
    * @return Future with RecordMetadata.
+   * @throws Exception When something went wrong.
    */
   Future<RecordMetadata> send(K key, Data<X> data) throws Exception;
 }
