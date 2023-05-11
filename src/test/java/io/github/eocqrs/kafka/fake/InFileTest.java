@@ -18,7 +18,7 @@ final class InFileTest {
   void createsStorageInXmlFile() throws Exception {
     final FkStorage storage = new InFile();
     MatcherAssert.assertThat(
-      "Broker has root <broker> tag",
+      "Storage has root <broker> tag",
       storage.xml().nodes("broker").isEmpty(),
       Matchers.equalTo(false)
     );
