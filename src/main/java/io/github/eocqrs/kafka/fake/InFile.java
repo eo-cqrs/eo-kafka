@@ -34,12 +34,12 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Broker in file.
+ * Storage in file.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.3
  */
-public final class InFile implements FkBroker {
+public final class InFile implements FkStorage {
 
   /**
    * File name.
