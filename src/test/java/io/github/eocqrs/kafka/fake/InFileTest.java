@@ -2,6 +2,7 @@ package io.github.eocqrs.kafka.fake;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xembly.Directives;
 
@@ -35,6 +36,17 @@ final class InFileTest {
       "XML has right format",
       storage.xml().nodes("broker/servers").isEmpty(),
       Matchers.equalTo(false)
+    );
+  }
+
+  @Test
+  void locksAndUnlocks() throws Exception {
+    final FkStorage storage = new InFile();
+    Assertions.assertDoesNotThrow(
+      storage::lock
+    );
+    Assertions.assertDoesNotThrow(
+      storage::unlock
     );
   }
 }
