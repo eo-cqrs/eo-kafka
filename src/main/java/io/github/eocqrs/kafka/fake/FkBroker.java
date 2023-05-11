@@ -1,4 +1,30 @@
+/*
+ *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package io.github.eocqrs.kafka.fake;
+
+import io.github.eocqrs.kafka.Data;
+
+import java.util.Collection;
 
 /**
  * Fake Kafka Broker.
@@ -7,4 +33,33 @@ package io.github.eocqrs.kafka.fake;
  * @since 0.2.3
  */
 public interface FkBroker {
+
+  /**
+   * Adds Dataset.
+   *
+   * @param key  Dataset key
+   * @param data Data
+   * @param <X>  Data value type
+   * @return FkBroker
+   * @throws Exception When something went wrong.
+   */
+  <X> FkBroker withDataset(Object key, Data<X> data)
+    throws Exception;
+
+  /**
+   * Adds topics.
+   *
+   * @param tpcs Topics
+   * @return FkBroker
+   */
+  FkBroker withTopics(String... tpcs);
+
+  /**
+   * Query data.
+   *
+   * @param query Query
+   * @return Collection of Strings
+   * @throws Exception When something went wrong.
+   */
+  Collection<String> data(String query) throws Exception;
 }
