@@ -99,8 +99,7 @@ Or create it with XML file:
 final Producer<String, String> producer =
   new KfProducer<>(
     new KfXmlFlexible<String, String>("producer.xml") // file with producer config
-       .producer()
-  );
+);
 ```
 btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
 ```xml
@@ -176,8 +175,7 @@ And XML File approach:
 final Consumer<String, String> consumer =
   new KfConsumer<>(
     new KfXmlFlexible<String, String>("consumer.xml")
-      .consumer()
-  );
+);
 ```
 
 Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
@@ -209,8 +207,9 @@ try (
       )
   ) {
   // you need to be subscribed on a topic to iterate over data in the topic
-      consumer.subscribe(new ListOf<>("orders-saga-init")));
-      List<Dataized<String>> result = consumer.iterate("orders-saga-init", Duration.ofSeconds(5L));
+//    consumer.subscribe(new ListOf<>("orders-saga-init")));
+//    or call #records(topic, duration) it will subscribe to the topic you provide
+      final ConsumerRecords<String, String> records = consumer.records("orders-saga-init", Duration.ofSeconds(5L));
     }
   }
 ```
@@ -226,6 +225,11 @@ consumer.subscribe(new ConsumerRebalanceListener() {
   }, "<your topic>");
  }
 );
+```
+
+Finally, you can `unsubscribe`:
+```java
+consumer.unsubscribe();
 ```
 
 ## Config API
