@@ -229,40 +229,41 @@ consumer.subscribe(new ConsumerRebalanceListener() {
 ```
 
 ## Config API
-| Kafka Property                  | eo-kafka API                                                                                                                                                    | XML tag
-|---------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------
-| `bootstrap.servers`             | [BootstrapServers](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BootstrapServers.java)                       | bootstrapServers
-| `key.serializer`                | [KeySerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeySerializer.java)                             | keySerializer
-| `value.serializer`              | [ValueSerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueSerializer.java)                         | valueSerializer
-| `key.deserializer`              | [KeyDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeyDeserializer.java)                         | keyDeserializer
-| `value.deserializer`            | [ValueDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueDeserializer.java)                     | valueDeserializer
-| `group.id`                      | [GroupId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupId.java)                                         | groupId
-| `auto.offset.reset`             | [AutoOffsetReset](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/AutoOffsetReset.java)                         | autoOffsetReset
- | `client.id`                     | [ClientId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ClientId.java)                                       | clientId
-| `acks`                          | [Acks](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Acks.java)                                               | acks
-| `security.protocol`             | [SecurityProtocol](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SecurityProtocol.java)                       | securityProtocol
-| `sasl.jaas.config`              | [SaslJaasConfig](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SaslJaasConfig.java)                           | saslJaasConfig
-| `sasl.mechanism`                | [SaslMechanism](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SaslMechanism.java)                             | saslMechanism
-| `batch.size`                    | [BatchSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BatchSize.java)                                     | batchSize
-| `buffer.memory`                 | [BufferMemory](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BufferMemory.java)                               | bufferMemory
-| `linger.ms`                     | [LingerMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/LingerMs.java)                                       | lingerMs
-| `retries`                       | [Retries](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Retries.java)                                         | retries
-| `retry.backoff.ms`              | [RetryBackoffMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/RetryBackoffMs.java)                           | retryBackoffMs
-| `compression.type`              | [CompressionType](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/CompressionType.java)                         | compressionType
-| `partition.assignment.strategy` | [PartitionAssignmentStrategy](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/PartitionAssignmentStrategy.java) | partitionAssignmentStrategy
-| `max.poll.records`              | [MaxPollRecords](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxPollRecords.java)                           | maxPollRecords
-| `heartbeat.interval.ms`         | [HeartbeatIntervalMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/HeartbeatIntervalMs.java)                 | heartbeatIntervalMs
-| `enable.auto.commit`            | [EnableAutoCommit](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/EnableAutoCommit.java)                       | enableAutoCommit
-| `session.timeout.ms`            | [SessionTimeoutMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SessionTimeoutMs.java)                       | sessionTimeoutMs
-| `max.partition.fetch.bytes`     | [MaxPartitionFetchBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxPartitionFetchBytes.java)           | maxPartitionFetchBytes
-| `fetch.max.wait.ms`             | [FetchMaxWaitMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/FetchMaxWaitMs.java)                           | fetchMaxWaitMs
-| `fetch.min.bytes`               | [FetchMinBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/FetchMinBytes.java)                             | fetchMinBytes
-| `send.buffer.bytes`             | [SendBufferBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SendBufferBytes.java)                         | sendBufferBytes
-| `receive.buffer.bytes`          | [ReceiveBufferBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ReceiveBufferBytes.java)                   | receiveBufferBytes
-| `max.block.ms`                  | [MaxBlockMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxBlockMs.java)                                   | maxBlockMs
-| `max.request.size`              | [MaxRqSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxRqSize.java)                                     | maxRequestSize
-| `group.instance.id`             | [GroupInstanceId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupInstanceId.java)                                              | groupInstanceId
-| `max.in.flight.requests.per.connection`             | [MaxInFlightRq](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxInFlightRq.java)                                              | maxInFlightRequestsPerConnection
+| Kafka Property                         | eo-kafka API                                                                                                                                                   | XML tag
+|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------
+| `bootstrap.servers`                    | [BootstrapServers](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BootstrapServers.java)                      | bootstrapServers
+| `key.serializer`                       | [KeySerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeySerializer.java)                            | keySerializer
+| `value.serializer`                     | [ValueSerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueSerializer.java)                        | valueSerializer
+| `key.deserializer`                     | [KeyDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeyDeserializer.java)                        | keyDeserializer
+| `value.deserializer`                   | [ValueDeserializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ValueDeserializer.java)                    | valueDeserializer
+| `group.id`                             | [GroupId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupId.java)                                        | groupId
+| `auto.offset.reset`                    | [AutoOffsetReset](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/AutoOffsetReset.java)                        | autoOffsetReset
+ | `client.id`                            | [ClientId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ClientId.java)                                      | clientId
+| `acks`                                 | [Acks](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Acks.java)                                              | acks
+| `security.protocol`                    | [SecurityProtocol](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SecurityProtocol.java)                      | securityProtocol
+| `sasl.jaas.config`                     | [SaslJaasConfig](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SaslJaasConfig.java)                          | saslJaasConfig
+| `sasl.mechanism`                       | [SaslMechanism](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SaslMechanism.java)                            | saslMechanism
+| `batch.size`                           | [BatchSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BatchSize.java)                                    | batchSize
+| `buffer.memory`                        | [BufferMemory](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BufferMemory.java)                              | bufferMemory
+| `linger.ms`                            | [LingerMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/LingerMs.java)                                      | lingerMs
+| `retries`                              | [Retries](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/Retries.java)                                        | retries
+| `retry.backoff.ms`                     | [RetryBackoffMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/RetryBackoffMs.java)                          | retryBackoffMs
+| `compression.type`                     | [CompressionType](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/CompressionType.java)                        | compressionType
+| `partition.assignment.strategy`        | [PartitionAssignmentStrategy](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/PartitionAssignmentStrategy.java) | partitionAssignmentStrategy
+| `max.poll.records`                     | [MaxPollRecords](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxPollRecords.java)                          | maxPollRecords
+| `heartbeat.interval.ms`                | [HeartbeatIntervalMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/HeartbeatIntervalMs.java)                | heartbeatIntervalMs
+| `enable.auto.commit`                   | [EnableAutoCommit](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/EnableAutoCommit.java)                      | enableAutoCommit
+| `session.timeout.ms`                   | [SessionTimeoutMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SessionTimeoutMs.java)                      | sessionTimeoutMs
+| `max.partition.fetch.bytes`            | [MaxPartitionFetchBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxPartitionFetchBytes.java)          | maxPartitionFetchBytes
+| `fetch.max.wait.ms`                    | [FetchMaxWaitMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/FetchMaxWaitMs.java)                          | fetchMaxWaitMs
+| `fetch.min.bytes`                      | [FetchMinBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/FetchMinBytes.java)                            | fetchMinBytes
+| `send.buffer.bytes`                    | [SendBufferBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/SendBufferBytes.java)                        | sendBufferBytes
+| `receive.buffer.bytes`                 | [ReceiveBufferBytes](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/ReceiveBufferBytes.java)                  | receiveBufferBytes
+| `max.block.ms`                         | [MaxBlockMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxBlockMs.java)                                  | maxBlockMs
+| `max.request.size`                     | [MaxRqSize](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxRqSize.java)                                    | maxRequestSize
+| `group.instance.id`                    | [GroupInstanceId](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/GroupInstanceId.java)                        | groupInstanceId
+| `max.in.flight.requests.per.connection` | [MaxInFlightRq](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/MaxInFlightRq.java)                            | maxInFlightRequestsPerConnection
+| `delivery.timeout.ms`                  | [DeliveryTimeoutMs](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/DeliveryTimeoutMs.java)                    | deliveryTimeoutMs
 
 ## How to Contribute
 
