@@ -24,9 +24,9 @@ package io.github.eocqrs.kafka.fake;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
+import org.cactoos.io.InputStreamOf;
 import org.cactoos.io.TeeInput;
 import org.cactoos.scalar.LengthOf;
-import org.cactoos.text.TextOf;
 import org.xembly.Directive;
 import org.xembly.Xembler;
 
