@@ -82,9 +82,7 @@ public final class InFile implements FkStorage {
   public XML xml() throws Exception {
     synchronized (this.name) {
       return new XMLDocument(
-        new TextOf(
-          new File(this.name)
-        ).asString()
+        new InputStreamOf(this.name)
       );
     }
   }
