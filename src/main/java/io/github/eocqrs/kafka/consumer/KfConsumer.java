@@ -82,10 +82,6 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
     this.origin.subscribe(new ListOf<>(topics), listener);
   }
 
-  /**
-   * @todo #289:30m/DEV ConsumerRecords wrapping up
-   * we have to wrap the ConsumerRecords into some object
-   */
   @Override
   public ConsumerRecords<K, X> records(
     final String topic, final Duration timeout
