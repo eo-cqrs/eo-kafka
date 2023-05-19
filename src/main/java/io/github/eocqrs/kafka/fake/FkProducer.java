@@ -24,8 +24,9 @@ package io.github.eocqrs.kafka.fake;
 
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
-import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.RecordMetadata;
+
+import java.util.concurrent.Future;
 
 /**
  * Fake Producer.
@@ -41,8 +42,11 @@ public final class FkProducer<K, X> implements Producer<K, X> {
    * @todo #44:60m/DEV Fake send is not implemented
    */
   @Override
-  public Future<RecordMetadata> send(final K key, final Data<X> message) {
-    throw new UnsupportedOperationException("#send()");
+  public Future<RecordMetadata> send(
+    final K key,
+    final Data<X> message
+  ) throws Exception {
+    throw new UnsupportedOperationException("#send");
   }
 
   /*
@@ -50,6 +54,6 @@ public final class FkProducer<K, X> implements Producer<K, X> {
    */
   @Override
   public void close() {
-    throw new UnsupportedOperationException("#close()");
+    throw new UnsupportedOperationException("#close");
   }
 }

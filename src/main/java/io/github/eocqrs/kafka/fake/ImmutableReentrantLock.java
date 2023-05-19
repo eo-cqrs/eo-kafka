@@ -20,33 +20,22 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
+package io.github.eocqrs.kafka.fake;
 
-import java.io.Closeable;
-import java.util.concurrent.Future;
-
-import org.apache.kafka.clients.producer.RecordMetadata;
-/**
- * @todo #287:30m/DEV Producer send is not flexible enough
- */
+import java.io.Serial;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Producer.
+ * Immutable Lock.
  *
- * @param <K> The key
- * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.2.3
  */
-public interface Producer<K, X> extends Closeable {
+final class ImmutableReentrantLock extends ReentrantLock {
 
   /**
-   * Send data.
-   *
-   * @param key  message key
-   * @param data data wrapper to process
-   * @return Future with RecordMetadata.
-   * @throws Exception When something went wrong.
+   * Serialization id.
    */
-  Future<RecordMetadata> send(K key, Data<X> data) throws Exception;
+  @Serial
+  private static final long serialVersionUID = -3003135962114984635L;
 }

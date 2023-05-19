@@ -20,33 +20,46 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
+package io.github.eocqrs.kafka.fake;
 
-import java.io.Closeable;
-import java.util.concurrent.Future;
+import io.github.eocqrs.kafka.Data;
 
-import org.apache.kafka.clients.producer.RecordMetadata;
-/**
- * @todo #287:30m/DEV Producer send is not flexible enough
- */
+import java.util.Collection;
 
 /**
- * Producer.
+ * Fake Kafka Broker.
  *
- * @param <K> The key
- * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.2.3
  */
-public interface Producer<K, X> extends Closeable {
+public interface FkBroker {
 
   /**
-   * Send data.
+   * Adds Dataset.
    *
-   * @param key  message key
-   * @param data data wrapper to process
-   * @return Future with RecordMetadata.
+   * @param key  Dataset key
+   * @param data Data
+   * @param <X>  Data value type
+   * @return FkBroker
    * @throws Exception When something went wrong.
    */
-  Future<RecordMetadata> send(K key, Data<X> data) throws Exception;
+  <X> FkBroker withDataset(Object key, Data<X> data)
+    throws Exception;
+
+  /**
+   * Adds topics.
+   *
+   * @param tpcs Topics
+   * @return FkBroker
+   */
+  FkBroker withTopics(String... tpcs);
+
+  /**
+   * Query data.
+   *
+   * @param query Query
+   * @return Collection of Strings
+   * @throws Exception When something went wrong.
+   */
+  Collection<String> data(String query) throws Exception;
 }

@@ -20,33 +20,57 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
+package io.github.eocqrs.kafka.fake;
 
-import java.io.Closeable;
-import java.util.concurrent.Future;
-
-import org.apache.kafka.clients.producer.RecordMetadata;
-/**
- * @todo #287:30m/DEV Producer send is not flexible enough
- */
+import com.jcabi.xml.XML;
+import org.xembly.Directive;
 
 /**
- * Producer.
+ * Fake Kafka Storage.
  *
- * @param <K> The key
- * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.2.3
  */
-public interface Producer<K, X> extends Closeable {
+public interface FkStorage {
 
   /**
-   * Send data.
+   * Full XML.
    *
-   * @param key  message key
-   * @param data data wrapper to process
-   * @return Future with RecordMetadata.
+   * @return XML
    * @throws Exception When something went wrong.
    */
-  Future<RecordMetadata> send(K key, Data<X> data) throws Exception;
+  XML xml() throws Exception;
+
+  /**
+   * Update XML with new directives.
+   *
+   * @param dirs Directives
+   * @throws Exception When something went wrong.
+   */
+  void apply(Iterable<Directive> dirs) throws Exception;
+
+  /**
+   * Locks storage to the current thread.
+   *
+   * <p>If the lock is available, grant it
+   * to the calling thread and block all operations from other threads.
+   * If not available, wait for the holder of the lock to release it with
+   * {@link #unlock()} before any other operations can be performed.
+   *
+   * <p>Locking behavior is reentrant, which means a thread can invoke
+   * multiple times, where a hold count is maintained.
+   */
+  void lock();
+
+  /**
+   * Unlock storage.
+   *
+   * <p>Locking behavior is reentrant, thus if the thread invoked
+   * {@link #lock()} multiple times, the hold count is decremented. If the
+   * hold count reaches 0, the lock is released.
+   *
+   * <p>If the current thread does not hold the lock, an
+   * {@link IllegalMonitorStateException} will be thrown.
+   */
+  void unlock();
 }

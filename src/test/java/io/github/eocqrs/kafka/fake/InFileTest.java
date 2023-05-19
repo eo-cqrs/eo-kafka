@@ -20,33 +20,55 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
+package io.github.eocqrs.kafka.fake;
 
-import java.io.Closeable;
-import java.util.concurrent.Future;
-
-import org.apache.kafka.clients.producer.RecordMetadata;
-/**
- * @todo #287:30m/DEV Producer send is not flexible enough
- */
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.xembly.Directives;
 
 /**
- * Producer.
+ * Test case for {@link InFile}
  *
- * @param <K> The key
- * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.2.3
  */
-public interface Producer<K, X> extends Closeable {
+final class InFileTest {
 
-  /**
-   * Send data.
-   *
-   * @param key  message key
-   * @param data data wrapper to process
-   * @return Future with RecordMetadata.
-   * @throws Exception When something went wrong.
-   */
-  Future<RecordMetadata> send(K key, Data<X> data) throws Exception;
+  @Test
+  void createsStorageInXmlFile() throws Exception {
+    final FkStorage storage = new InFile();
+    MatcherAssert.assertThat(
+      "Storage has root <broker> tag",
+      storage.xml().nodes("broker").isEmpty(),
+      Matchers.equalTo(false)
+    );
+  }
+
+  @Test
+  void appliesDirectives() throws Exception {
+    final FkStorage storage = new InFile();
+    storage.apply(
+      new Directives()
+        .xpath("/broker")
+        .addIf("servers")
+    );
+    MatcherAssert.assertThat(
+      "XML has right format",
+      storage.xml().nodes("broker/servers").isEmpty(),
+      Matchers.equalTo(false)
+    );
+  }
+
+  @Test
+  void locksAndUnlocks() throws Exception {
+    final FkStorage storage = new InFile();
+    Assertions.assertDoesNotThrow(
+      storage::lock
+    );
+    Assertions.assertDoesNotThrow(
+      storage::unlock
+    );
+  }
 }
