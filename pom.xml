@@ -87,6 +87,7 @@ SOFTWARE.
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kafka-clients.version>3.4.0</kafka-clients.version>
+    <kafka-streams.version>3.4.0</kafka-streams.version>
     <cactoos.version>0.55.0</cactoos.version>
     <lombok.version>1.18.26</lombok.version>
     <junit-api.version>5.9.3</junit-api.version>
@@ -112,6 +113,11 @@ SOFTWARE.
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-clients</artifactId>
       <version>${kafka-clients.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-streams</artifactId>
+      <version>${kafka-streams.version}</version>
     </dependency>
     <dependency>
       <groupId>org.cactoos</groupId>
