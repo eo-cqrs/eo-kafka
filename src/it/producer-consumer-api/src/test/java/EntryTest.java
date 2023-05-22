@@ -71,6 +71,9 @@ import static org.assertj.core.api.Assertions.tuple;
 /**
  * Entry test cases.
  *
+ * @deprecated Configuration moved into {@link KafkaITCase}
+ * Test Cases moved into child classes of {@link KafkaITCase}
+ *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.2
