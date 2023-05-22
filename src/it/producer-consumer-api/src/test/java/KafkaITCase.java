@@ -79,7 +79,7 @@ public abstract class KafkaITCase {
   }
 
   @AfterClass
-  void tearDown() {
+  public static void tearDown() {
     KafkaITCase.KAFKA.stop();
   }
 }
