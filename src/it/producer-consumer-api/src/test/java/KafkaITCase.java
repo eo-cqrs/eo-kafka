@@ -23,6 +23,7 @@
  */
 
 import org.cactoos.list.ListOf;
+import org.junit.AfterClass;
 import org.junit.jupiter.api.BeforeAll;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.KafkaContainer;
@@ -37,6 +38,9 @@ import org.testcontainers.utility.DockerImageName;
  */
 public abstract class KafkaITCase {
 
+  /**
+   * Kafka Docker Container.
+   */
   protected static final KafkaContainer KAFKA = new KafkaContainer(
     DockerImageName.parse("confluentinc/cp-kafka:7.3.0")
   )
@@ -50,6 +54,9 @@ public abstract class KafkaITCase {
       )
     )
     .withEmbeddedZookeeper();
+  /**
+   * Bootstrap servers.
+   */
   protected static String servers;
 
   @BeforeAll
@@ -69,5 +76,10 @@ public abstract class KafkaITCase {
         "KAFKA_INTER_BROKER_LISTENER_NAME=LISTENER_PUBLIC"
       )
     );
+  }
+
+  @AfterClass
+  void tearDown() {
+    KafkaITCase.KAFKA.stop();
   }
 }
