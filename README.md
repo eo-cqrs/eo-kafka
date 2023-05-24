@@ -11,6 +11,7 @@ This nice logo made by [@l3r8yJ](https://github.com/l3r8yJ)
 
 [![mvn](https://github.com/eo-cqrs/eo-kafka/actions/workflows/maven.yml/badge.svg)](https://github.com/eo-cqrs/eo-kafka/actions/workflows/maven.yml)
 [![maven central](http://maven-badges.herokuapp.com/maven-central/io.github.eo-cqrs/eo-kafka/badge.svg)](https://search.maven.org/artifact/io.github.eo-cqrs/eo-kafka)
+[![javadoc](https://javadoc.io/badge2/io.github.eo-cqrs/eo-kafka/javadoc.svg)](https://javadoc.io/doc/io.github.eo-cqrs/eo-kafka)
 [![codecov](https://codecov.io/gh/eo-cqrs/eo-kafka/branch/master/graph/badge.svg?token=4IFT0H3Y01)](https://codecov.io/gh/eo-cqrs/eo-kafka)
 
 [![Hits-of-Code](https://hitsofcode.com/github/eo-cqrs/eo-kafka)](https://hitsofcode.com/view/github/eo-cqrs/eo-kafka)
