@@ -32,7 +32,7 @@ import org.xembly.Directive;
  * @since 0.2.3
  * @deprecated use {@link io.github.eocqrs.xfake.FkStorage}
  */
-@Deprecated
+@Deprecated(since = "0.2.4")
 public interface FkStorage {
 
   /**

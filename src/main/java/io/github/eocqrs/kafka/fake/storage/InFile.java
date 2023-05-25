@@ -40,7 +40,7 @@ import java.nio.charset.StandardCharsets;
  * @since 0.2.3
  * @deprecated use {@link io.github.eocqrs.xfake.InFile}
  */
-@Deprecated(forRemoval = true)
+@Deprecated(since = "0.2.4")
 public final class InFile implements FkStorage {
 
   /**

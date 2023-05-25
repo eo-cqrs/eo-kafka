@@ -32,7 +32,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 0.2.3
  * @deprecated use {@link io.github.eocqrs.xfake.ImmutableReentrantLock}
  */
-@Deprecated
+@Deprecated(since = "0.2.4")
 final class ImmutableReentrantLock extends ReentrantLock {
 
   /**
