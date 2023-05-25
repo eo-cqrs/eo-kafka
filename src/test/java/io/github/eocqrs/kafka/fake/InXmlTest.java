@@ -23,6 +23,8 @@
 package io.github.eocqrs.kafka.fake;
 
 import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.xfake.FkStorage;
+import io.github.eocqrs.xfake.InFile;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,11 +42,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 final class InXmlTest {
 
+  /**
+   * Storage.
+   */
   private FkStorage storage;
 
   @BeforeEach
   void setUp() throws Exception {
-    this.storage = new InFile();
+    this.storage = new InFile("fake-kafka", "<broker/>");
   }
 
   @Test

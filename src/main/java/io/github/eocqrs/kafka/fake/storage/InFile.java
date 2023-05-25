@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.fake;
+package io.github.eocqrs.kafka.fake.storage;
 
 import com.jcabi.xml.XML;
 import com.jcabi.xml.XMLDocument;
@@ -38,7 +38,9 @@ import java.nio.charset.StandardCharsets;
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.3
+ * @deprecated use {@link io.github.eocqrs.xfake.InFile}
  */
+@Deprecated(forRemoval = true)
 public final class InFile implements FkStorage {
 
   /**

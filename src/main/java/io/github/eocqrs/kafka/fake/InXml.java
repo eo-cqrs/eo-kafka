@@ -23,6 +23,7 @@
 package io.github.eocqrs.kafka.fake;
 
 import io.github.eocqrs.kafka.Data;
+import io.github.eocqrs.xfake.FkStorage;
 import org.cactoos.list.ListOf;
 import org.xembly.Directives;
 

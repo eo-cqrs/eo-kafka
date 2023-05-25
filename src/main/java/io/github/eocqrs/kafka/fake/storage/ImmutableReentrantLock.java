@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.fake;
+package io.github.eocqrs.kafka.fake.storage;
 
 import java.io.Serial;
 import java.util.concurrent.locks.ReentrantLock;
@@ -30,7 +30,9 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.3
+ * @deprecated use {@link io.github.eocqrs.xfake.ImmutableReentrantLock}
  */
+@Deprecated
 final class ImmutableReentrantLock extends ReentrantLock {
 
   /**
