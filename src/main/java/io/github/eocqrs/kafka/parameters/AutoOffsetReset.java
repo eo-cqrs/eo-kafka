@@ -25,7 +25,8 @@ package io.github.eocqrs.kafka.parameters;
 /**
  * It's a wrapper for the `auto.offset.reset` kafka attribute.
  * <p>
- * What to do when there is no initial offset in Kafka or if the current offset does not exist any more on the server
+ * What to do when there is no initial offset in Kafka or
+ * if the current offset does not exist any more on the server
  * (e.g., because that data has been deleted):
  * <strong>earliest</strong>,
  * <strong>latest</strong>,
