@@ -24,6 +24,7 @@ package io.github.eocqrs.kafka.parameters;
 
 /**
  * It's a wrapper for the `client.rack` kafka attribute.
+ * A rack identifier for this client.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.3
