@@ -24,6 +24,8 @@ package io.github.eocqrs.kafka.parameters;
 
 /**
  * It's a wrapper for the `client.id` kafka attribute.
+ * <br>
+ * An id string to pass to the server when making requests.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.3
