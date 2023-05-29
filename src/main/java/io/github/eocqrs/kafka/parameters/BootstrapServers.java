@@ -24,9 +24,10 @@ package io.github.eocqrs.kafka.parameters;
 
 /**
  * It's a wrapper for the `bootstrap.servers` kafka attribute.
- * <br>
+ * <p>
  * A list of host/port pairs to use for establishing the initial connection to the Kafka cluster.
  * This list should be in the form <strong>host1:port1,host2:port2,....</strong>
+ * </p>
  *
  * @author Ivan Ivanchuk (l3r8y@duck.com)
  * @since 0.0.2

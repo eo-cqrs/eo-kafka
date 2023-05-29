@@ -24,8 +24,9 @@ package io.github.eocqrs.kafka.parameters;
 
 /**
  * It's a wrapper for the `batch.size` kafka attribute.
- * <br>
+ * <p>
  * Bytes that will be sent together to the broker.
+ * </p>
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.3
