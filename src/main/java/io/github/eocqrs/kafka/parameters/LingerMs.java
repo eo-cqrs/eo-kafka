@@ -24,6 +24,8 @@ package io.github.eocqrs.kafka.parameters;
 
 /**
  * It's a wrapper for the `linger.ms` kafka attribute.
+ * <br>
+ * Amount of time in milliseconds to wait until send the batch to the broker.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.3
