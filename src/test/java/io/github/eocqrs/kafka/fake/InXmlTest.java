@@ -25,6 +25,8 @@ package io.github.eocqrs.kafka.fake;
 import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.xfake.FkStorage;
 import io.github.eocqrs.xfake.InFile;
+import io.github.eocqrs.xfake.Logged;
+import io.github.eocqrs.xfake.Synchronized;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +51,10 @@ final class InXmlTest {
 
   @BeforeEach
   void setUp() throws Exception {
-    this.storage = new InFile("fake-kafka", "<broker/>");
+    this.storage =
+      new Synchronized(
+        new InFile("fake-kafka", "<broker/>")
+      );
   }
 
   @Test
