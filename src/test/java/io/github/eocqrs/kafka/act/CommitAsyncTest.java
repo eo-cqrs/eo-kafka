@@ -1,5 +1,7 @@
 /*
- *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -8,8 +10,8 @@
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -20,45 +22,33 @@
  * SOFTWARE.
  */
 
+
 package io.github.eocqrs.kafka.act;
 
-import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
- * Shutdown Hook.
+ * Test case for {@link CommitAsync}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.5
  */
-@RequiredArgsConstructor
-public final class ShutdownHook implements Action {
+@ExtendWith(MockitoExtension.class)
+final class CommitAsyncTest {
 
-  /**
-   * Action.
+  /*
+   * @todo #327:45/DEV Introduce Integration Tests for Async Commit
    */
-  private final Action action;
-  /**
-   * Main thread.
-   */
-  private final Thread main;
-  /**
-   * After.
-   */
-  private final Action after;
-
-  @Override
-  public void apply() {
-    Runtime.getRuntime().addShutdownHook(
-      new Thread(() -> {
-        this.action.apply();
-        try {
-          this.main.join();
-        } catch (final InterruptedException ex) {
-          ex.printStackTrace();
-        } finally {
-          this.after.apply();
-        }
-      })
-    );
+  @Test
+  void commitsAsync(
+    @Mock final KafkaConsumer<String, String> mck
+  ) {
+    final Action async = new CommitAsync(mck);
+    Assertions.assertDoesNotThrow(async::apply);
   }
 }
