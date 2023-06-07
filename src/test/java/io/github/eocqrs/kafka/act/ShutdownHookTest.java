@@ -51,12 +51,7 @@ final class ShutdownHookTest {
       new ShutdownHook(
         new Wakeup(mck),
         Thread.currentThread(),
-        new Action() {
-          @Override
-          public void apply() {
-            Thread.currentThread().interrupt();
-          }
-        }
+        () -> Thread.currentThread().interrupt()
       );
   }
 }
