@@ -28,6 +28,7 @@ package io.github.eocqrs.kafka.act;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.5
  */
+@FunctionalInterface
 public interface Action {
 
   /**
