@@ -22,43 +22,26 @@
 
 package io.github.eocqrs.kafka.act;
 
-import lombok.RequiredArgsConstructor;
-
 /**
- * Shutdown Hook.
+ * Shutdown Hook Exception.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.5
  */
-@RequiredArgsConstructor
-public final class ShutdownHook implements Action {
+public class ShutdownHookException extends RuntimeException {
 
-  /**
-   * Action.
-   */
-  private final Action action;
-  /**
-   * Main thread.
-   */
-  private final Thread main;
-  /**
-   * After.
-   */
-  private final Action after;
+  public ShutdownHookException() {
+  }
 
-  @Override
-  public void apply() {
-    Runtime.getRuntime().addShutdownHook(
-      new Thread(() -> {
-        this.action.apply();
-        try {
-          this.main.join();
-        } catch (final InterruptedException ex) {
-          throw new ShutdownHookException(ex);
-        } finally {
-          this.after.apply();
-        }
-      })
-    );
+  public ShutdownHookException(final String message) {
+    super(message);
+  }
+
+  public ShutdownHookException(final String message, final Throwable cause) {
+    super(message, cause);
+  }
+
+  public ShutdownHookException(final Throwable cause) {
+    super(cause);
   }
 }
