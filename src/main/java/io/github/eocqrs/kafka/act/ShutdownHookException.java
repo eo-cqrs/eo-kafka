@@ -28,19 +28,39 @@ package io.github.eocqrs.kafka.act;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.5
  */
-public class ShutdownHookException extends RuntimeException {
+@SuppressWarnings("serial")
+public final class ShutdownHookException extends RuntimeException {
 
+  /**
+   * Empty ctor.
+   */
   public ShutdownHookException() {
   }
 
+  /**
+   * Ctor.
+   *
+   * @param message Message
+   */
   public ShutdownHookException(final String message) {
     super(message);
   }
 
+  /**
+   * Ctor.
+   *
+   * @param message Message
+   * @param cause   Cause
+   */
   public ShutdownHookException(final String message, final Throwable cause) {
     super(message, cause);
   }
 
+  /**
+   * Ctor.
+   *
+   * @param cause Cause
+   */
   public ShutdownHookException(final Throwable cause) {
     super(cause);
   }
