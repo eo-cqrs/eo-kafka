@@ -23,6 +23,7 @@
 package io.github.eocqrs.kafka.parameters;
 
 import io.github.eocqrs.kafka.ParamsAttr;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -61,6 +62,17 @@ final class KeySerializerTest {
       "XML in right format",
       this.key.asXml(),
       Matchers.equalTo("<keySerializer>ks</keySerializer>")
+    );
+  }
+
+  @Test
+  void writesRightXmlViaClass() {
+    MatcherAssert.assertThat(
+      "XML in right format",
+      new KeySerializer(StringSerializer.class).asXml(),
+      Matchers.equalTo(
+        "<keySerializer>org.apache.kafka.common.serialization.StringSerializer</keySerializer>"
+      )
     );
   }
 }

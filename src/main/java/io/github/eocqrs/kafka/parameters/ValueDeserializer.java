@@ -33,6 +33,15 @@ public final class ValueDeserializer extends KfAttrEnvelope {
   /**
    * Ctor.
    *
+   * @param deserializer The deserializer class.
+   */
+  public ValueDeserializer(final Class<?> deserializer) {
+    this(deserializer.getCanonicalName());
+  }
+
+  /**
+   * Ctor.
+   *
    * @param value The value.
    */
   public ValueDeserializer(final String value) {
