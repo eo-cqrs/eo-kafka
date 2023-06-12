@@ -25,6 +25,12 @@ package io.github.eocqrs.kafka.fake;
 import io.github.eocqrs.kafka.Data;
 
 import java.util.Collection;
+/*
+ * @todo #292:60m/DEV Broker has too many methods
+ *  We should decompose methods adding something to the broker,
+ *  such as #withDataset(), #withTopics(), and so on.
+ */
+
 
 /**
  * Fake Kafka Broker.
