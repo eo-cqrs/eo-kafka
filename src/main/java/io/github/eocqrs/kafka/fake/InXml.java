@@ -30,7 +30,7 @@ import org.xembly.Directives;
 import java.util.Collection;
 
 /**
- * Synced Kafka Broker.
+ * XML Kafka Broker.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.3
