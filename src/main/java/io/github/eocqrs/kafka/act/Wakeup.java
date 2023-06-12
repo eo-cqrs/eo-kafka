@@ -29,7 +29,6 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
  * Wakeup of Kafka Consumer.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @see ShutdownHook
  * @since 0.2.5
  */
 @RequiredArgsConstructor
