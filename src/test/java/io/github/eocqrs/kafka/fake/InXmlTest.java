@@ -96,7 +96,7 @@ final class InXmlTest {
 
   @Test
   void createsMultipleTopics() throws Exception {
-    new InXml(storage)
+    new InXml(this.storage)
       .with(new TopicDirs("test-1").value())
       .with(new TopicDirs("test-2").value())
       .with(new TopicDirs("test-3").value());
