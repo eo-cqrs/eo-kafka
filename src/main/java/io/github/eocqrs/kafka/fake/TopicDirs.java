@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,33 +22,40 @@
 
 package io.github.eocqrs.kafka.fake;
 
+import org.cactoos.Scalar;
 import org.xembly.Directives;
 
-import java.util.Collection;
-
 /**
- * Fake Kafka Broker.
+ * Topic Directives.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.2.3
+ * @see Directives
+ * @since 0.3.5
  */
-public interface FkBroker {
+public final class TopicDirs implements Scalar<Directives> {
 
   /**
-   * With new Directives.
-   *
-   * @param dirs Directives
-   * @return FkBroker
-   * @throws Exception When something went wrong.
+   * Topic.
    */
-  FkBroker with(Directives dirs) throws Exception;
+  private final String topic;
 
   /**
-   * Query data.
+   * Ctor.
    *
-   * @param query Query
-   * @return Collection of Strings
-   * @throws Exception When something went wrong.
+   * @param tpc Topic
    */
-  Collection<String> data(String query) throws Exception;
+  public TopicDirs(final String tpc) {
+    this.topic = tpc;
+  }
+
+  @Override
+  public Directives value() throws Exception {
+    return new Directives()
+      .xpath("broker/topics")
+      .add("topic")
+      .addIf("name")
+      .set(this.topic)
+      .up()
+      .addIf("datasets");
+  }
 }

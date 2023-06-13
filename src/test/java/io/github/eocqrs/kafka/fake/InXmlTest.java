@@ -25,7 +25,6 @@ package io.github.eocqrs.kafka.fake;
 import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.xfake.FkStorage;
 import io.github.eocqrs.xfake.InFile;
-import io.github.eocqrs.xfake.Logged;
 import io.github.eocqrs.xfake.Synchronized;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -85,7 +84,7 @@ final class InXmlTest {
   @Test
   void createsTopic() throws Exception {
     new InXml(this.storage)
-      .withTopics("test-1");
+      .with(new TopicDirs("test-1").value());
     MatcherAssert.assertThat(
       "Topic is present in XML",
       this.storage.xml()
@@ -97,8 +96,10 @@ final class InXmlTest {
 
   @Test
   void createsMultipleTopics() throws Exception {
-    new InXml(this.storage)
-      .withTopics("test-1", "test-2", "test-3");
+    new InXml(storage)
+      .with(new TopicDirs("test-1").value())
+      .with(new TopicDirs("test-2").value())
+      .with(new TopicDirs("test-3").value());
     MatcherAssert.assertThat(
       "Topic is present in XML",
       this.storage.xml()
@@ -127,14 +128,16 @@ final class InXmlTest {
     final String topic = "test-1";
     final String value = "value";
     new InXml(this.storage)
-      .withTopics(topic)
-      .withDataset(
-        "test",
-        new KfData<>(
-          value,
-          topic,
-          0
-        )
+      .with(new TopicDirs(topic).value())
+      .with(
+        new DatasetDirs<>(
+          "test",
+          new KfData<>(
+            value,
+            topic,
+            0
+          )
+        ).value()
       );
     MatcherAssert.assertThat(
       "Dataset is present",
@@ -166,7 +169,7 @@ final class InXmlTest {
     final String topic = "temp";
     final FkBroker broker = new InXml(
       this.storage
-    ).withTopics(topic);
+    ).with(new TopicDirs(topic).value());
     MatcherAssert.assertThat(
       "Broker queries data and gets right response",
       broker.data(

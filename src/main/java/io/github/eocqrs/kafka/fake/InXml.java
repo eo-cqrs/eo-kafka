@@ -22,9 +22,7 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.xfake.FkStorage;
-import org.cactoos.list.ListOf;
 import org.xembly.Directives;
 
 import java.util.Collection;
@@ -59,55 +57,8 @@ public final class InXml implements FkBroker {
   }
 
   @Override
-  public <X> FkBroker withDataset(
-    final Object key,
-    final Data<X> data
-  ) throws Exception {
-    this.storage.apply(
-      new Directives()
-        .xpath(
-          "broker/topics/topic[name = '%s']"
-            .formatted(
-              data.topic()
-            )
-        )
-        .addIf("datasets")
-        .add("dataset")
-        .add("partition")
-        .set(data.partition())
-        .up()
-        .addIf("key")
-        .set(key)
-        .up()
-        .addIf("value")
-        .set(data.dataized().dataize())
-    );
-    return this;
-  }
-
-  @Override
-  public FkBroker withTopics(final String... topics) {
-    new ListOf<>(topics)
-      .forEach(
-        topic -> {
-          try {
-            this.storage.apply(
-              new Directives()
-                .xpath("broker/topics")
-                .add("topic")
-                .addIf("name")
-                .set(topic)
-                .up()
-                .addIf("datasets")
-            );
-          } catch (final Exception ex) {
-            throw new IllegalStateException(
-              "Topics can't be applied",
-              ex
-            );
-          }
-        }
-      );
+  public FkBroker with(final Directives dirs) throws Exception {
+    this.storage.apply(dirs);
     return this;
   }
 
