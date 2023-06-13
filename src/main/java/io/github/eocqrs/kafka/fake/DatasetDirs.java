@@ -7,6 +7,8 @@ import org.xembly.Directives;
 /**
  * Dataset Directives.
  *
+ * @param <K> Dataset key type
+ * @param <X> Dataset data type
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.3.5
  */
