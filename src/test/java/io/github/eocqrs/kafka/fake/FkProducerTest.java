@@ -28,10 +28,13 @@ import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.xfake.InFile;
 import io.github.eocqrs.xfake.Synchronized;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.Future;
 
 /**
  * Test case for {@link FkProducer}.
@@ -86,6 +89,7 @@ final class FkProducerTest {
   void sendsMessage() throws Exception {
     final String topic = "test.fake";
     final String data = "data";
+    final int partition = 0;
     final FkBroker broker = new InXml(
       new Synchronized(
         new InFile(
@@ -97,7 +101,8 @@ final class FkProducerTest {
       new FkProducer<>(
         broker
       );
-    producer.send("test-key", new KfData<>(data, topic, 0));
+    final Future<RecordMetadata> future =
+      producer.send("test-key", new KfData<>(data, topic, partition));
     MatcherAssert.assertThat(
       "Message is send in right format",
       broker.data(
@@ -108,6 +113,17 @@ final class FkProducerTest {
           )
       ).isEmpty(),
       Matchers.equalTo(false)
+    );
+    final RecordMetadata metadata = future.get();
+    MatcherAssert.assertThat(
+      "Metadata topic in right format",
+      metadata.topic(),
+      Matchers.equalTo(topic)
+    );
+    MatcherAssert.assertThat(
+      "Metadata partition in right format",
+      metadata.partition(),
+      Matchers.equalTo(partition)
     );
     Assertions.assertDoesNotThrow(producer::close);
   }
