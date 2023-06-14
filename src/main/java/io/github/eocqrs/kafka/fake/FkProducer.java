@@ -69,7 +69,7 @@ public final class FkProducer<K, X> implements Producer<K, X> {
         s.equals(message.topic())
       );
     if (!exists) {
-      throw new TopicDoesNotExists(
+      throw new IllegalArgumentException(
         "topic %s does not exits!"
           .formatted(
             message.topic()

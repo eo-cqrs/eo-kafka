@@ -100,7 +100,7 @@ final class FkProducerTest {
     final Producer<String, String> producer =
       new FkProducer<>(this.broker);
     Assertions.assertThrows(
-      TopicDoesNotExists.class,
+      IllegalArgumentException.class,
       () ->
         producer.send("test-key", new KfData<>("data", "does.not.exist", 0))
     );
