@@ -43,6 +43,18 @@ import java.util.concurrent.Future;
 public final class FkProducer<K, X> implements Producer<K, X> {
 
   /**
+   * Offset.
+   */
+  private static final long OFFSET = 0L;
+  /**
+   * Batch Index.
+   */
+  private static final int BATCH_INDEX = 0;
+  /**
+   * Timestamp.
+   */
+  private static final long TIMESTAMP = 0L;
+  /**
    * Broker.
    */
   private final FkBroker broker;
@@ -82,9 +94,9 @@ public final class FkProducer<K, X> implements Producer<K, X> {
         message.topic(),
         message.partition()
       ),
-      0L,
-      0,
-      0L,
+      OFFSET,
+      BATCH_INDEX,
+      TIMESTAMP,
       key.toString().getBytes().length,
       message.dataized()
         .dataize()
