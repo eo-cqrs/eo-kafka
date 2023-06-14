@@ -120,7 +120,7 @@ final class FkProducerTest {
       );
     producer.send("test-key", new KfData<>(data, topic, partition));
     MatcherAssert.assertThat(
-      "Message is send in right format",
+      "Sent data is not blank",
       after.data(
         "broker/topics/topic[name = '%s']/datasets/dataset[value = '%s']/text()"
           .formatted(
