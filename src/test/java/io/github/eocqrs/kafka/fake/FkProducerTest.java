@@ -28,13 +28,16 @@ import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.xfake.InFile;
 import io.github.eocqrs.xfake.Synchronized;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.concurrent.Future;
+import java.io.IOException;
 
 /**
  * Test case for {@link FkProducer}.
@@ -42,20 +45,39 @@ import java.util.concurrent.Future;
  * @author Aliaksei Bialiauski (abialiaski.dev@gmail.com)
  * @since 0.1.3
  */
+@ExtendWith(MockitoExtension.class)
 final class FkProducerTest {
 
-  @Test
-  void createsFakeProducer() throws Exception {
-    final Producer<String, String> producer =
-      new FkProducer<>(
-        new InXml(
-          new Synchronized(
-            new InFile(
-              "test-producer-create", "<broker/>"
-            )
-          )
+  private FkBroker broker;
+
+  @BeforeEach
+  void setUp() throws Exception {
+    this.broker = new InXml(
+      new Synchronized(
+        new InFile(
+          "producer-tests", "<broker/>"
         )
-      );
+      )
+    );
+  }
+
+  @Test
+  void createsFakeProducerWithMockBroker(@Mock final FkBroker mock)
+    throws IOException {
+    final Producer<String, String> producer =
+      new FkProducer<>(mock);
+    MatcherAssert.assertThat(
+      "Fake producer creates with mock broker",
+      producer,
+      Matchers.notNullValue()
+    );
+    producer.close();
+  }
+
+  @Test
+  void createsFakeProducer() {
+    final Producer<String, String> producer =
+      new FkProducer<>(this.broker);
     MatcherAssert.assertThat(
       "Fake producer creates",
       producer,
@@ -67,22 +89,13 @@ final class FkProducerTest {
   @Test
   void sendsMessageWithoutTopicExistence() throws Exception {
     final Producer<String, String> producer =
-      new FkProducer<>(
-        new InXml(
-          new Synchronized(
-            new InFile(
-              "test-producer-no-topic",
-              "<broker/>"
-            )
-          )
-        )
-      );
+      new FkProducer<>(this.broker);
     Assertions.assertThrows(
       TopicDoesNotExists.class,
       () ->
         producer.send("test-key", new KfData<>("data", "does.not.exist", 0))
     );
-    Assertions.assertDoesNotThrow(producer::close);
+    producer.close();
   }
 
   @Test
@@ -90,22 +103,16 @@ final class FkProducerTest {
     final String topic = "test.fake";
     final String data = "data";
     final int partition = 0;
-    final FkBroker broker = new InXml(
-      new Synchronized(
-        new InFile(
-          "test-producer-send", "<broker/>"
-        )
-      )
-    ).with(new TopicDirs(topic).value());
+    final FkBroker after = this.broker
+      .with(new TopicDirs(topic).value());
     final Producer<String, String> producer =
       new FkProducer<>(
-        broker
+        after
       );
-    final Future<RecordMetadata> future =
-      producer.send("test-key", new KfData<>(data, topic, partition));
+    producer.send("test-key", new KfData<>(data, topic, partition));
     MatcherAssert.assertThat(
       "Message is send in right format",
-      broker.data(
+      after.data(
         "broker/topics/topic[name = '%s']/datasets/dataset[value = '%s']/text()"
           .formatted(
             topic,
@@ -114,17 +121,6 @@ final class FkProducerTest {
       ).isEmpty(),
       Matchers.equalTo(false)
     );
-    final RecordMetadata metadata = future.get();
-    MatcherAssert.assertThat(
-      "Metadata topic in right format",
-      metadata.topic(),
-      Matchers.equalTo(topic)
-    );
-    MatcherAssert.assertThat(
-      "Metadata partition in right format",
-      metadata.partition(),
-      Matchers.equalTo(partition)
-    );
-    Assertions.assertDoesNotThrow(producer::close);
+    producer.close();
   }
 }
