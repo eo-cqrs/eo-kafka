@@ -26,9 +26,12 @@ package io.github.eocqrs.kafka.fake;
 
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.xfake.InFile;
+import io.github.eocqrs.xfake.Synchronized;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link FkProducer}.
@@ -39,18 +42,73 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 final class FkProducerTest {
 
   @Test
-  void createsFakeProducer() {
-    final Producer<String, String> producer = new FkProducer<>();
-    assertThrows(
-      UnsupportedOperationException.class,
-      () ->
-        producer.send(
-          "fake", new KfData<>("fake data", "fake-topic", 0)
+  void createsFakeProducer() throws Exception {
+    final Producer<String, String> producer =
+      new FkProducer<>(
+        new InXml(
+          new Synchronized(
+            new InFile(
+              "test-producer-create", "<broker/>"
+            )
+          )
         )
+      );
+    MatcherAssert.assertThat(
+      "Fake producer creates",
+      producer,
+      Matchers.notNullValue()
     );
-    assertThrows(
-      UnsupportedOperationException.class,
-      producer::close
+    Assertions.assertDoesNotThrow(producer::close);
+  }
+
+  @Test
+  void sendsMessageWithoutTopicExistence() throws Exception {
+    final Producer<String, String> producer =
+      new FkProducer<>(
+        new InXml(
+          new Synchronized(
+            new InFile(
+              "test-producer-no-topic",
+              "<broker/>"
+            )
+          )
+        )
+      );
+    Assertions.assertThrows(
+      TopicDoesNotExists.class,
+      () ->
+        producer.send("test-key", new KfData<>("data", "does.not.exist", 0))
     );
+    Assertions.assertDoesNotThrow(producer::close);
+  }
+
+  @Test
+  void sendsMessage() throws Exception {
+    final String topic = "test.fake";
+    final String data = "data";
+    final FkBroker broker = new InXml(
+      new Synchronized(
+        new InFile(
+          "test-producer-send", "<broker/>"
+        )
+      )
+    ).with(new TopicDirs(topic).value());
+    final Producer<String, String> producer =
+      new FkProducer<>(
+        broker
+      );
+    producer.send("test-key", new KfData<>(data, topic, 0));
+    MatcherAssert.assertThat(
+      "Message is send in right format",
+      broker.data(
+        "broker/topics/topic[name = '%s']/datasets/dataset[value = '%s']/text()"
+          .formatted(
+            topic,
+            data
+          )
+      ).isEmpty(),
+      Matchers.equalTo(false)
+    );
+    Assertions.assertDoesNotThrow(producer::close);
   }
 }
