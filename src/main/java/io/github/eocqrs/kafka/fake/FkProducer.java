@@ -108,7 +108,7 @@ public final class FkProducer<K, X> implements Producer<K, X> {
       this, "Producer closed at %s"
         .formatted(
           LocalDateTime.now(
-            Clock.systemDefaultZone()
+            Clock.systemUTC()
           )
         )
     );
