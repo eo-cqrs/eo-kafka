@@ -93,8 +93,6 @@ public final class FkProducer<K, X> implements Producer<K, X> {
         .length
     );
     return new FkMetadataTask(
-      () ->
-        metadata,
       metadata
     );
   }

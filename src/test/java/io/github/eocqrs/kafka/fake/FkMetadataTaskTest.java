@@ -55,7 +55,7 @@ final class FkMetadataTaskTest {
     );
     final Future<RecordMetadata> future =
       new FkMetadataTask(
-        () -> metadata, metadata
+        metadata
       );
     MatcherAssert.assertThat(
       "Metadata in right format",

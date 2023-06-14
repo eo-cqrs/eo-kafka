@@ -2,7 +2,6 @@ package io.github.eocqrs.kafka.fake;
 
 import org.apache.kafka.clients.producer.RecordMetadata;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -23,14 +22,12 @@ public final class FkMetadataTask extends FutureTask<RecordMetadata> {
   /**
    * Ctor.
    *
-   * @param callable Action
-   * @param mtdt     RecordMetadata
+   * @param mtdt RecordMetadata
    */
   public FkMetadataTask(
-    final Callable<RecordMetadata> callable,
     final RecordMetadata mtdt
   ) {
-    super(callable);
+    super(() -> mtdt);
     this.metadata = mtdt;
   }
 
