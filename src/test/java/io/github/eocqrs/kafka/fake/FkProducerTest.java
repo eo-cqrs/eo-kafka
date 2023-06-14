@@ -75,7 +75,7 @@ final class FkProducerTest {
   }
 
   @Test
-  void createsFakeProducer() {
+  void createsFakeProducer() throws IOException {
     final Producer<String, String> producer =
       new FkProducer<>(this.broker);
     MatcherAssert.assertThat(
@@ -83,6 +83,13 @@ final class FkProducerTest {
       producer,
       Matchers.notNullValue()
     );
+    producer.close();
+  }
+
+  @Test
+  void closesWithoutException() {
+    final Producer<String, String> producer =
+      new FkProducer<>(this.broker);
     Assertions.assertDoesNotThrow(producer::close);
   }
 
