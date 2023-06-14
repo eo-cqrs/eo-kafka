@@ -25,11 +25,13 @@ package io.github.eocqrs.kafka.fake;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.TopicPartition;
 
 import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 
 /**
- * Fake Producer.
+ * Fake Kafka Producer.
  *
  * @param <K> The key
  * @param <X> The value
@@ -38,22 +40,63 @@ import java.util.concurrent.Future;
  */
 public final class FkProducer<K, X> implements Producer<K, X> {
 
-  /*
-   * @todo #44:60m/DEV Fake send is not implemented
+  /**
+   * Broker.
    */
+  private final FkBroker broker;
+
+  /**
+   * Ctor.
+   *
+   * @param brkr Broker
+   */
+  public FkProducer(final FkBroker brkr) {
+    this.broker = brkr;
+  }
+
   @Override
   public Future<RecordMetadata> send(
     final K key,
     final Data<X> message
   ) throws Exception {
-    throw new UnsupportedOperationException("#send");
+    final boolean exists = this.broker.data(
+        "broker/topics/topic[name = '%s']/name/text()"
+          .formatted(message.topic())
+      ).stream()
+      .anyMatch(s ->
+        s.equals(message.topic())
+      );
+    if (!exists) {
+      throw new TopicDoesNotExists(
+        "topic %s does not exits!"
+          .formatted(
+            message.topic()
+          )
+      );
+    }
+    this.broker.with(new DatasetDirs<>(key, message).value());
+    return new FutureTask<>(
+      () ->
+        new RecordMetadata(
+          new TopicPartition(
+            message.topic(),
+            message.partition()
+          ),
+          0L,
+          0,
+          0L,
+          key.toString().getBytes().length,
+          message.dataized()
+            .dataize()
+            .toString()
+            .getBytes()
+            .length
+        )
+    );
   }
 
-  /*
-   * @todo #44:60m/DEV Fake producer close is not implemented
-   */
   @Override
   public void close() {
-    throw new UnsupportedOperationException("#close");
+    // should be empty;
   }
 }
