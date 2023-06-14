@@ -22,13 +22,15 @@
 
 package io.github.eocqrs.kafka.fake;
 
+import com.jcabi.log.Logger;
 import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.TopicPartition;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 /**
  * Fake Kafka Producer.
@@ -75,28 +77,40 @@ public final class FkProducer<K, X> implements Producer<K, X> {
       );
     }
     this.broker.with(new DatasetDirs<>(key, message).value());
-    return new FutureTask<>(
+    final RecordMetadata metadata = new RecordMetadata(
+      new TopicPartition(
+        message.topic(),
+        message.partition()
+      ),
+      0L,
+      0,
+      0L,
+      key.toString().getBytes().length,
+      message.dataized()
+        .dataize()
+        .toString()
+        .getBytes()
+        .length
+    );
+    return new FkMetadataTask(
       () ->
-        new RecordMetadata(
-          new TopicPartition(
-            message.topic(),
-            message.partition()
-          ),
-          0L,
-          0,
-          0L,
-          key.toString().getBytes().length,
-          message.dataized()
-            .dataize()
-            .toString()
-            .getBytes()
-            .length
-        )
+        metadata,
+      metadata
     );
   }
 
+  /*
+   * @todo #293:30m/DEV Fake consumer close log test
+   */
   @Override
   public void close() {
-    // should be empty;
+    Logger.debug(
+      this, "Producer closed at %s"
+        .formatted(
+          LocalDateTime.now(
+            Clock.systemDefaultZone()
+          )
+        )
+    );
   }
 }

@@ -28,6 +28,7 @@ import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.xfake.InFile;
 import io.github.eocqrs.xfake.Synchronized;
+import org.apache.kafka.clients.producer.RecordMetadata;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
@@ -38,6 +39,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
+import java.util.concurrent.Future;
 
 /**
  * Test case for {@link FkProducer}.
@@ -127,6 +129,33 @@ final class FkProducerTest {
           )
       ).isEmpty(),
       Matchers.equalTo(false)
+    );
+    producer.close();
+  }
+
+  @Test
+  void readsMetadataInRightFormat() throws Exception {
+    final String topic = "metadata.test";
+    final int partition = 0;
+    final Producer<String, String> producer =
+      new FkProducer<>(
+        this.broker
+          .with(new TopicDirs(topic).value())
+      );
+    final Future<RecordMetadata> future = producer.send(
+      "test-key",
+      new KfData<>("test-data", topic, partition)
+    );
+    final RecordMetadata metadata = future.get();
+    MatcherAssert.assertThat(
+      "Metadata topic in right format",
+      metadata.topic(),
+      Matchers.equalTo(topic)
+    );
+    MatcherAssert.assertThat(
+      "Metadata partition in right format",
+      metadata.partition(),
+      Matchers.equalTo(partition)
     );
     producer.close();
   }
