@@ -30,6 +30,7 @@ import org.apache.kafka.common.TopicPartition;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.concurrent.Future;
 
 /**
@@ -55,6 +56,10 @@ public final class FkProducer<K, X> implements Producer<K, X> {
    */
   private static final long TIMESTAMP = 0L;
   /**
+   * Client id.
+   */
+  private final UUID id;
+  /**
    * Broker.
    */
   private final FkBroker broker;
@@ -62,9 +67,11 @@ public final class FkProducer<K, X> implements Producer<K, X> {
   /**
    * Ctor.
    *
-   * @param brkr Broker
+   * @param client Client UUID id
+   * @param brkr   Broker
    */
-  public FkProducer(final FkBroker brkr) {
+  public FkProducer(final UUID client, final FkBroker brkr) {
+    this.id = client;
     this.broker = brkr;
   }
 
@@ -112,8 +119,9 @@ public final class FkProducer<K, X> implements Producer<K, X> {
   @Override
   public void close() {
     Logger.info(
-      this, "Producer closed at %s"
+      this, "Producer %s closed at %s"
         .formatted(
+          this.id,
           LocalDateTime.now(
             Clock.systemUTC()
           )

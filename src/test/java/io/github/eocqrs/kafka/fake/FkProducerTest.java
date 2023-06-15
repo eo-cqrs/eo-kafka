@@ -40,6 +40,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
+import java.util.UUID;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
 
@@ -72,7 +73,7 @@ final class FkProducerTest {
   void createsFakeProducerWithMockBroker(@Mock final FkBroker mock)
     throws IOException {
     final Producer<String, String> producer =
-      new FkProducer<>(mock);
+      new FkProducer<>(UUID.randomUUID(), mock);
     MatcherAssert.assertThat(
       "Fake producer creates with mock broker",
       producer,
@@ -84,7 +85,7 @@ final class FkProducerTest {
   @Test
   void createsFakeProducer() throws IOException {
     final Producer<String, String> producer =
-      new FkProducer<>(this.broker);
+      new FkProducer<>(UUID.randomUUID(), this.broker);
     MatcherAssert.assertThat(
       "Fake producer creates",
       producer,
@@ -96,7 +97,7 @@ final class FkProducerTest {
   @Test
   void closesWithoutException() {
     final Producer<String, String> producer =
-      new FkProducer<>(this.broker);
+      new FkProducer<>(UUID.randomUUID(), this.broker);
     Assertions.assertDoesNotThrow(producer::close);
   }
 
@@ -112,7 +113,7 @@ final class FkProducerTest {
   @Test
   void sendsMessageWithoutTopicExistence() throws Exception {
     final Producer<String, String> producer =
-      new FkProducer<>(this.broker);
+      new FkProducer<>(UUID.randomUUID(), this.broker);
     Assertions.assertThrows(
       IllegalArgumentException.class,
       () ->
@@ -130,6 +131,7 @@ final class FkProducerTest {
       .with(new TopicDirs(topic).value());
     final Producer<String, String> producer =
       new FkProducer<>(
+        UUID.randomUUID(),
         after
       );
     producer.send("test-key", new KfData<>(data, topic, partition));
@@ -153,6 +155,7 @@ final class FkProducerTest {
     final int partition = 0;
     final Producer<String, String> producer =
       new FkProducer<>(
+        UUID.randomUUID(),
         this.broker
           .with(new TopicDirs(topic).value())
       );
