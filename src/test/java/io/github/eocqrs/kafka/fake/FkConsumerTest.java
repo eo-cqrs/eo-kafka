@@ -24,15 +24,27 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import java.util.Collection;
+import com.jcabi.log.Logger;
+import io.github.eocqrs.kafka.Consumer;
+import io.github.eocqrs.xfake.InFile;
+import io.github.eocqrs.xfake.Synchronized;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.common.TopicPartition;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.UUID;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -42,11 +54,56 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @since 0.0.3
  */
+@ExtendWith(MockitoExtension.class)
 final class FkConsumerTest {
+
+  /**
+   * Broker.
+   */
+  private FkBroker broker;
+
+  @BeforeEach
+  void setUp() throws Exception {
+    this.broker = new InXml(
+      new Synchronized(
+        new InFile(
+          "consumer-test", "<broker/>"
+        )
+      )
+    );
+  }
+
+  @Test
+  void createsWithMockBroker(@Mock final FkBroker mock) throws IOException {
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(UUID.randomUUID(), mock);
+    MatcherAssert.assertThat(
+      "Fake consumer creates with mock broker",
+      consumer,
+      Matchers.notNullValue()
+    );
+    consumer.close();
+  }
+
+  @Test
+  void creates() throws IOException {
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(
+        UUID.randomUUID(),
+        this.broker
+      );
+    MatcherAssert.assertThat(
+      "Fake consumer creates",
+      consumer,
+      Matchers.notNullValue()
+    );
+    consumer.close();
+  }
 
   @Test
   void createsFakeConsumer() {
-    final FkConsumer<String, String> consumer = new FkConsumer<>();
+    final FkConsumer<String, String> consumer =
+      new FkConsumer<>(UUID.randomUUID(), this.broker);
     MatcherAssert.assertThat(consumer, Matchers.is(Matchers.notNullValue()));
     assertThrows(
       UnsupportedOperationException.class,
@@ -80,10 +137,21 @@ final class FkConsumerTest {
       UnsupportedOperationException.class,
       consumer::unsubscribe
     );
-    assertThrows(
-      UnsupportedOperationException.class,
-      consumer::close
-    );
   }
 
+  @Test
+  void closesWithoutException() {
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(UUID.randomUUID(), this.broker);
+    Assertions.assertDoesNotThrow(consumer::close);
+  }
+
+  @Test
+  void logsWithInfo() {
+    MatcherAssert.assertThat(
+      "Logging is enabled at level info",
+      Logger.isEnabled(Level.INFO, FkConsumer.class),
+      Matchers.is(true)
+    );
+  }
 }

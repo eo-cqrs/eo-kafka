@@ -22,12 +22,16 @@
 
 package io.github.eocqrs.kafka.fake;
 
+import com.jcabi.log.Logger;
 import io.github.eocqrs.kafka.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 
+import java.time.Clock;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.UUID;
 
 /**
  * Fake Consumer.
@@ -39,9 +43,26 @@ import java.util.Collection;
  */
 public final class FkConsumer<K, X> implements Consumer<K, X> {
 
-  /*
-   * @todo #54:60m/DEV Fake subscribe is not implemented
+  /**
+   * Client id.
    */
+  private final UUID id;
+  /**
+   * Broker.
+   */
+  private final FkBroker broker;
+
+  /**
+   * Ctor.
+   *
+   * @param identifier UUID id
+   * @param brkr       FkBroker
+   */
+  public FkConsumer(final UUID identifier, final FkBroker brkr) {
+    this.id = identifier;
+    this.broker = brkr;
+  }
+
   @Override
   public void subscribe(final String... topics) {
     throw new UnsupportedOperationException("#subscribe()");
@@ -80,11 +101,16 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
     throw new UnsupportedOperationException("#unsubscribe()");
   }
 
-  /*
-   * @todo #54:60m/DEV Fake consumer close is not implemented
-   */
   @Override
   public void close() {
-    throw new UnsupportedOperationException("#close()");
+    Logger.info(
+      this, "Consumer %s closed at %s"
+        .formatted(
+          this.id,
+          LocalDateTime.now(
+            Clock.systemUTC()
+          )
+        )
+    );
   }
 }
