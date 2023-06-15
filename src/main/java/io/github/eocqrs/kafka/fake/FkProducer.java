@@ -109,12 +109,9 @@ public final class FkProducer<K, X> implements Producer<K, X> {
     );
   }
 
-  /*
-   * @todo #293:30m/DEV Fake consumer close log test
-   */
   @Override
   public void close() {
-    Logger.debug(
+    Logger.info(
       this, "Producer closed at %s"
         .formatted(
           LocalDateTime.now(

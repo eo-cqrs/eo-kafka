@@ -24,6 +24,7 @@
 
 package io.github.eocqrs.kafka.fake;
 
+import com.jcabi.log.Logger;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.xfake.InFile;
@@ -40,6 +41,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
 
 /**
  * Test case for {@link FkProducer}.
@@ -50,6 +52,9 @@ import java.util.concurrent.Future;
 @ExtendWith(MockitoExtension.class)
 final class FkProducerTest {
 
+  /**
+   * Broker.
+   */
   private FkBroker broker;
 
   @BeforeEach
@@ -93,6 +98,15 @@ final class FkProducerTest {
     final Producer<String, String> producer =
       new FkProducer<>(this.broker);
     Assertions.assertDoesNotThrow(producer::close);
+  }
+
+  @Test
+  void fakeProducerLogsWithInfo() {
+    MatcherAssert.assertThat(
+      "Logging is enabled at level info",
+      Logger.isEnabled(Level.INFO, FkProducer.class),
+      Matchers.is(true)
+    );
   }
 
   @Test
