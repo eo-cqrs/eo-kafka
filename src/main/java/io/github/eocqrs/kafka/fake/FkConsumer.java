@@ -63,6 +63,9 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
     this.broker = brkr;
   }
 
+  /*
+   * @todo #54:60m/DEV Fake subscribe is not implemented
+   */
   @Override
   public void subscribe(final String... topics) {
     throw new UnsupportedOperationException("#subscribe()");
