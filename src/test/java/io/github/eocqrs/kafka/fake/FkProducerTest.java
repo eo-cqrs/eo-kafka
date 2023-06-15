@@ -101,7 +101,7 @@ final class FkProducerTest {
   }
 
   @Test
-  void fakeProducerLogsWithInfo() {
+  void logsWithLevelInfo() {
     MatcherAssert.assertThat(
       "Logging is enabled at level info",
       Logger.isEnabled(Level.INFO, FkProducer.class),
