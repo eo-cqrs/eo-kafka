@@ -22,29 +22,43 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import org.cactoos.Scalar;
 
 /**
- * Test case for {@link TopicDirs}.
+ * Throwing exception on a False logical statement.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.3.5
  */
-final class TopicDirsTest {
+public final class ThrowsOnFalse implements Scalar<Boolean> {
 
-  @Test
-  void dirsInRightFormat() throws Exception {
-    final String directives = "XPATH \"broker/topics\";ADD \"topic\";ADDIF \"name\";SET \"test\";UP;ADDIF \"datasets\";";
-    MatcherAssert.assertThat(
-      "Directives in the right format",
-      new TopicDirs("test")
-        .value()
-        .toString(),
-      Matchers.equalTo(
-        directives
-      )
-    );
+  /**
+   * Logical statement.
+   */
+  private final Scalar<Boolean> scalar;
+  /**
+   * Error message.
+   */
+  private final String message;
+
+  /**
+   * Ctor.
+   *
+   * @param sclr Boolean scalar
+   * @param msg  Error Message
+   */
+  public ThrowsOnFalse(final Scalar<Boolean> sclr, final String msg) {
+    this.scalar = sclr;
+    this.message = msg;
+  }
+
+  @Override
+  public Boolean value() throws Exception {
+    if (!this.scalar.value()) {
+      throw new IllegalArgumentException(
+        this.message
+      );
+    }
+    return true;
   }
 }

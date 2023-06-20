@@ -24,27 +24,47 @@ package io.github.eocqrs.kafka.fake;
 
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link TopicDirs}.
+ * Test case for {@link ThrowsOnFalse}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.3.5
  */
-final class TopicDirsTest {
+final class ThrowsOnFalseTest {
 
   @Test
-  void dirsInRightFormat() throws Exception {
-    final String directives = "XPATH \"broker/topics\";ADD \"topic\";ADDIF \"name\";SET \"test\";UP;ADDIF \"datasets\";";
+  void throwsOnFalse() {
+    final String msg = "test message";
+    final String message = Assertions.assertThrows(IllegalArgumentException.class,
+      () -> new ThrowsOnFalse(
+        () -> false, msg
+      ).value()
+    ).getMessage();
     MatcherAssert.assertThat(
-      "Directives in the right format",
-      new TopicDirs("test")
-        .value()
-        .toString(),
-      Matchers.equalTo(
-        directives
-      )
+      "Exception message in right format",
+      message,
+      Matchers.equalTo(msg)
+    );
+  }
+
+  @Test
+  void returnsTrueOnTrue() throws Exception {
+    MatcherAssert.assertThat(
+      "Returns true on true statement",
+      new ThrowsOnFalse(() -> true, "test").value(),
+      Matchers.equalTo(true)
+    );
+  }
+
+  @Test
+  void doesNotThrowOnTrue() {
+    Assertions.assertDoesNotThrow(
+      () -> new ThrowsOnFalse(
+        () -> true, "msg"
+      ).value()
     );
   }
 }
