@@ -20,10 +20,8 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.fake;
+package io.github.eocqrs.kafka.fake.storage;
 
-import io.github.eocqrs.kafka.fake.storage.FkStorage;
-import io.github.eocqrs.kafka.fake.storage.InFile;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
