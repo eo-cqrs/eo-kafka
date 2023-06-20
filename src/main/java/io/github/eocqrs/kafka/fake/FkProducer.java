@@ -80,16 +80,13 @@ public final class FkProducer<K, X> implements Producer<K, X> {
     final K key,
     final Data<X> message
   ) throws Exception {
-    final Boolean exists =
-      new TopicExists(message.topic(), this.broker).value();
-    if (!exists) {
-      throw new IllegalArgumentException(
-        "topic %s does not exits!"
-          .formatted(
-            message.topic()
-          )
-      );
-    }
+    new ThrowsOnFalse(
+      new TopicExists(message.topic(), this.broker),
+      "topic %s does not exists!"
+        .formatted(
+          message.topic()
+        )
+    ).value();
     this.broker.with(new DatasetDirs<>(key, message).value());
     final RecordMetadata metadata = new RecordMetadata(
       new TopicPartition(
