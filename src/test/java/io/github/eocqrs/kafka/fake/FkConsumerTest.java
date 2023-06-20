@@ -154,6 +154,19 @@ final class FkConsumerTest {
   }
 
   @Test
+  void throwsIfNull() {
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(
+        UUID.randomUUID(),
+        this.broker
+      );
+    Assertions.assertThrows(
+      IllegalStateException.class,
+      () -> consumer.subscribe((String) null)
+    );
+  }
+
+  @Test
   void createsFakeConsumer() {
     final FkConsumer<String, String> consumer =
       new FkConsumer<>(UUID.randomUUID(), this.broker);
