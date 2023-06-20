@@ -20,55 +20,56 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.fake;
+package io.github.eocqrs.kafka.fake.storage;
 
-import io.github.eocqrs.xfake.FkStorage;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.xembly.Directives;
 
-import java.util.Collection;
-
 /**
- * XML Kafka Broker.
+ * Test case for {@link InFile}
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.3
  */
-public final class InXml implements FkBroker {
+@SuppressWarnings("deprecation")
+final class InFileTest {
 
-  /**
-   * Storage.
-   */
-  private final FkStorage storage;
-
-  /**
-   * Ctor.
-   *
-   * @param strg Storage.
-   * @throws Exception When something went wrong.
-   */
-  public InXml(final FkStorage strg)
-    throws Exception {
-    this.storage = strg;
-    this.storage.apply(
-      new Directives()
-        .xpath("broker")
-        .addIf("topics")
-    );
-    this.storage.apply(
-      new Directives()
-        .xpath("broker")
-        .addIf("subs")
+  @Test
+  void createsStorageInXmlFile() throws Exception {
+    final FkStorage storage = new InFile();
+    MatcherAssert.assertThat(
+      "Storage has root <broker> tag",
+      storage.xml().nodes("broker").isEmpty(),
+      Matchers.equalTo(false)
     );
   }
 
-  @Override
-  public FkBroker with(final Directives dirs) throws Exception {
-    this.storage.apply(dirs);
-    return this;
+  @Test
+  void appliesDirectives() throws Exception {
+    final FkStorage storage = new InFile();
+    storage.apply(
+      new Directives()
+        .xpath("/broker")
+        .addIf("servers")
+    );
+    MatcherAssert.assertThat(
+      "XML has right format",
+      storage.xml().nodes("broker/servers").isEmpty(),
+      Matchers.equalTo(false)
+    );
   }
 
-  @Override
-  public Collection<String> data(final String query) throws Exception {
-    return this.storage.xml().xpath(query);
+  @Test
+  void locksAndUnlocks() throws Exception {
+    final FkStorage storage = new InFile();
+    Assertions.assertDoesNotThrow(
+      storage::lock
+    );
+    Assertions.assertDoesNotThrow(
+      storage::unlock
+    );
   }
 }

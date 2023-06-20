@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,56 +22,32 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import io.github.eocqrs.kafka.fake.storage.FkStorage;
-import io.github.eocqrs.kafka.fake.storage.InFile;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.xembly.Directives;
+
+import java.util.UUID;
 
 /**
- * Test case for {@link InFile}
+ * Test case for {@link SubscribeDirs}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.2.3
+ * @since 0.3.5
  */
-@SuppressWarnings("deprecation")
-final class InFileTest {
+final class SubscribeDirsTest {
 
   @Test
-  void createsStorageInXmlFile() throws Exception {
-    final FkStorage storage = new InFile();
+  void dirsInRightFormat() throws Exception {
+    final UUID uuid = UUID.fromString("a0802390-9437-4b02-9473-a726629a5472");
+    final String directives = "XPATH \"broker/subs\";ADD \"sub\";ADDIF \"topic\";SET \"test\";UP;ADDIF \"consumer\";SET \"a0802390-9437-4b02-9473-a726629a5472\";";
     MatcherAssert.assertThat(
-      "Storage has root <broker> tag",
-      storage.xml().nodes("broker").isEmpty(),
-      Matchers.equalTo(false)
-    );
-  }
-
-  @Test
-  void appliesDirectives() throws Exception {
-    final FkStorage storage = new InFile();
-    storage.apply(
-      new Directives()
-        .xpath("/broker")
-        .addIf("servers")
-    );
-    MatcherAssert.assertThat(
-      "XML has right format",
-      storage.xml().nodes("broker/servers").isEmpty(),
-      Matchers.equalTo(false)
-    );
-  }
-
-  @Test
-  void locksAndUnlocks() throws Exception {
-    final FkStorage storage = new InFile();
-    Assertions.assertDoesNotThrow(
-      storage::lock
-    );
-    Assertions.assertDoesNotThrow(
-      storage::unlock
+      "Directives in the right format",
+      new SubscribeDirs("test", uuid)
+        .value()
+        .toString(),
+      Matchers.equalTo(
+        directives
+      )
     );
   }
 }

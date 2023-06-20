@@ -26,6 +26,7 @@ import com.jcabi.log.Logger;
 import io.github.eocqrs.kafka.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.cactoos.list.ListOf;
 
 import java.time.Clock;
 import java.time.Duration;
@@ -44,7 +45,7 @@ import java.util.UUID;
 public final class FkConsumer<K, X> implements Consumer<K, X> {
 
   /**
-   * Client id.
+   * Consumer id.
    */
   private final UUID id;
   /**
@@ -63,17 +64,22 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
     this.broker = brkr;
   }
 
-  /*
-   * @todo #54:60m/DEV Fake subscribe is not implemented
-   */
   @Override
   public void subscribe(final String... topics) {
-    throw new UnsupportedOperationException("#subscribe()");
+    this.subscribe(new ListOf<>(topics));
   }
 
   @Override
   public void subscribe(final Collection<String> topics) {
-    throw new UnsupportedOperationException("#subscribe()");
+    topics.forEach(
+      t -> {
+        try {
+          this.broker.with(new SubscribeDirs(t, this.id).value());
+        } catch (final Exception ex) {
+          throw new IllegalStateException(ex);
+        }
+      }
+    );
   }
 
   /*

@@ -82,6 +82,21 @@ final class InXmlTest {
   }
 
   @Test
+  void createsBrokerWithSubscriptions() throws Exception {
+    final FkBroker broker =
+      new InXml(
+        this.storage
+      );
+    MatcherAssert.assertThat(
+      "<subs> node is present",
+      this.storage.xml()
+        .nodes("broker/subs")
+        .isEmpty(),
+      Matchers.equalTo(false)
+    );
+  }
+
+  @Test
   void createsTopic() throws Exception {
     new InXml(this.storage)
       .with(new TopicDirs("test-1").value());

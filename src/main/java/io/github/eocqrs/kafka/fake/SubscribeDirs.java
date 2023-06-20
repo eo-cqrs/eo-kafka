@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,53 +22,48 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import io.github.eocqrs.xfake.FkStorage;
+import org.cactoos.Scalar;
 import org.xembly.Directives;
 
-import java.util.Collection;
+import java.util.UUID;
 
 /**
- * XML Kafka Broker.
+ * Subscription Directives.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.2.3
+ * @since 0.3.5
  */
-public final class InXml implements FkBroker {
+public final class SubscribeDirs implements Scalar<Directives> {
 
   /**
-   * Storage.
+   * Topic to subscribe.
    */
-  private final FkStorage storage;
+  private final String topic;
+  /**
+   * Consumer ID.
+   */
+  private final UUID id;
 
   /**
    * Ctor.
    *
-   * @param strg Storage.
-   * @throws Exception When something went wrong.
+   * @param tpc      Topic to subscribe
+   * @param consumer Consumer ID
    */
-  public InXml(final FkStorage strg)
-    throws Exception {
-    this.storage = strg;
-    this.storage.apply(
-      new Directives()
-        .xpath("broker")
-        .addIf("topics")
-    );
-    this.storage.apply(
-      new Directives()
-        .xpath("broker")
-        .addIf("subs")
-    );
+  public SubscribeDirs(final String tpc, final UUID consumer) {
+    this.topic = tpc;
+    this.id = consumer;
   }
 
   @Override
-  public FkBroker with(final Directives dirs) throws Exception {
-    this.storage.apply(dirs);
-    return this;
-  }
-
-  @Override
-  public Collection<String> data(final String query) throws Exception {
-    return this.storage.xml().xpath(query);
+  public Directives value() throws Exception {
+    return new Directives()
+      .xpath("broker/subs")
+      .add("sub")
+      .addIf("topic")
+      .set(this.topic)
+      .up()
+      .addIf("consumer")
+      .set(this.id);
   }
 }
