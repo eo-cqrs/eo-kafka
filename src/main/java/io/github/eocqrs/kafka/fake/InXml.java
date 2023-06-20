@@ -54,6 +54,11 @@ public final class InXml implements FkBroker {
         .xpath("broker")
         .addIf("topics")
     );
+    this.storage.apply(
+      new Directives()
+        .xpath("broker")
+        .addIf("subs")
+    );
   }
 
   @Override

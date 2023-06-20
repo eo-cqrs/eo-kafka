@@ -25,15 +25,19 @@
 package io.github.eocqrs.kafka.fake;
 
 import com.jcabi.log.Logger;
+import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Consumer;
+import io.github.eocqrs.xfake.FkStorage;
 import io.github.eocqrs.xfake.InFile;
 import io.github.eocqrs.xfake.Synchronized;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.common.TopicPartition;
+import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -101,18 +105,59 @@ final class FkConsumerTest {
   }
 
   @Test
+  void subscribesToTopics() throws Exception {
+    final String topic = "1.test";
+    final UUID uuid = UUID.fromString("4b9d33f3-662f-41cf-a500-6169779e802a");
+    final FkBroker with = this.broker
+      .with(new TopicDirs(topic).value());
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(
+        uuid,
+        with
+      );
+    consumer.subscribe(new ListOf<>(topic));
+    MatcherAssert.assertThat(
+      "topic subscriptions in right format",
+      with.data(
+        "broker/subs/sub[topic = '%s']/topic/text()"
+          .formatted(
+            topic
+          )
+      ),
+      Matchers.contains(topic)
+    );
+    MatcherAssert.assertThat(
+      "Consumer ID in right format",
+      with.data(
+        "broker/subs/sub[consumer = '%s']/consumer/text()"
+          .formatted(
+            uuid.toString()
+          )
+      ),
+      Matchers.contains(uuid.toString())
+    );
+    consumer.close();
+  }
+
+  @Test
+  void subscribesWithVarArgs() throws Exception {
+    final String topic = "varargs.test";
+    final FkBroker with = this.broker
+      .with(new TopicDirs(topic).value());
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(
+        UUID.randomUUID(),
+        with
+      );
+    Assertions.assertDoesNotThrow(() -> consumer.subscribe(topic));
+    consumer.close();
+  }
+
+  @Test
   void createsFakeConsumer() {
     final FkConsumer<String, String> consumer =
       new FkConsumer<>(UUID.randomUUID(), this.broker);
     MatcherAssert.assertThat(consumer, Matchers.is(Matchers.notNullValue()));
-    assertThrows(
-      UnsupportedOperationException.class,
-      () -> consumer.subscribe("123")
-    );
-    assertThrows(
-      UnsupportedOperationException.class,
-      () -> consumer.subscribe(new ArrayList<>(0))
-    );
     assertThrows(
       UnsupportedOperationException.class,
       () -> consumer.subscribe(new ConsumerRebalanceListener() {
