@@ -22,29 +22,50 @@
 
 package io.github.eocqrs.kafka.fake;
 
+import io.github.eocqrs.xfake.InFile;
+import io.github.eocqrs.xfake.Synchronized;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test case for {@link TopicDirs}.
+ * Test case for {@link TopicExists}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.3.5
  */
-final class TopicDirsTest {
+final class TopicExistsTest {
+
+  private FkBroker broker;
+
+  @BeforeEach
+  void setUp() throws Exception {
+    this.broker = new InXml(
+      new Synchronized(
+        new InFile(
+          "topic-exists-test",
+          "<broker/>"
+        )
+      )
+    ).with(new TopicDirs("1.test").value());
+  }
 
   @Test
-  void dirsInRightFormat() throws Exception {
-    final String directives = "XPATH \"broker/topics\";ADD \"topic\";ADDIF \"name\";SET \"test\";UP;ADDIF \"datasets\";";
+  void returnsTrueOnExistingTopic() throws Exception {
     MatcherAssert.assertThat(
-      "Directives in the right format",
-      new TopicDirs("test")
-        .value()
-        .toString(),
-      Matchers.equalTo(
-        directives
-      )
+      "Topic is present",
+      new TopicExists("1.test", this.broker).value(),
+      Matchers.equalTo(true)
+    );
+  }
+
+  @Test
+  void returnsFalseOnUnknownTopic() throws Exception {
+    MatcherAssert.assertThat(
+      "Topic is not present",
+      new TopicExists("unknown.test", this.broker).value(),
+      Matchers.equalTo(false)
     );
   }
 }

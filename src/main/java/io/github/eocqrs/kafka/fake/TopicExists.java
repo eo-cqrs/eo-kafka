@@ -22,29 +22,44 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import org.cactoos.Scalar;
 
 /**
- * Test case for {@link TopicDirs}.
+ * Topic Exists or not.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.3.5
  */
-final class TopicDirsTest {
+public final class TopicExists implements Scalar<Boolean> {
 
-  @Test
-  void dirsInRightFormat() throws Exception {
-    final String directives = "XPATH \"broker/topics\";ADD \"topic\";ADDIF \"name\";SET \"test\";UP;ADDIF \"datasets\";";
-    MatcherAssert.assertThat(
-      "Directives in the right format",
-      new TopicDirs("test")
-        .value()
-        .toString(),
-      Matchers.equalTo(
-        directives
-      )
-    );
+  /**
+   * Topic to check.
+   */
+  private final String topic;
+  /**
+   * Broker.
+   */
+  private final FkBroker broker;
+
+  /**
+   * Ctor.
+   *
+   * @param tpc  Topic to check
+   * @param brkr Broker
+   */
+  public TopicExists(final String tpc, final FkBroker brkr) {
+    this.topic = tpc;
+    this.broker = brkr;
+  }
+
+  @Override
+  public Boolean value() throws Exception {
+    return this.broker.data(
+        "broker/topics/topic[name = '%s']/name/text()"
+          .formatted(this.topic)
+      ).stream()
+      .anyMatch(s ->
+        s.equals(this.topic)
+      );
   }
 }

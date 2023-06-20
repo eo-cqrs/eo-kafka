@@ -80,13 +80,8 @@ public final class FkProducer<K, X> implements Producer<K, X> {
     final K key,
     final Data<X> message
   ) throws Exception {
-    final boolean exists = this.broker.data(
-        "broker/topics/topic[name = '%s']/name/text()"
-          .formatted(message.topic())
-      ).stream()
-      .anyMatch(s ->
-        s.equals(message.topic())
-      );
+    final Boolean exists =
+      new TopicExists(message.topic(), this.broker).value();
     if (!exists) {
       throw new IllegalArgumentException(
         "topic %s does not exits!"
