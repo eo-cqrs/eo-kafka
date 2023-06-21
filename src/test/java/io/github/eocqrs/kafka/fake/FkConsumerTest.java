@@ -221,6 +221,27 @@ final class FkConsumerTest {
   }
 
   @Test
+  void throwsIfNullWithListener() {
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(
+        UUID.randomUUID(),
+        this.broker
+      );
+    Assertions.assertThrows(
+      IllegalStateException.class,
+      () -> consumer.subscribe(new ConsumerRebalanceListener() {
+        @Override
+        public void onPartitionsRevoked(final Collection<TopicPartition> collection) {
+        }
+
+        @Override
+        public void onPartitionsAssigned(final Collection<TopicPartition> collection) {
+        }
+      }, (String) null)
+    );
+  }
+
+  @Test
   void createsFakeConsumer() {
     final FkConsumer<String, String> consumer =
       new FkConsumer<>(UUID.randomUUID(), this.broker);
