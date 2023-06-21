@@ -25,9 +25,7 @@
 package io.github.eocqrs.kafka.fake;
 
 import com.jcabi.log.Logger;
-import com.jcabi.xml.XML;
 import io.github.eocqrs.kafka.Consumer;
-import io.github.eocqrs.xfake.FkStorage;
 import io.github.eocqrs.xfake.InFile;
 import io.github.eocqrs.xfake.Synchronized;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
@@ -37,7 +35,6 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -45,7 +42,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -140,6 +136,64 @@ final class FkConsumerTest {
   }
 
   @Test
+  void subscribesWithRebalanceListener() throws Exception {
+    final String topic = "listener.test";
+    final String rebalance = "rebalance";
+    final UUID uuid = UUID.fromString("e343a512-9d02-40e8-92b6-1538014d3975");
+    final FkBroker with = this.broker
+      .with(new TopicDirs(topic).value());
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(
+        uuid,
+        with
+      );
+    final ConsumerRebalanceListener listener = new ConsumerRebalanceListener() {
+      @Override
+      public void onPartitionsRevoked(final Collection<TopicPartition> collection) {
+      }
+
+      @Override
+      public void onPartitionsAssigned(final Collection<TopicPartition> collection) {
+      }
+
+      @Override
+      public String toString() {
+        return rebalance;
+      }
+    };
+    consumer.subscribe(listener, topic);
+    MatcherAssert.assertThat(
+      "topic subscriptions in right format",
+      with.data(
+        "broker/subs/sub[topic = '%s']/topic/text()"
+          .formatted(
+            topic
+          )
+      ),
+      Matchers.contains(topic)
+    );
+    MatcherAssert.assertThat(
+      "Consumer ID in right format",
+      with.data(
+        "broker/subs/sub[consumer = '%s']/consumer/text()"
+          .formatted(
+            uuid.toString()
+          )
+      ),
+      Matchers.contains(uuid.toString())
+    );
+    MatcherAssert.assertThat(
+      "Consumer Rebalance Listener in right format",
+      with.data(
+        "broker/subs/sub[listener = '%s']/listener/text()"
+          .formatted(listener.toString())
+      ),
+      Matchers.contains(rebalance)
+    );
+    consumer.close();
+  }
+
+  @Test
   void subscribesWithVarArgs() throws Exception {
     final String topic = "varargs.test";
     final FkBroker with = this.broker
@@ -171,18 +225,6 @@ final class FkConsumerTest {
     final FkConsumer<String, String> consumer =
       new FkConsumer<>(UUID.randomUUID(), this.broker);
     MatcherAssert.assertThat(consumer, Matchers.is(Matchers.notNullValue()));
-    assertThrows(
-      UnsupportedOperationException.class,
-      () -> consumer.subscribe(new ConsumerRebalanceListener() {
-        @Override
-        public void onPartitionsRevoked(final Collection<TopicPartition> partitions) {
-        }
-
-        @Override
-        public void onPartitionsAssigned(final Collection<TopicPartition> partitions) {
-        }
-      }, "fake")
-    );
     assertThrows(
       UnsupportedOperationException.class,
       () -> consumer.records("123", Duration.ofMillis(100L))
