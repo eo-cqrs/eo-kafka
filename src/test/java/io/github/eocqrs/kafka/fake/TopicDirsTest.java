@@ -36,7 +36,8 @@ final class TopicDirsTest {
 
   @Test
   void dirsInRightFormat() throws Exception {
-    final String directives = "XPATH \"broker/topics\";ADD \"topic\";ADDIF \"name\";SET \"test\";UP;ADDIF \"datasets\";";
+    final String directives = "XPATH \"broker/topics\";ADD \"topic\";ADDIF "
+      + "\"name\";SET \"test\";UP;ADDIF \"datasets\";";
     MatcherAssert.assertThat(
       "Directives in the right format",
       new TopicDirs("test")

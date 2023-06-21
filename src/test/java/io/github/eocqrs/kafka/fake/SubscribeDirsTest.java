@@ -39,7 +39,8 @@ final class SubscribeDirsTest {
   @Test
   void dirsInRightFormat() throws Exception {
     final UUID uuid = UUID.fromString("a0802390-9437-4b02-9473-a726629a5472");
-    final String directives = "XPATH \"broker/subs\";ADD \"sub\";ADDIF \"topic\";SET \"test\";UP;ADDIF \"consumer\";SET \"a0802390-9437-4b02-9473-a726629a5472\";";
+    final String directives = "XPATH \"broker/subs\";ADD \"sub\";ADDIF \"topic\";SET "
+      + "\"test\";UP;ADDIF \"consumer\";SET \"a0802390-9437-4b02-9473-a726629a5472\";";
     MatcherAssert.assertThat(
       "Directives in the right format",
       new SubscribeDirs("test", uuid)
