@@ -63,6 +63,9 @@ final class ProducerConsumerTest extends KafkaITCase {
 
   @Test
   void createsProducerAndSendsMessage() throws Exception {
+    final String topic = "TEST-TOPIC";
+    final String key = "eo-kafka";
+    final String value = "rulezzz";
     final Producer<String, String> producer =
       new KfProducer<>(
         new KfFlexible<>(
@@ -90,20 +93,20 @@ final class ProducerConsumerTest extends KafkaITCase {
           )
         )
       );
-    producer.send("testcontainers", new KfData<>("rulezzz", "TEST-TOPIC", 0));
+    producer.send(key, new KfData<>(value, topic, 0));
     Unreliables.retryUntilTrue(
       10,
       TimeUnit.SECONDS,
       () -> {
         final ConsumerRecords<String, String> records =
-          consumer.records("TEST-TOPIC", Duration.ofMillis(100L));
+          consumer.records(topic, Duration.ofMillis(100L));
         if (records.isEmpty()) {
           return false;
         }
         assertThat(records)
           .hasSize(1)
           .extracting(ConsumerRecord::topic, ConsumerRecord::key, ConsumerRecord::value)
-          .containsExactly(tuple("TEST-TOPIC", "testcontainers", "rulezzz"));
+          .containsExactly(tuple(topic, key, value));
         return true;
       }
     );
