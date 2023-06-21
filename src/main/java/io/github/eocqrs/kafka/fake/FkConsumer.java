@@ -82,14 +82,21 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
     );
   }
 
-  /*
-   * @todo #54:60m/DEV Fake subscribe with
-   *    ConsumerRebalanceListener is not implemented
-   */
   @Override
   public void subscribe(final ConsumerRebalanceListener listener,
                         final String... topics) {
-    throw new UnsupportedOperationException("#subscribe()");
+    new ListOf<>(topics)
+      .forEach(t -> {
+        try {
+          this.broker.with(
+            new WithRebalanceListener(
+              new SubscribeDirs(t, this.id),
+              listener
+            ).value());
+        } catch (final Exception ex) {
+          throw new IllegalStateException(ex);
+        }
+      });
   }
 
   /*
