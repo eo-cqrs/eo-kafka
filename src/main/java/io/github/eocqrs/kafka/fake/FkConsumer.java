@@ -109,12 +109,18 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
     throw new UnsupportedOperationException("#records()");
   }
 
-  /*
-   * @todo #54:60m/DEV Fake unsubscribe is not implemented
-   */
   @Override
-  public void unsubscribe() {
-    throw new UnsupportedOperationException("#unsubscribe()");
+  public void unsubscribe() throws Exception {
+    while (
+      !this.broker.data(
+        "broker/subs/sub[consumer = '%s']/consumer/text()"
+          .formatted(
+            this.id
+          )
+      ).isEmpty()
+    ) {
+      this.broker.with(new UnsubscribeDirs(this.id).value());
+    }
   }
 
   @Override
