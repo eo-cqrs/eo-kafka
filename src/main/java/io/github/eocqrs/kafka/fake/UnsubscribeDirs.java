@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,60 +20,44 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
+package io.github.eocqrs.kafka.fake;
 
-import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.cactoos.Scalar;
+import org.xembly.Directives;
 
-import java.io.Closeable;
-import java.time.Duration;
-import java.util.Collection;
+import java.util.UUID;
 
 /**
- * Consumer.
+ * Unsubscribe Directives.
  *
- * @param <K> The key
- * @param <X> The value
- * @author Ivan Ivanchuck (l3r8y@duck.com)
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.3.5
  */
-public interface Consumer<K, X> extends Closeable {
+public final class UnsubscribeDirs implements Scalar<Directives> {
 
   /**
-   * Subscribe.
+   * Consumer ID.
+   */
+  private final UUID consumer;
+
+  /**
+   * Ctor.
    *
-   * @param topics topics to subscribe
+   * @param cnsmr Consumer ID
    */
-  void subscribe(String... topics);
+  public UnsubscribeDirs(final UUID cnsmr) {
+    this.consumer = cnsmr;
+  }
 
-  /**
-   * Subscribe.
-   *
-   * @param topics topics to subscribe
-   */
-  void subscribe(Collection<String> topics);
-
-  /**
-   * Subscribe.
-   *
-   * @param listener rebalance listener
-   * @param topics   topics to subscribe
-   */
-  void subscribe(ConsumerRebalanceListener listener, String... topics);
-
-  /**
-   * Fetch Records.
-   *
-   * @param topic   topic to poll
-   * @param timeout max time to wait
-   * @return Records.
-   */
-  ConsumerRecords<K, X> records(String topic, Duration timeout);
-
-  /**
-   * Unsubscribe.
-   * @throws Exception When something went wrong.
-   */
-  void unsubscribe() throws Exception;
+  @Override
+  public Directives value() throws Exception {
+    return new Directives()
+      .xpath("broker/subs/sub[consumer = '%s']/consumer"
+        .formatted(
+          this.consumer
+        )
+      )
+      .remove()
+      .remove();
+  }
 }

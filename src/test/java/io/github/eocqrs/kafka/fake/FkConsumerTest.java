@@ -43,6 +43,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
+import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
@@ -242,6 +243,87 @@ final class FkConsumerTest {
   }
 
   @Test
+  void unsubscribes() throws Exception {
+    final String topic = "unsubscribe.test";
+    final UUID uuid = UUID.randomUUID();
+    final Consumer<String, String> consumer =
+      new FkConsumer<>(
+        uuid,
+        this.broker
+      );
+    consumer.subscribe(topic);
+    consumer.unsubscribe();
+    MatcherAssert.assertThat(
+      "Consumer ID in subscription is not present",
+      this.broker.data(
+          "broker/subs/sub[consumer = '%s']/consumer/text()"
+            .formatted(
+              uuid
+            )
+        )
+        .isEmpty(),
+      Matchers.equalTo(true)
+    );
+    MatcherAssert.assertThat(
+      "Topic in subscription is not present",
+      this.broker.data(
+          "broker/subs/sub[topic = '%s']/topic/text()"
+            .formatted(
+              topic
+            )
+        )
+        .isEmpty(),
+      Matchers.equalTo(true)
+    );
+    consumer.close();
+  }
+
+  @Test
+  void unsubscribesWithSecondConsumerExisting() throws Exception {
+    final String topic = "unsubscribes.with.second.consumer.existing";
+    final UUID firstID = UUID.fromString("f3000fb7-b9fb-42d0-8210-f09a58c44a1f");
+    final UUID secondID = UUID.fromString("69a4cd5a-afdb-456c-9ade-658569f52d7b");
+    final Consumer<String, String> first =
+      new FkConsumer<>(
+        firstID,
+        this.broker
+      );
+    final Consumer<String, String> second =
+      new FkConsumer<>(
+        secondID,
+        this.broker
+      );
+    first.subscribe(topic);
+    second.subscribe(topic);
+    first.unsubscribe();
+    MatcherAssert.assertThat(
+      "No such subscription with first Consumer ID",
+      this.broker.data(
+        "broker/subs/sub[topic = '%s' and consumer = '%s']/topic/text()"
+          .formatted(
+            topic,
+            firstID
+          )
+      ).isEmpty(),
+      Matchers.equalTo(true)
+    );
+    MatcherAssert.assertThat(
+      "Topic with subscription exists with second Consumer ID",
+      this.broker.data(
+          "broker/subs/sub[topic = '%s' and consumer = '%s']/topic/text()"
+            .formatted(
+              topic,
+              secondID
+            )
+        )
+        .isEmpty(),
+      Matchers.equalTo(false)
+    );
+    first.close();
+    second.close();
+  }
+
+  @Test
   void createsFakeConsumer() {
     final FkConsumer<String, String> consumer =
       new FkConsumer<>(UUID.randomUUID(), this.broker);
@@ -253,10 +335,6 @@ final class FkConsumerTest {
     assertThrows(
       UnsupportedOperationException.class,
       () -> consumer.records("123", Duration.ofMillis(100L))
-    );
-    assertThrows(
-      UnsupportedOperationException.class,
-      consumer::unsubscribe
     );
   }
 
