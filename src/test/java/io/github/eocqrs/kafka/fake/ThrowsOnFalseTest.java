@@ -38,11 +38,13 @@ final class ThrowsOnFalseTest {
   @Test
   void throwsOnFalse() {
     final String msg = "test message";
-    final String message = Assertions.assertThrows(IllegalArgumentException.class,
-      () -> new ThrowsOnFalse(
-        () -> false, msg
-      ).value()
-    ).getMessage();
+    final String message =
+      Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> new ThrowsOnFalse(
+          () -> false, msg
+        ).value()
+      ).getMessage();
     MatcherAssert.assertThat(
       "Exception message in right format",
       message,
