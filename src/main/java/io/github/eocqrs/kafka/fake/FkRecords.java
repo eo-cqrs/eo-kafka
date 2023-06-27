@@ -79,7 +79,7 @@ public final class FkRecords implements
   @Override
   public ConsumerRecords<Object, String> value() throws Exception {
     final Map<TopicPartition, List<ConsumerRecord<Object, String>>> part
-      = new HashMap<>();
+      = new HashMap<>(0);
     final List<ConsumerRecord<Object, String>> recs = new ListOf<>();
     this.datasets.forEach(
       dataset -> recs.add(
