@@ -68,11 +68,14 @@ public interface Consumer<K, X> extends Closeable {
    * @param topic   topic to poll
    * @param timeout max time to wait
    * @return Records.
+   * @throws Exception When something went wrong.
    */
-  ConsumerRecords<K, X> records(String topic, Duration timeout);
+  ConsumerRecords<K, X> records(String topic, Duration timeout)
+    throws Exception;
 
   /**
    * Unsubscribe.
+   *
    * @throws Exception When something went wrong.
    */
   void unsubscribe() throws Exception;

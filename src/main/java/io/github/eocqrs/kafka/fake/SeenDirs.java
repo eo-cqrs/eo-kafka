@@ -22,61 +22,48 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import io.github.eocqrs.kafka.Data;
 import org.cactoos.Scalar;
 import org.xembly.Directives;
 
 /**
- * Dataset Directives.
+ * Seen Directives.
  *
- * @param <K> Dataset key type
- * @param <X> Dataset data type
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.3.5
  */
-public final class DatasetDirs<K, X> implements Scalar<Directives> {
+public final class SeenDirs implements Scalar<Directives> {
 
   /**
-   * Dataset Key.
+   * Topic.
    */
-  private final K key;
+  private final String topic;
   /**
-   * Dataset Data.
+   * Fetched value.
    */
-  private final Data<X> data;
+  private final String fetched;
 
   /**
    * Ctor.
    *
-   * @param key  Key
-   * @param data Data
+   * @param tpc Topic
+   * @param ftcd Fetched value
    */
-  public DatasetDirs(final K key, final Data<X> data) {
-    this.key = key;
-    this.data = data;
+  public SeenDirs(final String tpc, final String ftcd) {
+    this.topic = tpc;
+    this.fetched = ftcd;
   }
 
   @Override
   public Directives value() throws Exception {
     return new Directives()
       .xpath(
-        "broker/topics/topic[name = '%s']"
+        ("broker/topics/topic[name = '%s']/datasets/dataset[value = '%s'"
+          + " and seen = 'false']/seen/text()")
           .formatted(
-            this.data.topic()
+            this.topic,
+            this.fetched
           )
       )
-      .addIf("datasets")
-      .add("dataset")
-      .add("partition")
-      .set(this.data.partition())
-      .up()
-      .addIf("key")
-      .set(this.key)
-      .up()
-      .addIf("value")
-      .set(this.data.dataized().dataize())
-      .up()
-      .addIf("seen")
-      .set("false");
+      .set("true");
   }
 }

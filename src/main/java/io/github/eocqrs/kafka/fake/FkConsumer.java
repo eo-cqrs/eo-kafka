@@ -33,16 +33,17 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.UUID;
+/*
+ * @todo #303:90m/DEV fake consumer is not support various data types
+ */
 
 /**
  * Fake Consumer.
  *
- * @param <K> The key
- * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
-public final class FkConsumer<K, X> implements Consumer<K, X> {
+public final class FkConsumer implements Consumer<Object, String> {
 
   /**
    * Consumer id.
@@ -100,13 +101,32 @@ public final class FkConsumer<K, X> implements Consumer<K, X> {
   }
 
   /*
-   * @todo #54:60m/DEV Fake records is not implemented
+   * @todo #303:45m/DEV records timeout is not implemented
    */
   @Override
-  public ConsumerRecords<K, X> records(
+  public ConsumerRecords<Object, String> records(
     final String topic, final Duration timeout
-  ) {
-    throw new UnsupportedOperationException("#records()");
+  ) throws Exception {
+    this.broker.with(new SubscribeDirs(topic, this.id).value());
+    final ConsumerRecords<Object, String> records =
+      new FkRecords(
+        topic,
+        this.broker.data(
+          ("broker/topics/topic[name = '%s']/datasets"
+            + "/dataset[seen = 'false']/value/text()"
+          ).formatted(
+            topic
+          )
+        )
+      ).value();
+    records.forEach(rec -> {
+      try {
+        this.broker.with(new SeenDirs(topic, rec.value()).value());
+      } catch (final Exception ex) {
+        throw new IllegalStateException(ex);
+      }
+    });
+    return records;
   }
 
   @Override

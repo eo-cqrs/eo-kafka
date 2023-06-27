@@ -22,61 +22,49 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import io.github.eocqrs.kafka.Data;
-import org.cactoos.Scalar;
-import org.xembly.Directives;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.cactoos.list.ListOf;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
+
+import java.util.function.Consumer;
 
 /**
- * Dataset Directives.
+ * Test case for {@link FkRecords}.
  *
- * @param <K> Dataset key type
- * @param <X> Dataset data type
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.3.5
  */
-public final class DatasetDirs<K, X> implements Scalar<Directives> {
+final class FkRecordsTest {
 
-  /**
-   * Dataset Key.
-   */
-  private final K key;
-  /**
-   * Dataset Data.
-   */
-  private final Data<X> data;
-
-  /**
-   * Ctor.
-   *
-   * @param key  Key
-   * @param data Data
-   */
-  public DatasetDirs(final K key, final Data<X> data) {
-    this.key = key;
-    this.data = data;
+  @Test
+  void readsRecordsInRightFormat() throws Exception {
+    final String topic = "test";
+    final String value = "test";
+    new FkRecords(topic, new ListOf<>(value))
+      .value()
+      .forEach(rec ->
+        MatcherAssert.assertThat(
+          "Records in right format",
+          rec.value(),
+          Matchers.equalTo(value)
+        ));
   }
 
-  @Override
-  public Directives value() throws Exception {
-    return new Directives()
-      .xpath(
-        "broker/topics/topic[name = '%s']"
-          .formatted(
-            this.data.topic()
-          )
-      )
-      .addIf("datasets")
-      .add("dataset")
-      .add("partition")
-      .set(this.data.partition())
-      .up()
-      .addIf("key")
-      .set(this.key)
-      .up()
-      .addIf("value")
-      .set(this.data.dataized().dataize())
-      .up()
-      .addIf("seen")
-      .set("false");
+  @Test
+  void readsCountInRightFormat() throws Exception {
+    final String topic = "test";
+    MatcherAssert.assertThat(
+      "Records Count in right format",
+      new FkRecords(
+        topic,
+        new ListOf<>(
+          "first",
+          "second"
+        )
+      ).value().count(),
+      Matchers.equalTo(2)
+    );
   }
 }

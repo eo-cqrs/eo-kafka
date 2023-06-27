@@ -17,7 +17,8 @@ final class DatasetDirsTest {
   void dirsInRightFormat() throws Exception {
     final String directives = "XPATH \"broker/topics/topic[name = &apos;&apos;]\";ADDIF "
       + "\"datasets\";ADD \"dataset\";ADD \"partition\";\n"
-      + "4:SET \"0\";UP;ADDIF \"key\";SET \"test\";UP;ADDIF \"value\";SET \"\";";
+      + "4:SET \"0\";UP;ADDIF \"key\";SET \"test\";UP;ADDIF \"value\";SET \"\";"
+      + "UP;ADDIF \"seen\";SET \"false\";";
     MatcherAssert.assertThat(
       "Directives in the right format",
       new DatasetDirs<>(
