@@ -74,6 +74,9 @@ public final class DatasetDirs<K, X> implements Scalar<Directives> {
       .set(this.key)
       .up()
       .addIf("value")
-      .set(this.data.dataized().dataize());
+      .set(this.data.dataized().dataize())
+      .up()
+      .addIf("seen")
+      .set("false");
   }
 }
