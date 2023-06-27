@@ -42,8 +42,8 @@ import java.util.Map;
 public final class FkRecords implements
   Scalar<ConsumerRecords<Object, String>> {
 
-  public static final int DEFAULT_PARTITION = 0;
-  public static final long ZERO_OFFSET = 0L;
+  private static final int DEFAULT_PARTITION = 0;
+  private static final long ZERO_OFFSET = 0L;
   private final String topic;
   private final Collection<String> datasets;
 
