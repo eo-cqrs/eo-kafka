@@ -26,9 +26,12 @@ package io.github.eocqrs.kafka.fake;
 
 import com.jcabi.log.Logger;
 import io.github.eocqrs.kafka.Consumer;
+import io.github.eocqrs.kafka.Producer;
+import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.xfake.InFile;
 import io.github.eocqrs.xfake.Synchronized;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.TopicPartition;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
@@ -43,11 +46,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Test case for {@link FkConsumer}.
@@ -76,8 +77,8 @@ final class FkConsumerTest {
 
   @Test
   void createsWithMockBroker(@Mock final FkBroker mock) throws IOException {
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(UUID.randomUUID(), mock);
+    final Consumer<Object, String> consumer =
+      new FkConsumer(UUID.randomUUID(), mock);
     MatcherAssert.assertThat(
       "Fake consumer creates with mock broker",
       consumer,
@@ -88,8 +89,8 @@ final class FkConsumerTest {
 
   @Test
   void creates() throws IOException {
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(
+    final Consumer<Object, String> consumer =
+      new FkConsumer(
         UUID.randomUUID(),
         this.broker
       );
@@ -107,8 +108,8 @@ final class FkConsumerTest {
     final UUID uuid = UUID.fromString("4b9d33f3-662f-41cf-a500-6169779e802a");
     final FkBroker with = this.broker
       .with(new TopicDirs(topic).value());
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(
+    final Consumer<Object, String> consumer =
+      new FkConsumer(
         uuid,
         with
       );
@@ -143,8 +144,8 @@ final class FkConsumerTest {
     final UUID uuid = UUID.fromString("e343a512-9d02-40e8-92b6-1538014d3975");
     final FkBroker with = this.broker
       .with(new TopicDirs(topic).value());
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(
+    final Consumer<Object, String> consumer =
+      new FkConsumer(
         uuid,
         with
       );
@@ -199,8 +200,8 @@ final class FkConsumerTest {
     final String topic = "varargs.test";
     final FkBroker with = this.broker
       .with(new TopicDirs(topic).value());
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(
+    final Consumer<Object, String> consumer =
+      new FkConsumer(
         UUID.randomUUID(),
         with
       );
@@ -209,9 +210,9 @@ final class FkConsumerTest {
   }
 
   @Test
-  void throwsIfNull() {
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(
+  void throwsIfNull() throws IOException {
+    final Consumer<Object, String> consumer =
+      new FkConsumer(
         UUID.randomUUID(),
         this.broker
       );
@@ -219,12 +220,13 @@ final class FkConsumerTest {
       IllegalStateException.class,
       () -> consumer.subscribe((String) null)
     );
+    consumer.close();
   }
 
   @Test
   void throwsIfNullWithListener() {
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(
+    final Consumer<Object, String> consumer =
+      new FkConsumer(
         UUID.randomUUID(),
         this.broker
       );
@@ -246,8 +248,8 @@ final class FkConsumerTest {
   void unsubscribes() throws Exception {
     final String topic = "unsubscribe.test";
     final UUID uuid = UUID.randomUUID();
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(
+    final Consumer<Object, String> consumer =
+      new FkConsumer(
         uuid,
         this.broker
       );
@@ -283,13 +285,13 @@ final class FkConsumerTest {
     final String topic = "unsubscribes.with.second.consumer.existing";
     final UUID firstID = UUID.fromString("f3000fb7-b9fb-42d0-8210-f09a58c44a1f");
     final UUID secondID = UUID.fromString("69a4cd5a-afdb-456c-9ade-658569f52d7b");
-    final Consumer<String, String> first =
-      new FkConsumer<>(
+    final Consumer<Object, String> first =
+      new FkConsumer(
         firstID,
         this.broker
       );
-    final Consumer<String, String> second =
-      new FkConsumer<>(
+    final Consumer<Object, String> second =
+      new FkConsumer(
         secondID,
         this.broker
       );
@@ -324,24 +326,58 @@ final class FkConsumerTest {
   }
 
   @Test
-  void createsFakeConsumer() {
-    final FkConsumer<String, String> consumer =
-      new FkConsumer<>(UUID.randomUUID(), this.broker);
-    MatcherAssert.assertThat(consumer, Matchers.is(Matchers.notNullValue()));
-    assertThrows(
-      UnsupportedOperationException.class,
-      () -> consumer.records("123", Duration.ofMillis(100L))
+  void pollsRecordsWithoutException() throws Exception {
+    final Consumer<Object, String> consumer =
+      new FkConsumer(
+        UUID.randomUUID(),
+        this.broker
+      );
+    Assertions.assertDoesNotThrow(
+      () ->
+        consumer.records("test", Duration.ofSeconds(5L))
     );
-    assertThrows(
-      UnsupportedOperationException.class,
-      () -> consumer.records("123", Duration.ofMillis(100L))
+    consumer.close();
+  }
+
+  @Test
+  void pollsRecords() throws Exception {
+    final String topic = "test";
+    final Consumer<Object, String> consumer =
+      new FkConsumer(UUID.randomUUID(),
+        this.broker
+          .with(new TopicDirs(topic).value())
+      );
+    final Producer<String, String> producer =
+      new FkProducer<>(UUID.randomUUID(), this.broker);
+    producer.send("test2", new KfData<>("test2", topic, 0));
+    producer.send("test.new", new KfData<>("test-data.new", topic, 0));
+    producer.send("test.new", new KfData<>("test-data.new", topic, 0));
+    final ConsumerRecords<Object, String> first =
+      consumer.records(topic, Duration.ofSeconds(1L));
+    final ConsumerRecords<Object, String> second =
+      consumer.records(topic, Duration.ofSeconds(1L));
+    final List<String> datasets = new ListOf<>();
+    first.forEach(rec -> datasets.add(rec.value()));
+    MatcherAssert.assertThat(
+      "First datasets in right format",
+      datasets,
+      Matchers.contains("test2", "test-data.new", "test-data.new")
     );
+    datasets.clear();
+    second.forEach(rec -> datasets.add(rec.value()));
+    MatcherAssert.assertThat(
+      "Second datasets are empty",
+      datasets.isEmpty(),
+      Matchers.equalTo(true)
+    );
+    producer.close();
+    consumer.close();
   }
 
   @Test
   void closesWithoutException() {
-    final Consumer<String, String> consumer =
-      new FkConsumer<>(UUID.randomUUID(), this.broker);
+    final Consumer<Object, String> consumer =
+      new FkConsumer(UUID.randomUUID(), this.broker);
     Assertions.assertDoesNotThrow(consumer::close);
   }
 

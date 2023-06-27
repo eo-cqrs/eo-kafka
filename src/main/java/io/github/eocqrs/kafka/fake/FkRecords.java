@@ -42,11 +42,32 @@ import java.util.Map;
 public final class FkRecords implements
   Scalar<ConsumerRecords<Object, String>> {
 
+  /*
+   * @todo #303:45m/DEV multi partitioning is not supported
+   */
+  /**
+   * Default Partition.
+   */
   private static final int DEFAULT_PARTITION = 0;
+  /**
+   * Zero Offset.
+   */
   private static final long ZERO_OFFSET = 0L;
+  /**
+   * Records related to a topic.
+   */
   private final String topic;
+  /**
+   * Dataset to transform.
+   */
   private final Collection<String> datasets;
 
+  /**
+   * Ctor.
+   *
+   * @param tpc  Topic
+   * @param dtst Dataset to transform
+   */
   public FkRecords(
     final String tpc,
     final Collection<String> dtst

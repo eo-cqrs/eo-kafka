@@ -33,9 +33,21 @@ import org.xembly.Directives;
  */
 public final class SeenDirs implements Scalar<Directives> {
 
+  /**
+   * Topic.
+   */
   private final String topic;
+  /**
+   * Fetched value.
+   */
   private final String fetched;
 
+  /**
+   * Ctor.
+   *
+   * @param tpc Topic
+   * @param ftcd Fetched value
+   */
   public SeenDirs(final String tpc, final String ftcd) {
     this.topic = tpc;
     this.fetched = ftcd;
