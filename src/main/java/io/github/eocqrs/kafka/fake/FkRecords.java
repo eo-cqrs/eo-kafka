@@ -76,6 +76,9 @@ public final class FkRecords implements
     this.datasets = dtst;
   }
 
+  /*
+   * @todo #303:45m/DEV message key is not supported
+   */
   @Override
   public ConsumerRecords<Object, String> value() throws Exception {
     final Map<TopicPartition, List<ConsumerRecord<Object, String>>> part
