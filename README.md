@@ -233,6 +233,145 @@ Finally, you can `unsubscribe`:
 consumer.unsubscribe();
 ```
 
+## Fake API
+
+In case of mocking eo-kafka, you can use existing Fake Objects from `io.github.eocqrs.kafka.fake` package.
+They look like a normal ones, but instead of talking to real Kafka broker,
+they are manipulating in-memory XML document.
+
+### FkBroker
+
+```java
+final FkBroker broker = new InXml(
+   new Synchronized(
+     new InFile(
+       "consumer-test", "<broker/>"
+     )
+   )
+);
+```
+
+It will create XML in-memory file with following structure:
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<broker>
+  <topics/>
+  <subs/>
+</broker>
+```
+
+you can create a topic inside broker:
+
+```java
+broker.with(new TopicDirs("fake.topic").value());
+```
+
+Under the hood XML will be modified to:
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<broker>
+  <topics>
+    <topic>
+      <name>fake.topic</name>
+      <datasets/>
+    </topic>
+  </topics>
+  <subs/>
+</broker>
+```
+
+### FkProducer
+
+```java
+final Producer<String, String> producer =
+    new FkProducer<>(
+      UUID.randomUUID(),
+      broker
+);
+```
+
+### FkConsumer
+
+```java
+final Consumer<Object, String> consumer =
+    new FkConsumer(
+      UUID.randomUUID(),
+      broker
+);
+```
+
+### Fake API Example
+
+```java
+final String topic = "test";
+final Consumer<Object, String> consumer =
+   new FkConsumer(UUID.randomUUID(),
+     this.broker
+       .with(new TopicDirs(topic).value())
+   );
+final Producer<String, String> producer =
+   new FkProducer<>(UUID.randomUUID(), this.broker);
+producer.send("test1", new KfData<>("test-data-1", topic, 0));
+producer.send("test2", new KfData<>("test-data-2", topic, 0));
+producer.send("test3", new KfData<>("test-data-3", topic, 0));
+final ConsumerRecords<Object, String> records =
+   consumer.records(topic, Duration.ofSeconds(1L));
+final List<String> datasets = new ListOf<>();
+records.forEach(rec -> datasets.add(rec.value()));
+MatcherAssert.assertThat(
+   "First datasets in right format",
+   datasets,
+   Matchers.contains("test-data-1", "test-data-2", "test-data-3")
+);
+```
+
+As well as production producers and consumers, fake ones also should be closed after things been done:
+
+```java
+fake.close();
+```
+
+Under the hood XML document will looks like this:
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<broker>
+  <topics>
+    <topic>
+      <name>test</name>
+      <datasets>
+        <dataset>
+          <partition>0</partition>
+          <key>test1</key>
+          <value>test-data-1</value>
+          <seen>true</seen>
+        </dataset>
+        <dataset>
+          <partition>0</partition>
+          <key>test2</key>
+          <value>test-data-2</value>
+          <seen>true</seen>
+        </dataset>
+        <dataset>
+          <partition>0</partition>
+          <key>test3</key>
+          <value>test-data-3</value>
+          <seen>true</seen>
+        </dataset>
+      </datasets>
+    </topic>
+  </topics>
+  <subs>
+    <sub>
+      <topic>test</topic>
+      <consumer>aa4a2008-764b-4e19-9368-8250df4bea38</consumer>
+    </sub>
+  </subs>
+</broker>
+```
+
+**By the version `0.3.5`, eo-kafka support only String values in FkConsumer**.
+
 ## Config API
 | Kafka Property                          | eo-kafka API                                                                                                                                                    | XML tag
 |-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------
