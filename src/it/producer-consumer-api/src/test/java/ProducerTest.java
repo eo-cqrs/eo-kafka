@@ -23,7 +23,6 @@
  */
 
 import io.github.eocqrs.kafka.Producer;
-import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.kafka.parameters.BootstrapServers;
 import io.github.eocqrs.kafka.parameters.KeySerializer;
 import io.github.eocqrs.kafka.parameters.KfFlexible;
@@ -31,6 +30,8 @@ import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueSerializer;
 import io.github.eocqrs.kafka.producer.KfCallback;
 import io.github.eocqrs.kafka.producer.KfProducer;
+import io.github.eocqrs.kafka.data.Tkv;
+import io.github.eocqrs.kafka.data.WithPartition;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -41,6 +42,7 @@ import java.io.IOException;
 
 /**
  * Kafka Producer IT Case
+ *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.2.3
  */
@@ -64,8 +66,14 @@ final class ProducerTest extends KafkaITCase {
     ) {
       Assertions.assertDoesNotThrow(
         () -> producer.send(
-          "fake-key",
-          new KfData<>("fake-data", "FAKE-TOPIC", 1)
+          new WithPartition<>(
+            1,
+            new Tkv<>(
+              "FAKE-TOPIC",
+              "fake-key",
+              "fake-data"
+            )
+          )
         )
       );
     }
@@ -73,6 +81,9 @@ final class ProducerTest extends KafkaITCase {
 
   @Test
   void createsProducerAndSendsDataWithCallback() throws Exception {
+    final String topic = "TEST-CALLBACK";
+    final String key = "test-key";
+    final String value = "test-data";
     try (
       final Producer<String, String> producer =
         new KfCallback<>(
@@ -88,13 +99,19 @@ final class ProducerTest extends KafkaITCase {
           (recordMetadata, e) ->
             MatcherAssert.assertThat(
               recordMetadata.topic(),
-              Matchers.equalTo("TEST-CALLBACK")
+              Matchers.equalTo(topic)
             )
         )
     ) {
       producer.send(
-        "test-key",
-        new KfData<>("test-data", "TEST-CALLBACK", 1)
+        new WithPartition<>(
+          1,
+          new Tkv<>(
+            topic,
+            key,
+            value
+          )
+        )
       );
     }
   }

@@ -24,14 +24,14 @@
 
 package io.github.eocqrs.kafka.producer;
 
-import io.github.eocqrs.kafka.Data;
+import io.github.eocqrs.kafka.Message;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.ProducerSettings;
-import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+
+import java.util.concurrent.Future;
 
 /**
  * Kafka Producer with callback, decorator for {@link KafkaProducer}.
@@ -69,7 +69,7 @@ public final class KfCallback<K, X> implements Producer<K, X> {
   /**
    * Primary ctor.
    *
-   * @param origin The origin producer.
+   * @param origin   The origin producer.
    * @param callback The callback
    */
   public KfCallback(final KafkaProducer<K, X> origin, final Callback callback) {
@@ -78,14 +78,10 @@ public final class KfCallback<K, X> implements Producer<K, X> {
   }
 
   @Override
-  public Future<RecordMetadata> send(final K key, final Data<X> data) {
+  public Future<RecordMetadata> send(final Message<K, X> msg)
+    throws Exception {
     return this.origin.send(
-      new ProducerRecord<>(
-        data.topic(),
-        data.partition(),
-        key,
-        data.dataized().dataize()
-      ),
+      msg.value(),
       this.callback
     );
   }

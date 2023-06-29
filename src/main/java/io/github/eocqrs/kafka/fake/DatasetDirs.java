@@ -34,6 +34,7 @@ import org.xembly.Directives;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.3.5
  */
+@SuppressWarnings("deprecation")
 public final class DatasetDirs<K, X> implements Scalar<Directives> {
 
   /**

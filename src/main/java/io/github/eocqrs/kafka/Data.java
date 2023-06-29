@@ -28,7 +28,9 @@ package io.github.eocqrs.kafka;
  * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
+ * @deprecated since 0.3.6, use {@link Message} instead.
  */
+@Deprecated(since = "0.3.6")
 public interface Data<X> {
 
   /**

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,48 +22,50 @@
 
 package io.github.eocqrs.kafka.data;
 
-import io.github.eocqrs.kafka.Data;
-import io.github.eocqrs.kafka.Dataized;
-import lombok.RequiredArgsConstructor;
+import io.github.eocqrs.kafka.Message;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 /**
- * Kafka Message Data.
+ * Message with timestamp.
  *
+ * @param <K> The key
  * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.3.6
  */
-@RequiredArgsConstructor
-@Deprecated(since = "0.3.6")
-public final class KfData<X> implements Data<X> {
+public final class Timestamped<K, X> implements Message<K, X> {
 
   /**
-   * Data type.
+   * Timestamp.
    */
-  private final X data;
+  private final long timestamp;
   /**
-   * Kafka message topic.
+   * Message.
    */
-  private final String topic;
+  private final Message<K, X> message;
+
   /**
-   * Kafka partition.
+   * Ctor.
+   *
+   * @param tmstmp Timestamp
+   * @param msg    Message
    */
-  private final int partition;
+  public Timestamped(
+    final long tmstmp,
+    final Message<K, X> msg
+  ) {
+    this.timestamp = tmstmp;
+    this.message = msg;
+  }
 
   @Override
-  public Dataized<X> dataized() {
-    return new KfDataized<>(
-      this.data
+  public ProducerRecord<K, X> value() throws Exception {
+    return new ProducerRecord<>(
+      this.message.value().topic(),
+      this.message.value().partition(),
+      this.timestamp,
+      this.message.value().key(),
+      this.message.value().value()
     );
-  }
-
-  @Override
-  public String topic() {
-    return this.topic;
-  }
-
-  @Override
-  public int partition() {
-    return this.partition;
   }
 }

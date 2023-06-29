@@ -26,9 +26,6 @@ import java.io.Closeable;
 import java.util.concurrent.Future;
 
 import org.apache.kafka.clients.producer.RecordMetadata;
-/**
- * @todo #287:30m/DEV Producer send is not flexible enough
- */
 
 /**
  * Producer.
@@ -41,12 +38,11 @@ import org.apache.kafka.clients.producer.RecordMetadata;
 public interface Producer<K, X> extends Closeable {
 
   /**
-   * Send data.
+   * Send message.
    *
-   * @param key  message key
-   * @param data data wrapper to process
+   * @param message Message
    * @return Future with RecordMetadata.
    * @throws Exception When something went wrong.
    */
-  Future<RecordMetadata> send(K key, Data<X> data) throws Exception;
+  Future<RecordMetadata> send(Message<K, X> message) throws Exception;
 }

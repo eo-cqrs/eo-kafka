@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,48 +22,49 @@
 
 package io.github.eocqrs.kafka.data;
 
-import io.github.eocqrs.kafka.Data;
-import io.github.eocqrs.kafka.Dataized;
-import lombok.RequiredArgsConstructor;
+import io.github.eocqrs.kafka.Message;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 /**
- * Kafka Message Data.
+ * Message with specified partition.
  *
+ * @param <K> The key
  * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.3.6
  */
-@RequiredArgsConstructor
-@Deprecated(since = "0.3.6")
-public final class KfData<X> implements Data<X> {
+public final class WithPartition<K, X> implements Message<K, X> {
 
   /**
-   * Data type.
-   */
-  private final X data;
-  /**
-   * Kafka message topic.
-   */
-  private final String topic;
-  /**
-   * Kafka partition.
+   * Partition.
    */
   private final int partition;
+  /**
+   * Message.
+   */
+  private final Message<K, X> message;
+
+  /**
+   * Ctor.
+   *
+   * @param prtn Partition
+   * @param msg  Message
+   */
+  public WithPartition(
+    final int prtn,
+    final Message<K, X> msg
+  ) {
+    this.partition = prtn;
+    this.message = msg;
+  }
 
   @Override
-  public Dataized<X> dataized() {
-    return new KfDataized<>(
-      this.data
+  public ProducerRecord<K, X> value() throws Exception {
+    return new ProducerRecord<>(
+      this.message.value().topic(),
+      this.partition,
+      this.message.value().key(),
+      this.message.value().value()
     );
-  }
-
-  @Override
-  public String topic() {
-    return this.topic;
-  }
-
-  @Override
-  public int partition() {
-    return this.partition;
   }
 }

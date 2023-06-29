@@ -23,8 +23,10 @@
 package io.github.eocqrs.kafka.fake;
 
 import com.jcabi.log.Logger;
-import io.github.eocqrs.kafka.Data;
 import io.github.eocqrs.kafka.Producer;
+import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.kafka.Message;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.TopicPartition;
 
@@ -41,6 +43,7 @@ import java.util.concurrent.Future;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
+@SuppressWarnings("deprecation")
 public final class FkProducer<K, X> implements Producer<K, X> {
 
   /**
@@ -77,31 +80,35 @@ public final class FkProducer<K, X> implements Producer<K, X> {
 
   @Override
   public Future<RecordMetadata> send(
-    final K key,
-    final Data<X> message
+    final Message<K, X> message
   ) throws Exception {
+    final ProducerRecord<K, X> record = message.value();
     new ThrowsOnFalse(
-      new TopicExists(message.topic(), this.broker),
+      new TopicExists(record.topic(), this.broker),
       "topic %s does not exists!"
         .formatted(
-          message.topic()
+          record.topic()
         )
     ).value();
-    this.broker.with(new DatasetDirs<>(key, message).value());
+    this.broker.with(
+      new DatasetDirs<>(record.key(),
+        new KfData<>(
+          record.value(),
+          record.topic(),
+          record.partition()
+        )
+      ).value()
+    );
     final RecordMetadata metadata = new RecordMetadata(
       new TopicPartition(
-        message.topic(),
-        message.partition()
+        record.topic(),
+        record.partition()
       ),
       OFFSET,
       BATCH_INDEX,
       TIMESTAMP,
-      key.toString().getBytes().length,
-      message.dataized()
-        .dataize()
-        .toString()
-        .getBytes()
-        .length
+      record.key().toString().getBytes().length,
+      record.value().toString().getBytes().length
     );
     return new FkMetadataTask(
       metadata

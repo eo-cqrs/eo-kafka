@@ -64,21 +64,45 @@ dependencies {
 ```
 
 ## Messages API
-To create Kafka Message:
+To create Kafka Message with **Topic**, **Key** and **Value**:
 ```java
-Data<String> string =
-  new KfData<>(
-    "string-data",          //data
-    "strings",              //topic
-    1                       //partition
+final Message<String, String> msg = new Tkv<>("test.topic", "test-k", "test-v");
+```
+
+Creation Kafka Message with **Partition**:
+```java
+final Message<String, String> msg = 
+  new WithPartition<>(
+    0,
+    new Tkv<>(
+      "test.topic",
+      "test-k",
+      "test-v"
+    )
   );
+```
+
+Creation Kafka Message with **Timestamp**:
+```java
+final Message<String, String> msg =
+  new Timestamped<>(
+      tmstmp,
+      new WithPartition<>(
+        partition,
+        new Tkv<>(
+          topic,
+          key,
+          value
+        )
+    )
+);
 ```
 
 ## Producer API
 To create Kafka Producer you can wrap original [KafkaProducer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html):
 ```java
-KafkaProducer origin = ...;
-Producer<String, String> producer = new KfProducer<>(origin);
+final KafkaProducer origin = ...;
+final Producer<String, String> producer = new KfProducer<>(origin);
 ```
 Or construct it with [KfFlexible](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KfFlexible.java):
 ```java
@@ -115,13 +139,15 @@ To send a [message](#messages-api):
 ```java
 try (final Producer<String, String> producer = ...) {
       producer.send(
-        "key2012",
-        new KfData<>(
-          "newRest28",
-          "orders",
-          1
+        new WithPartition<>(
+          0,
+          new Tkv<>(
+            "xyz.topic",
+            "key",
+            "message"
         )
-      );
+      )
+    );
     } catch (Exception e) {
         throw new IllegalStateException(e);
   }
@@ -151,8 +177,8 @@ final Producer<String, String> producer =
 ## Consumer API
 To create Kafka Consumer you can wrap original [KafkaConsumer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html):
 ```java
-KafkaConsumer origin = ...;
-Consumer<String, String> producer = new KfConsumer<>(origin);
+final KafkaConsumer origin = ...;
+final Consumer<String, String> producer = new KfConsumer<>(origin);
 ```
 Using [KfFlexible](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KfFlexible.java):
 ```java
@@ -311,9 +337,36 @@ final Consumer<Object, String> consumer =
    );
 final Producer<String, String> producer =
    new FkProducer<>(UUID.randomUUID(), this.broker);
-producer.send("test1", new KfData<>("test-data-1", topic, 0));
-producer.send("test2", new KfData<>("test-data-2", topic, 0));
-producer.send("test3", new KfData<>("test-data-3", topic, 0));
+producer.send(
+  new WithPartition<>(
+      0,
+      new Tkv<>(
+        topic,
+        "test1",
+        "test-data-1"
+      )
+    )
+);
+producer.send(
+  new WithPartition<>(
+      0,
+      new Tkv<>(
+        topic,
+        "test2",
+        "test-data-2"
+      )
+    )
+);
+producer.send(
+  new WithPartition<>(
+      0,
+      new Tkv<>(
+        topic,
+        "test-data-3",
+        "test3"
+      )
+    )
+);
 final ConsumerRecords<Object, String> records =
    consumer.records(topic, Duration.ofSeconds(1L));
 final List<String> datasets = new ListOf<>();

@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,48 +22,46 @@
 
 package io.github.eocqrs.kafka.data;
 
-import io.github.eocqrs.kafka.Data;
-import io.github.eocqrs.kafka.Dataized;
-import lombok.RequiredArgsConstructor;
+import io.github.eocqrs.kafka.Message;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.junit.jupiter.api.Test;
 
 /**
- * Kafka Message Data.
+ * Test case for {@link WithPartition}.
  *
- * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.3.6
  */
-@RequiredArgsConstructor
-@Deprecated(since = "0.3.6")
-public final class KfData<X> implements Data<X> {
+final class WithPartitionTest {
 
-  /**
-   * Data type.
-   */
-  private final X data;
-  /**
-   * Kafka message topic.
-   */
-  private final String topic;
-  /**
-   * Kafka partition.
-   */
-  private final int partition;
-
-  @Override
-  public Dataized<X> dataized() {
-    return new KfDataized<>(
-      this.data
+  @Test
+  void readsRecordInRightFormat() throws Exception {
+    final int partition = 1;
+    final String topic = "test";
+    final String key = "test-key";
+    final String value = "test-value";
+    final Message<String, String> message =
+      new Tkv<>(
+        topic,
+        key,
+        value
+      );
+    MatcherAssert.assertThat(
+      "Record in right format",
+      new WithPartition<>(
+        partition,
+        message
+      ).value(),
+      new IsEqual<>(
+        new ProducerRecord<>(
+          topic,
+          partition,
+          key,
+          value
+        )
+      )
     );
-  }
-
-  @Override
-  public String topic() {
-    return this.topic;
-  }
-
-  @Override
-  public int partition() {
-    return this.partition;
   }
 }

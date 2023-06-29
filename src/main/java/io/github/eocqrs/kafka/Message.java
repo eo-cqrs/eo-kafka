@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,50 +20,21 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.data;
+package io.github.eocqrs.kafka;
 
-import io.github.eocqrs.kafka.Data;
-import io.github.eocqrs.kafka.Dataized;
-import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.cactoos.Scalar;
 
 /**
- * Kafka Message Data.
+ * Kafka Message.
  *
+ * @param <K> The key
  * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.3.6
  */
-@RequiredArgsConstructor
-@Deprecated(since = "0.3.6")
-public final class KfData<X> implements Data<X> {
-
-  /**
-   * Data type.
-   */
-  private final X data;
-  /**
-   * Kafka message topic.
-   */
-  private final String topic;
-  /**
-   * Kafka partition.
-   */
-  private final int partition;
+public interface Message<K, X> extends Scalar<ProducerRecord<K, X>> {
 
   @Override
-  public Dataized<X> dataized() {
-    return new KfDataized<>(
-      this.data
-    );
-  }
-
-  @Override
-  public String topic() {
-    return this.topic;
-  }
-
-  @Override
-  public int partition() {
-    return this.partition;
-  }
+  ProducerRecord<K, X> value() throws Exception;
 }

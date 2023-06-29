@@ -26,7 +26,8 @@ package io.github.eocqrs.kafka.fake;
 
 import com.jcabi.log.Logger;
 import io.github.eocqrs.kafka.Producer;
-import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.kafka.data.Tkv;
+import io.github.eocqrs.kafka.data.WithPartition;
 import io.github.eocqrs.xfake.InFile;
 import io.github.eocqrs.xfake.Synchronized;
 import org.apache.kafka.clients.producer.RecordMetadata;
@@ -117,7 +118,16 @@ final class FkProducerTest {
     Assertions.assertThrows(
       IllegalArgumentException.class,
       () ->
-        producer.send("test-key", new KfData<>("data", "does.not.exist", 0))
+        producer.send(
+          new WithPartition<>(
+            0,
+            new Tkv<>(
+              "doesn.not.exist",
+              "test-key",
+              "data"
+            )
+          )
+        )
     );
     producer.close();
   }
@@ -134,7 +144,16 @@ final class FkProducerTest {
         UUID.randomUUID(),
         after
       );
-    producer.send("test-key", new KfData<>(data, topic, partition));
+    producer.send(
+      new WithPartition<>(
+        partition,
+        new Tkv<>(
+          topic,
+          "test-key",
+          data
+        )
+      )
+    );
     MatcherAssert.assertThat(
       "Sent data is not blank",
       after.data(
@@ -160,8 +179,14 @@ final class FkProducerTest {
           .with(new TopicDirs(topic).value())
       );
     final Future<RecordMetadata> future = producer.send(
-      "test-key",
-      new KfData<>("test-data", topic, partition)
+      new WithPartition<>(
+        partition,
+        new Tkv<>(
+          topic,
+          "test-key",
+          "test-data"
+        )
+      )
     );
     final RecordMetadata metadata = future.get();
     MatcherAssert.assertThat(
