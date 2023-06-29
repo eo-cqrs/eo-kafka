@@ -42,16 +42,11 @@ SOFTWARE.
     <testcontainers.version>1.18.3</testcontainers.version>
   </properties>
   <dependencies>
-<!--    <dependency>-->
-<!--      <groupId>@project.groupId@</groupId>-->
-<!--      <artifactId>@project.artifactId@</artifactId>-->
-<!--      <version>@project.version@</version>-->
-<!--      <scope>test</scope>-->
-<!--    </dependency>-->
     <dependency>
-      <groupId>io.github.eo-cqrs</groupId>
-      <artifactId>eo-kafka</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <groupId>@project.groupId@</groupId>
+      <artifactId>@project.artifactId@</artifactId>
+      <version>@project.version@</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
