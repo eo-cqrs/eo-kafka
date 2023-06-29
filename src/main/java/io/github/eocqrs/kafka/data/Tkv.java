@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,29 +20,57 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
+package io.github.eocqrs.kafka.data;
 
-import java.io.Closeable;
-import java.util.concurrent.Future;
-
-import org.apache.kafka.clients.producer.RecordMetadata;
+import io.github.eocqrs.kafka.Message;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 /**
- * Producer.
+ * Topic, Key, Value.
  *
  * @param <K> The key
  * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.3.6
  */
-public interface Producer<K, X> extends Closeable {
+public final class Tkv<K, X> implements Message<K, X> {
 
   /**
-   * Send message.
-   *
-   * @param message Message
-   * @return Future with RecordMetadata.
-   * @throws Exception When something went wrong.
+   * Topic.
    */
-  Future<RecordMetadata> send(Message<K, X> message) throws Exception;
+  private final String topic;
+  /**
+   * Key.
+   */
+  private final K key;
+  /**
+   * Value.
+   */
+  private final X value;
+
+  /**
+   * Ctor.
+   *
+   * @param tpc Topic
+   * @param key Key
+   * @param val Value
+   */
+  public Tkv(
+    final String tpc,
+    final K key,
+    final X val
+  ) {
+    this.topic = tpc;
+    this.key = key;
+    this.value = val;
+  }
+
+  @Override
+  public ProducerRecord<K, X> value() throws Exception {
+    return new ProducerRecord<>(
+      this.topic,
+      this.key,
+      this.value
+    );
+  }
 }

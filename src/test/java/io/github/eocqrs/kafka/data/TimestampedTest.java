@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,29 +20,50 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
+package io.github.eocqrs.kafka.data;
 
-import java.io.Closeable;
-import java.util.concurrent.Future;
-
-import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.hamcrest.MatcherAssert;
+import org.hamcrest.core.IsEqual;
+import org.junit.jupiter.api.Test;
 
 /**
- * Producer.
+ * Test case for {@link Timestamped}.
  *
- * @param <K> The key
- * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.3.6
  */
-public interface Producer<K, X> extends Closeable {
+final class TimestampedTest {
 
-  /**
-   * Send message.
-   *
-   * @param message Message
-   * @return Future with RecordMetadata.
-   * @throws Exception When something went wrong.
-   */
-  Future<RecordMetadata> send(Message<K, X> message) throws Exception;
+  @Test
+  void readsRecordInRightFormat() throws Exception {
+    final String topic = "topic";
+    final String key = "test-key";
+    final String value = "test-value";
+    final long tmstmp = 1L;
+    final int partition = 1;
+    MatcherAssert.assertThat(
+      "Record in right format",
+      new Timestamped<>(
+        tmstmp,
+        new WithPartition<>(
+          partition,
+          new Tkv<>(
+            topic,
+            key,
+            value
+          )
+        )
+      ).value(),
+      new IsEqual<>(
+        new ProducerRecord<>(
+          topic,
+          partition,
+          tmstmp,
+          key,
+          value
+        )
+      )
+    );
+  }
 }

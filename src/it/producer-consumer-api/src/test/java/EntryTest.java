@@ -27,6 +27,8 @@ import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.consumer.KfConsumer;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.kafka.data.Tkv;
+import io.github.eocqrs.kafka.data.WithPartition;
 import io.github.eocqrs.kafka.parameters.AutoOffsetReset;
 import io.github.eocqrs.kafka.parameters.BootstrapServers;
 import io.github.eocqrs.kafka.parameters.ClientId;
@@ -175,8 +177,14 @@ final class EntryTest {
     ) {
       Assertions.assertDoesNotThrow(
         () -> producer.send(
-          "fake-key",
-          new KfData<>("fake-data", "FAKE-TOPIC", 1)
+          new WithPartition<>(
+            1,
+            new Tkv<>(
+              "FAKE-TOPIC",
+              "fake-key",
+              "fake-data"
+            )
+          )
         )
       );
     }
@@ -212,7 +220,16 @@ final class EntryTest {
           )
         )
       );
-    producer.send("testcontainers", new KfData<>("rulezzz", "TEST-TOPIC", 0));
+    producer.send(
+      new WithPartition<>(
+        0,
+        new Tkv<>(
+          "TEST-TOPIC",
+          "testcontainers",
+          "rulezzz"
+        )
+      )
+    );
     Unreliables.retryUntilTrue(
       10,
       TimeUnit.SECONDS,
@@ -256,8 +273,14 @@ final class EntryTest {
         )
     ) {
       producer.send(
-        "test-key",
-        new KfData<>("test-data", "TEST-CALLBACK", 1)
+        new WithPartition<>(
+          1,
+          new Tkv<>(
+            "TEST-CALLBACK",
+            "test-key",
+            "test-data"
+          )
+        )
       );
     }
   }

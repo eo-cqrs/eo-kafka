@@ -25,7 +25,8 @@
 package io.github.eocqrs.kafka.producer;
 
 import io.github.eocqrs.kafka.ProducerSettings;
-import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.kafka.data.Tkv;
+import io.github.eocqrs.kafka.data.WithPartition;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
@@ -59,11 +60,13 @@ final class KfCallbackTest {
     ) {
       Assertions.assertDoesNotThrow(
         () -> producer.send(
-          "fake-key",
-          new KfData<>(
-            "fake-data",
-            "fake-topic",
-            101
+          new WithPartition<>(
+            101,
+            new Tkv<>(
+              "fake-topic",
+              "fake-key",
+              "fake-data"
+            )
           )
         )
       );
@@ -89,11 +92,13 @@ final class KfCallbackTest {
     ) {
       Assertions.assertDoesNotThrow(
         () -> producer.send(
-          "fake-key",
-          new KfData<>(
-            "fake-data",
-            "fake-topic",
-            101
+          new WithPartition<>(
+            101,
+            new Tkv<>(
+              "fake-topic",
+              "fake-key",
+              "fake-data"
+            )
           )
         )
       );

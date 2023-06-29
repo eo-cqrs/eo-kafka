@@ -27,7 +27,8 @@ package io.github.eocqrs.kafka.fake;
 import com.jcabi.log.Logger;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.Producer;
-import io.github.eocqrs.kafka.data.KfData;
+import io.github.eocqrs.kafka.data.Tkv;
+import io.github.eocqrs.kafka.data.WithPartition;
 import io.github.eocqrs.xfake.InFile;
 import io.github.eocqrs.xfake.Synchronized;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
@@ -349,9 +350,36 @@ final class FkConsumerTest {
       );
     final Producer<String, String> producer =
       new FkProducer<>(UUID.randomUUID(), this.broker);
-    producer.send("test2", new KfData<>("test2", topic, 0));
-    producer.send("test.new", new KfData<>("test-data.new", topic, 0));
-    producer.send("test.new", new KfData<>("test-data.new", topic, 0));
+    producer.send(
+      new WithPartition<>(
+        0,
+        new Tkv<>(
+          topic,
+          "test1",
+          "test1"
+        )
+      )
+    );
+    producer.send(
+      new WithPartition<>(
+        0,
+        new Tkv<>(
+          topic,
+          "test2",
+          "test2"
+        )
+      )
+    );
+    producer.send(
+      new WithPartition<>(
+        0,
+        new Tkv<>(
+          topic,
+          "test3",
+          "test3"
+        )
+      )
+    );
     final ConsumerRecords<Object, String> first =
       consumer.records(topic, Duration.ofSeconds(1L));
     final ConsumerRecords<Object, String> second =
@@ -361,7 +389,7 @@ final class FkConsumerTest {
     MatcherAssert.assertThat(
       "First datasets in right format",
       datasets,
-      Matchers.contains("test2", "test-data.new", "test-data.new")
+      Matchers.contains("test1", "test2", "test3")
     );
     datasets.clear();
     second.forEach(rec -> datasets.add(rec.value()));

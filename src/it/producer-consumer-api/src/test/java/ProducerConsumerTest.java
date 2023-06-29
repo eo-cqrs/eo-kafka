@@ -26,7 +26,6 @@ import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.consumer.KfConsumer;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
-import io.github.eocqrs.kafka.data.KfData;
 import io.github.eocqrs.kafka.parameters.AutoOffsetReset;
 import io.github.eocqrs.kafka.parameters.BootstrapServers;
 import io.github.eocqrs.kafka.parameters.ClientId;
@@ -38,6 +37,8 @@ import io.github.eocqrs.kafka.parameters.KfParams;
 import io.github.eocqrs.kafka.parameters.ValueDeserializer;
 import io.github.eocqrs.kafka.parameters.ValueSerializer;
 import io.github.eocqrs.kafka.producer.KfProducer;
+import io.github.eocqrs.kafka.data.Tkv;
+import io.github.eocqrs.kafka.data.WithPartition;
 import io.github.eocqrs.kafka.producer.settings.KfProducerParams;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -93,7 +94,16 @@ final class ProducerConsumerTest extends KafkaITCase {
           )
         )
       );
-    producer.send(key, new KfData<>(value, topic, 0));
+    producer.send(
+      new WithPartition<>(
+        0,
+        new Tkv<>(
+          topic,
+          key,
+          value
+        )
+      )
+    );
     Unreliables.retryUntilTrue(
       10,
       TimeUnit.SECONDS,

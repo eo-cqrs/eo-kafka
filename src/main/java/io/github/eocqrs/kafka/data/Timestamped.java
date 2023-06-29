@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,29 +20,52 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka;
+package io.github.eocqrs.kafka.data;
 
-import java.io.Closeable;
-import java.util.concurrent.Future;
-
-import org.apache.kafka.clients.producer.RecordMetadata;
+import io.github.eocqrs.kafka.Message;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 /**
- * Producer.
+ * Message with timestamp.
  *
  * @param <K> The key
  * @param <X> The value
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.0
+ * @since 0.3.6
  */
-public interface Producer<K, X> extends Closeable {
+public final class Timestamped<K, X> implements Message<K, X> {
 
   /**
-   * Send message.
-   *
-   * @param message Message
-   * @return Future with RecordMetadata.
-   * @throws Exception When something went wrong.
+   * Timestamp.
    */
-  Future<RecordMetadata> send(Message<K, X> message) throws Exception;
+  private final long timestamp;
+  /**
+   * Message.
+   */
+  private final Message<K, X> message;
+
+  /**
+   * Ctor.
+   *
+   * @param tmstmp Timestamp
+   * @param msg    Message
+   */
+  public Timestamped(
+    final long tmstmp,
+    final Message<K, X> msg
+  ) {
+    this.timestamp = tmstmp;
+    this.message = msg;
+  }
+
+  @Override
+  public ProducerRecord<K, X> value() throws Exception {
+    return new ProducerRecord<>(
+      this.message.value().topic(),
+      this.message.value().partition(),
+      this.timestamp,
+      this.message.value().key(),
+      this.message.value().value()
+    );
+  }
 }
