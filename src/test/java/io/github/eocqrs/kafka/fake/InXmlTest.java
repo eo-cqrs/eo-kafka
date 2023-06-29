@@ -41,6 +41,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  * @since 0.2.3
  */
 @ExtendWith(MockitoExtension.class)
+@SuppressWarnings("deprecation")
 final class InXmlTest {
 
   /**

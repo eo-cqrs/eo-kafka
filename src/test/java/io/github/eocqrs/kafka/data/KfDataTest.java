@@ -29,11 +29,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
- * Test case for {@link KfData}
+ * Test case for {@link KfData}.
  *
  * @since 0.0.0
  */
-class KfDataTest {
+@SuppressWarnings("deprecation")
+final class KfDataTest {
 
   @Test
   void dataizesFromString() {

@@ -34,6 +34,7 @@ import lombok.RequiredArgsConstructor;
  * @since 0.0.0
  */
 @RequiredArgsConstructor
+@Deprecated(since = "0.3.6")
 public final class KfData<X> implements Data<X> {
 
   /**

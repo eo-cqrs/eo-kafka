@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
  * @author Aliaksei Bialiauski (abialaiuski.dev@gmail.com)
  * @since 0.3.5
  */
+@SuppressWarnings("deprecation")
 final class DatasetDirsTest {
 
   @Test

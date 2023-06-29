@@ -43,6 +43,7 @@ import java.util.concurrent.Future;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.0
  */
+@SuppressWarnings("deprecation")
 public final class FkProducer<K, X> implements Producer<K, X> {
 
   /**
