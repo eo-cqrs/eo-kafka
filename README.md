@@ -277,7 +277,7 @@ final FkBroker broker = new InXml(
 );
 ```
 
-It will create XML in-memory file with following structure:
+It will create in-memory XML document with following structure:
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <broker>
