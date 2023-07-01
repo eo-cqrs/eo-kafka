@@ -135,7 +135,7 @@ btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20
 </producer>
 ```
 
-To send a [message](#messages-api):
+To send a [message](#messages):
 ```java
 try (final Producer<String, String> producer = ...) {
       producer.send(
@@ -215,7 +215,7 @@ Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Lan
 </consumer>
 ```
 
-Consuming [messages](#messages-api):
+Consuming [messages](#messages):
 ```java
 try (
   final Consumer<String, String> consumer =
@@ -378,7 +378,7 @@ MatcherAssert.assertThat(
 );
 ```
 
-As well as production producers and consumers, fake ones also should be closed after things been done:
+As well as production [producers](#producers) and [consumers](#consumers), fake ones also should be closed after things been done:
 
 ```java
 fake.close();
