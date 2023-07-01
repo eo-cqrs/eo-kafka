@@ -63,7 +63,7 @@ dependencies {
 }
 ```
 
-## Messages API
+## Messages
 To create Kafka Message with **Topic**, **Key** and **Value**:
 ```java
 final Message<String, String> msg = new Tkv<>("test.topic", "test-k", "test-v");
@@ -98,7 +98,7 @@ final Message<String, String> msg =
 );
 ```
 
-## Producer API
+## Producers
 To create Kafka Producer you can wrap original [KafkaProducer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html):
 ```java
 final KafkaProducer origin = ...;
@@ -174,7 +174,7 @@ final Producer<String, String> producer =
 );    
 ```
 
-## Consumer API
+## Consumers
 To create Kafka Consumer you can wrap original [KafkaConsumer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html):
 ```java
 final KafkaConsumer origin = ...;
@@ -259,7 +259,7 @@ Finally, you can `unsubscribe`:
 consumer.unsubscribe();
 ```
 
-## Fake API
+## Fakes
 
 In case of mocking eo-kafka, you can use existing Fake Objects from `io.github.eocqrs.kafka.fake` package.
 They look like a normal ones, but instead of talking to real Kafka broker,
@@ -326,7 +326,7 @@ final Consumer<Object, String> consumer =
 );
 ```
 
-### Fake API Example
+### Example with Fakes
 
 ```java
 final String topic = "test";
