@@ -48,4 +48,22 @@ final class KfJsonFlexibleTest {
         .producer()
     );
   }
+
+  @Test
+  void throwsOnNonExistingProducerFile() {
+    Assertions.assertThrows(
+      Exception.class,
+      () -> new KfJsonFlexible<String, String>("abc.json")
+        .producer()
+    );
+  }
+
+  @Test
+  void throwsOnNonExistingConsumerFile() {
+    Assertions.assertThrows(
+      Exception.class,
+      () -> new KfJsonFlexible<String, String>("cdf.json")
+        .consumer()
+    );
+  }
 }
