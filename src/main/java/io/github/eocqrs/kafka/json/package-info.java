@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,45 +20,10 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.xml;
-
-import com.jcabi.xml.XML;
-import org.cactoos.Input;
-
 /**
- * Producer XML Params.
+ * JSON.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.2
+ * @since 0.4.6
  */
-public final class ProducerXmlMapParams extends XmlMapParams {
-
-  /**
-   * Ctor.
-   *
-   * @param config XML config.
-   */
-  public ProducerXmlMapParams(final XML config) {
-    super(config, KfCustomer.PRODUCER);
-  }
-
-  /**
-   * Ctor.
-   *
-   * @param resource The resource with xml settings.
-   * @throws Exception When something went wrong.
-   */
-  ProducerXmlMapParams(final Input resource) throws Exception {
-    super(resource, KfCustomer.PRODUCER);
-  }
-
-  /**
-   * Ctor.
-   *
-   * @param name Name of the resource.
-   * @throws Exception When something went wrong.
-   */
-  ProducerXmlMapParams(final String name) throws Exception {
-    super(name, KfCustomer.PRODUCER);
-  }
-}
+package io.github.eocqrs.kafka.json;
