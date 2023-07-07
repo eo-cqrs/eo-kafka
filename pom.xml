@@ -95,6 +95,7 @@ SOFTWARE.
     <assert4j-core.version>3.24.2</assert4j-core.version>
     <xfake.version>0.1.2</xfake.version>
     <xembly.version>0.28.1</xembly.version>
+    <eokson.version>0.3.2</eokson.version>
     <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
     <maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
     <slf4j.version>2.0.7</slf4j.version>
@@ -124,6 +125,11 @@ SOFTWARE.
       <groupId>io.github.eo-cqrs</groupId>
       <artifactId>xfake</artifactId>
       <version>${xfake.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.eo-cqrs</groupId>
+      <artifactId>eokson</artifactId>
+      <version>${eokson.version}</version>
     </dependency>
     <dependency>
       <groupId>com.jcabi</groupId>

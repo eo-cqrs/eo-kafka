@@ -1,0 +1,6 @@
+{
+  "bootstrapServers": "localhost:9092",
+  "groupId": "1",
+  "keyDeserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+  "valueDeserializer": "org.apache.kafka.common.serialization.StringDeserializer"
+}

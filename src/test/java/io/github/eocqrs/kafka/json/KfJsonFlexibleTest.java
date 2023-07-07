@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2022 Aliaksei Bialiauski, EO-CQRS
+ *  Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,45 +20,50 @@
  * SOFTWARE.
  */
 
-package io.github.eocqrs.kafka.xml;
+package io.github.eocqrs.kafka.json;
 
-import com.jcabi.xml.XML;
-import org.cactoos.Input;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
- * Producer XML Params.
+ * Test case for {@link KfJsonFlexible}.
  *
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
- * @since 0.0.2
+ * @since 0.4.6
  */
-public final class ProducerXmlMapParams extends XmlMapParams {
+final class KfJsonFlexibleTest {
 
-  /**
-   * Ctor.
-   *
-   * @param config XML config.
-   */
-  public ProducerXmlMapParams(final XML config) {
-    super(config, KfCustomer.PRODUCER);
+  @Test
+  void createsCustomConsumer() {
+    Assertions.assertDoesNotThrow(
+      () -> new KfJsonFlexible<String, String>("consumer.json")
+        .consumer()
+    );
   }
 
-  /**
-   * Ctor.
-   *
-   * @param resource The resource with xml settings.
-   * @throws Exception When something went wrong.
-   */
-  ProducerXmlMapParams(final Input resource) throws Exception {
-    super(resource, KfCustomer.PRODUCER);
+  @Test
+  void createsCustomProducer() {
+    Assertions.assertDoesNotThrow(
+      () -> new KfJsonFlexible<String, String>("producer.json")
+        .producer()
+    );
   }
 
-  /**
-   * Ctor.
-   *
-   * @param name Name of the resource.
-   * @throws Exception When something went wrong.
-   */
-  ProducerXmlMapParams(final String name) throws Exception {
-    super(name, KfCustomer.PRODUCER);
+  @Test
+  void throwsOnNonExistingProducerFile() {
+    Assertions.assertThrows(
+      Exception.class,
+      () -> new KfJsonFlexible<String, String>("abc.json")
+        .producer()
+    );
+  }
+
+  @Test
+  void throwsOnNonExistingConsumerFile() {
+    Assertions.assertThrows(
+      Exception.class,
+      () -> new KfJsonFlexible<String, String>("cdf.json")
+        .consumer()
+    );
   }
 }

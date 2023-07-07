@@ -31,14 +31,14 @@ import org.cactoos.Input;
  * @author Aliaksei Bialiauski (abialiauski.dev@gmail.com)
  * @since 0.0.2
  */
-final class ConsumerXmlMapParams extends XmlMapParams {
+public final class ConsumerXmlMapParams extends XmlMapParams {
 
   /**
    * Ctor.
    *
    * @param config XML config.
    */
-  ConsumerXmlMapParams(final XML config) {
+  public ConsumerXmlMapParams(final XML config) {
     super(config, KfCustomer.CONSUMER);
   }
 

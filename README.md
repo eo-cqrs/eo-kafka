@@ -135,6 +135,23 @@ btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20
 </producer>
 ```
 
+Since version `0.4.6` you can create Producer with JSON file:
+```java
+final Producer<String, String> producer =
+  new KfProducer<>(
+  new KfJsonFlexible<String, String>("producer.json") // file with producer config  
+);
+```
+
+Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory, should looks like this:
+```json
+{
+  "bootstrapServers": "localhost:9092",
+  "keySerializer": "org.apache.kafka.common.serialization.StringSerializer",
+  "valueSerializer": "org.apache.kafka.common.serialization.StringSerializer"
+}
+```
+
 To send a [message](#messages):
 ```java
 try (final Producer<String, String> producer = ...) {
@@ -213,6 +230,24 @@ Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Lan
   <keyDeserializer>org.apache.kafka.common.serialization.StringDeserializer</keyDeserializer>
   <valueDeserializer>org.apache.kafka.common.serialization.StringDeserializer</valueDeserializer>
 </consumer>
+```
+
+Since version `0.4.6` you can create Consumer with JSON file:
+```java
+final Consumer<String, String> producer =
+  new KfConsumer<>(
+  new KfJsonFlexible<String, String>("consumer.json") // file with producer config  
+);
+```
+
+Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory, should looks like this:
+```json
+{
+ "bootstrapServers": "localhost:9092",
+ "groupId": "1",
+ "keyDeserializer": "org.apache.kafka.common.serialization.StringDeserializer",
+ "valueDeserializer": "org.apache.kafka.common.serialization.StringDeserializer"
+}
 ```
 
 Consuming [messages](#messages):
@@ -426,7 +461,7 @@ Under the hood XML document will looks like this:
 **By the version `0.3.5`, eo-kafka support only String values in FkConsumer**.
 
 ## Config API
-| Kafka Property                          | eo-kafka API                                                                                                                                                    | XML tag
+| Kafka Property                          | eo-kafka API                                                                                                                                                    | XML/JSON tag
 |-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------
 | `bootstrap.servers`                     | [BootstrapServers](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BootstrapServers.java)                       | bootstrapServers
 | `key.serializer`                        | [KeySerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeySerializer.java)                             | keySerializer
