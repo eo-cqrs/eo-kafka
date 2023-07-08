@@ -22,8 +22,10 @@
 
 package io.github.eocqrs.kafka.consumer;
 
+import com.jcabi.xml.XMLDocument;
 import io.github.eocqrs.kafka.Consumer;
 import io.github.eocqrs.kafka.ConsumerSettings;
+import io.github.eocqrs.kafka.Params;
 import io.github.eocqrs.kafka.consumer.settings.KfConsumerParams;
 import io.github.eocqrs.kafka.parameters.BootstrapServers;
 import io.github.eocqrs.kafka.parameters.GroupId;
@@ -39,6 +41,7 @@ import java.util.Collection;
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
+import org.cactoos.io.ResourceOf;
 import org.cactoos.list.ListOf;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,6 +50,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
@@ -64,23 +68,27 @@ final class KfConsumerTest {
   ) {
     Mockito.when(settings.consumer()).thenReturn(consumer);
     final Consumer<String, String> underTest = new KfConsumer<>(settings);
-    assertDoesNotThrow(
-      () -> {
-        underTest.subscribe(new ListOf<>("transactions-info"));
-        underTest.subscribe("transactions-info");
-        underTest.subscribe(new ConsumerRebalanceListener() {
-          @Override
-          public void onPartitionsRevoked(final Collection<TopicPartition> partitions) {
-          }
+    assertAll(
+      () -> assertDoesNotThrow(
+        () -> {
+          underTest.subscribe(new ListOf<>("transactions-info"));
+          underTest.subscribe("transactions-info");
+          underTest.subscribe(new ConsumerRebalanceListener() {
+            @Override
+            public void onPartitionsRevoked(final Collection<TopicPartition> partitions) {
+            }
 
-          @Override
-          public void onPartitionsAssigned(final Collection<TopicPartition> partitions) {
-          }
-        }, "transactions-info");
-      }
-    );
-    assertDoesNotThrow(
-      underTest::close
+            @Override
+            public void onPartitionsAssigned(final Collection<TopicPartition> partitions) {
+            }
+          }, "transactions-info");
+        },
+        "Should create an %s and subscribe without exceptions".formatted(underTest)
+      ),
+      () -> assertDoesNotThrow(
+        underTest::close,
+        () -> "Should close %s without an exception".formatted(underTest)
+      )
     );
   }
 
@@ -90,12 +98,12 @@ final class KfConsumerTest {
     @Mock final KafkaConsumer<String, String> origin
   ) {
     Mockito.when(settings.consumer()).thenReturn(origin);
-    final Consumer<String, String> consumer =
-      new KfConsumer<>(settings);
-    assertDoesNotThrow(() ->
-      consumer.records(
-        "TEST", Duration.ofSeconds(5L)
-      )
+    assertDoesNotThrow(
+      () ->
+        new KfConsumer<>(settings).records(
+          "TEST", Duration.ofSeconds(5L)
+        ),
+      () -> "Should to poll things without exception"
     );
   }
 
@@ -107,35 +115,52 @@ final class KfConsumerTest {
     Mockito.when(settings.consumer()).thenReturn(origin);
     final Consumer<String, String> consumer =
       new KfConsumer<>(settings);
-    assertDoesNotThrow(consumer::unsubscribe);
-    assertDoesNotThrow(consumer::close);
+    assertAll(
+      () -> assertDoesNotThrow(consumer::unsubscribe),
+      () -> assertDoesNotThrow(consumer::close),
+      () -> "%s subscribes and unsubscribes without exceptions".formatted(consumer)
+    );
   }
 
   @Test
   void constructsConsumerWithXML() throws Exception {
+    final String xml = "consumer.xml";
     final Consumer<String, String> consumer =
       new KfConsumer<>(
-        new KfXmlFlexible<String, String>("consumer.xml")
+        new KfXmlFlexible<String, String>(xml)
           .consumer()
       );
-    assertThat(consumer).isNotNull();
+    assertThat(consumer).isNotNull()
+      .describedAs(
+        "%s should be created from %s without exceptions".formatted(
+          consumer,
+          new XMLDocument(
+            new ResourceOf(xml).stream()
+          )
+        )
+      );
   }
 
   @Test
   void constructsConsumerWithParams() {
+    final Params params = new KfParams(
+      new BootstrapServers("localhost:9092"),
+      new GroupId("1"),
+      new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
+      new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
+    );
     final Consumer<String, String> consumer =
       new KfConsumer<>(
         new KfFlexible<>(
-          new KfConsumerParams(
-            new KfParams(
-              new BootstrapServers("localhost:9092"),
-              new GroupId("1"),
-              new KeyDeserializer("org.apache.kafka.common.serialization.StringDeserializer"),
-              new ValueDeserializer("org.apache.kafka.common.serialization.StringDeserializer")
-            )
-          )
+          new KfConsumerParams(params)
         )
       );
-    assertThat(consumer).isNotNull();
+    assertThat(consumer).isNotNull()
+      .describedAs(
+        "Consumer %s created from %s without exceptions".formatted(
+          consumer,
+          params.asXml()
+        )
+      );
   }
 }

@@ -28,6 +28,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xembly.Directives;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 /**
  * Test case for {@link InFile}
  *
@@ -41,7 +43,7 @@ final class InFileTest {
   void createsStorageInXmlFile() throws Exception {
     final FkStorage storage = new InFile();
     MatcherAssert.assertThat(
-      "Storage has root <broker> tag",
+      "Storage %s has root <broker> tag".formatted(storage.xml()),
       storage.xml().nodes("broker").isEmpty(),
       Matchers.equalTo(false)
     );
@@ -56,7 +58,7 @@ final class InFileTest {
         .addIf("servers")
     );
     MatcherAssert.assertThat(
-      "XML has right format",
+      "Storage %s contains servers tag".formatted(storage.xml()),
       storage.xml().nodes("broker/servers").isEmpty(),
       Matchers.equalTo(false)
     );
@@ -65,11 +67,10 @@ final class InFileTest {
   @Test
   void locksAndUnlocks() throws Exception {
     final FkStorage storage = new InFile();
-    Assertions.assertDoesNotThrow(
-      storage::lock
-    );
-    Assertions.assertDoesNotThrow(
-      storage::unlock
+    assertAll(
+      () -> Assertions.assertDoesNotThrow(storage::lock),
+      () -> Assertions.assertDoesNotThrow(storage::unlock),
+      () -> "%s locks and unlocks without exceptions".formatted(storage.xml())
     );
   }
 }

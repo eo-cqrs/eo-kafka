@@ -49,6 +49,9 @@ final class CommitAsyncTest {
     @Mock final KafkaConsumer<String, String> mck
   ) {
     final Action async = new CommitAsync(mck);
-    Assertions.assertDoesNotThrow(async::apply);
+    Assertions.assertDoesNotThrow(
+        async::apply,
+        () -> "Creates %s without any exceptions thrown".formatted(async)
+    );
   }
 }

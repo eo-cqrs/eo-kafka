@@ -47,6 +47,9 @@ final class WakeupTest {
   @Test
   void wakeups(@Mock final KafkaConsumer<String, String> mck) {
     final Action wakeup = new Wakeup(mck);
-    Assertions.assertDoesNotThrow(wakeup::apply);
+    Assertions.assertDoesNotThrow(
+        wakeup::apply,
+        () -> "Creates %s without any exceptions thrown".formatted(wakeup)
+    );
   }
 }

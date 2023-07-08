@@ -49,6 +49,9 @@ final class CommitSyncTest {
     @Mock final KafkaConsumer<String, String> mck
   ) {
     final Action sync = new CommitSync(mck);
-    Assertions.assertDoesNotThrow(sync::apply);
+    Assertions.assertDoesNotThrow(
+        sync::apply,
+        () -> "Creates %s without any exceptions thrown".formatted(sync)
+    );
   }
 }

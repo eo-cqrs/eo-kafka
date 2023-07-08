@@ -51,6 +51,9 @@ final class AssignPartitionsTest {
   ) {
     final Action assign =
       new AssignPartitions(mck, new TopicPartition("test", 1));
-    Assertions.assertDoesNotThrow(assign::apply);
+    Assertions.assertDoesNotThrow(
+        assign::apply,
+        () -> "Creates %s without any exceptions thrown".formatted(assign)
+    );
   }
 }

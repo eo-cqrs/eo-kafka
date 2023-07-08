@@ -25,6 +25,7 @@
 package io.github.eocqrs.kafka.fake;
 
 import com.jcabi.log.Logger;
+import io.github.eocqrs.kafka.Message;
 import io.github.eocqrs.kafka.Producer;
 import io.github.eocqrs.kafka.data.Tkv;
 import io.github.eocqrs.kafka.data.WithPartition;
@@ -41,6 +42,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.UUID;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -76,7 +78,8 @@ final class FkProducerTest {
     final Producer<String, String> producer =
       new FkProducer<>(UUID.randomUUID(), mock);
     MatcherAssert.assertThat(
-      "Fake producer creates with mock broker",
+      "Fake producer %s created with mock broker %s"
+        .formatted(producer, mock),
       producer,
       Matchers.notNullValue()
     );
@@ -88,7 +91,8 @@ final class FkProducerTest {
     final Producer<String, String> producer =
       new FkProducer<>(UUID.randomUUID(), this.broker);
     MatcherAssert.assertThat(
-      "Fake producer creates",
+      "Fake producer created %s"
+        .formatted(producer),
       producer,
       Matchers.notNullValue()
     );
@@ -127,7 +131,10 @@ final class FkProducerTest {
               "data"
             )
           )
-        )
+        ),
+      () ->
+        "Throws %s when topic not exist"
+          .formatted(IllegalArgumentException.class)
     );
     producer.close();
   }
@@ -144,25 +151,28 @@ final class FkProducerTest {
         UUID.randomUUID(),
         after
       );
+    final Message<String, String> tkv = new Tkv<>(
+      topic,
+      "test-key",
+      data
+    );
     producer.send(
       new WithPartition<>(
         partition,
-        new Tkv<>(
-          topic,
-          "test-key",
-          data
-        )
+        tkv
       )
     );
+    final Collection<String> sent = after.data(
+      "broker/topics/topic[name = '%s']/datasets/dataset[value = '%s']/text()"
+        .formatted(
+          topic,
+          data
+        )
+    );
     MatcherAssert.assertThat(
-      "Sent data is not blank",
-      after.data(
-        "broker/topics/topic[name = '%s']/datasets/dataset[value = '%s']/text()"
-          .formatted(
-            topic,
-            data
-          )
-      ).isEmpty(),
+      "%s data is not blank after producer sent %s"
+        .formatted(sent, tkv.value()),
+      sent.isEmpty(),
       Matchers.equalTo(false)
     );
     producer.close();

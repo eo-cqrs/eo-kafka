@@ -51,6 +51,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+
 /**
  * Test case for {@link FkConsumer}.
  *
@@ -81,7 +83,8 @@ final class FkConsumerTest {
     final Consumer<Object, String> consumer =
       new FkConsumer(UUID.randomUUID(), mock);
     MatcherAssert.assertThat(
-      "Fake consumer creates with mock broker",
+      "Should create fake consumer %s with mock broker %s"
+        .formatted(consumer, mock),
       consumer,
       Matchers.notNullValue()
     );
@@ -96,7 +99,7 @@ final class FkConsumerTest {
         this.broker
       );
     MatcherAssert.assertThat(
-      "Fake consumer creates",
+      "Fake consumer %s creates".formatted(consumer),
       consumer,
       Matchers.notNullValue()
     );
@@ -115,25 +118,31 @@ final class FkConsumerTest {
         with
       );
     consumer.subscribe(new ListOf<>(topic));
-    MatcherAssert.assertThat(
-      "topic subscriptions in right format",
-      with.data(
-        "broker/subs/sub[topic = '%s']/topic/text()"
-          .formatted(
-            topic
-          )
-      ),
-      Matchers.contains(topic)
-    );
-    MatcherAssert.assertThat(
-      "Consumer ID in right format",
-      with.data(
-        "broker/subs/sub[consumer = '%s']/consumer/text()"
-          .formatted(
-            uuid.toString()
-          )
-      ),
-      Matchers.contains(uuid.toString())
+    assertAll(
+      () ->
+        MatcherAssert.assertThat(
+          "topic %s subscriptions in right format"
+            .formatted(topic),
+          with.data(
+            "broker/subs/sub[topic = '%s']/topic/text()"
+              .formatted(
+                topic
+              )
+          ),
+          Matchers.contains(topic)
+        ),
+      () ->
+        MatcherAssert.assertThat(
+          "Consumer ID %s in right format"
+            .formatted(uuid),
+          with.data(
+            "broker/subs/sub[consumer = '%s']/consumer/text()"
+              .formatted(
+                uuid.toString()
+              )
+          ),
+          Matchers.contains(uuid.toString())
+        )
     );
     consumer.close();
   }
@@ -165,33 +174,38 @@ final class FkConsumerTest {
       }
     };
     consumer.subscribe(listener, topic);
-    MatcherAssert.assertThat(
-      "topic subscriptions in right format",
-      with.data(
-        "broker/subs/sub[topic = '%s']/topic/text()"
-          .formatted(
-            topic
-          )
+    assertAll(
+      () -> MatcherAssert.assertThat(
+        "topic %s subscriptions in right format"
+          .formatted(topic),
+        with.data(
+          "broker/subs/sub[topic = '%s']/topic/text()"
+            .formatted(
+              topic
+            )
+        ),
+        Matchers.contains(topic)
       ),
-      Matchers.contains(topic)
-    );
-    MatcherAssert.assertThat(
-      "Consumer ID in right format",
-      with.data(
-        "broker/subs/sub[consumer = '%s']/consumer/text()"
-          .formatted(
-            uuid.toString()
-          )
+      () -> MatcherAssert.assertThat(
+        "Consumer ID %s in right format"
+          .formatted(uuid),
+        with.data(
+          "broker/subs/sub[consumer = '%s']/consumer/text()"
+            .formatted(
+              uuid.toString()
+            )
+        ),
+        Matchers.contains(uuid.toString())
       ),
-      Matchers.contains(uuid.toString())
-    );
-    MatcherAssert.assertThat(
-      "Consumer Rebalance Listener in right format",
-      with.data(
-        "broker/subs/sub[listener = '%s']/listener/text()"
-          .formatted(listener.toString())
-      ),
-      Matchers.contains(rebalance)
+      () -> MatcherAssert.assertThat(
+        "Consumer %s Rebalance Listener %s in right format"
+          .formatted(consumer, listener),
+        with.data(
+          "broker/subs/sub[listener = '%s']/listener/text()"
+            .formatted(listener.toString())
+        ),
+        Matchers.contains(rebalance)
+      )
     );
     consumer.close();
   }
@@ -206,7 +220,11 @@ final class FkConsumerTest {
         UUID.randomUUID(),
         with
       );
-    Assertions.assertDoesNotThrow(() -> consumer.subscribe(topic));
+    Assertions.assertDoesNotThrow(
+      () -> consumer.subscribe(topic),
+      () -> "%s shouldn't throw exception on subscription"
+        .formatted(consumer)
+    );
     consumer.close();
   }
 
@@ -219,7 +237,9 @@ final class FkConsumerTest {
       );
     Assertions.assertThrows(
       IllegalStateException.class,
-      () -> consumer.subscribe((String) null)
+      () -> consumer.subscribe((String) null),
+      () -> "Should %s throw ISE on null subscription"
+        .formatted(consumer)
     );
     consumer.close();
   }
@@ -233,15 +253,19 @@ final class FkConsumerTest {
       );
     Assertions.assertThrows(
       IllegalStateException.class,
-      () -> consumer.subscribe(new ConsumerRebalanceListener() {
-        @Override
-        public void onPartitionsRevoked(final Collection<TopicPartition> collection) {
-        }
+      () -> consumer.subscribe(
+        new ConsumerRebalanceListener() {
+          @Override
+          public void onPartitionsRevoked(final Collection<TopicPartition> collection) {
+          }
 
-        @Override
-        public void onPartitionsAssigned(final Collection<TopicPartition> collection) {
-        }
-      }, (String) null)
+          @Override
+          public void onPartitionsAssigned(final Collection<TopicPartition> collection) {
+          }
+        }, (String) null
+      ),
+      () -> "%s should throw exception on null topic"
+        .formatted(consumer)
     );
   }
 
@@ -335,7 +359,9 @@ final class FkConsumerTest {
       );
     Assertions.assertDoesNotThrow(
       () ->
-        consumer.records("test", Duration.ofSeconds(5L))
+        consumer.records("test", Duration.ofSeconds(5L)),
+      () ->
+        "%s polls without exceptions"
     );
     consumer.close();
   }
@@ -386,15 +412,18 @@ final class FkConsumerTest {
       consumer.records(topic, Duration.ofSeconds(1L));
     final List<String> datasets = new ListOf<>();
     first.forEach(rec -> datasets.add(rec.value()));
+    final List<String> topics = List.of("test1", "test2", "test3");
     MatcherAssert.assertThat(
-      "First datasets in right format",
+      "Datasets %s should contain all of %s"
+        .formatted(datasets, topics),
       datasets,
-      Matchers.contains("test1", "test2", "test3")
+      Matchers.containsInAnyOrder(topics.toArray())
     );
     datasets.clear();
     second.forEach(rec -> datasets.add(rec.value()));
     MatcherAssert.assertThat(
-      "Second datasets are empty",
+      "Second datasets %s should be empty"
+        .formatted(datasets),
       datasets.isEmpty(),
       Matchers.equalTo(true)
     );

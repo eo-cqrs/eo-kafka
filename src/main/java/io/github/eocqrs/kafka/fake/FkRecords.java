@@ -81,21 +81,27 @@ public final class FkRecords implements
    */
   @Override
   public ConsumerRecords<Object, String> value() throws Exception {
-    final Map<TopicPartition, List<ConsumerRecord<Object, String>>> part
-      = new HashMap<>(0);
     final List<ConsumerRecord<Object, String>> recs = new ListOf<>();
     this.datasets.forEach(
       dataset -> recs.add(
         new ConsumerRecord<>(
           this.topic,
-          DEFAULT_PARTITION,
-          ZERO_OFFSET,
+          FkRecords.DEFAULT_PARTITION,
+          FkRecords.ZERO_OFFSET,
           null,
           dataset
         )
       )
     );
-    part.put(new TopicPartition(this.topic, DEFAULT_PARTITION), recs);
+    final Map<TopicPartition, List<ConsumerRecord<Object, String>>> part
+      = new HashMap<>(0);
+    part.put(
+      new TopicPartition(
+        this.topic,
+        FkRecords.DEFAULT_PARTITION
+      ),
+      recs
+    );
     return new ConsumerRecords<>(part);
   }
 }

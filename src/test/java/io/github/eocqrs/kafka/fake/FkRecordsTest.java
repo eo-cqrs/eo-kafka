@@ -22,13 +22,11 @@
 
 package io.github.eocqrs.kafka.fake;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.cactoos.list.ListOf;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
-
-import java.util.function.Consumer;
 
 /**
  * Test case for {@link FkRecords}.
@@ -46,7 +44,8 @@ final class FkRecordsTest {
       .value()
       .forEach(rec ->
         MatcherAssert.assertThat(
-          "Records in right format",
+          "Values %s should contain the record %s"
+            .formatted(new ListOf<>(value), rec),
           rec.value(),
           Matchers.equalTo(value)
         ));
@@ -55,15 +54,17 @@ final class FkRecordsTest {
   @Test
   void readsCountInRightFormat() throws Exception {
     final String topic = "test";
+    final ConsumerRecords<Object, String> value = new FkRecords(
+      topic,
+      new ListOf<>(
+        "first",
+        "second"
+      )
+    ).value();
     MatcherAssert.assertThat(
-      "Records Count in right format",
-      new FkRecords(
-        topic,
-        new ListOf<>(
-          "first",
-          "second"
-        )
-      ).value().count(),
+      "Records %s size in equals 2"
+        .formatted(value),
+      value.count(),
       Matchers.equalTo(2)
     );
   }

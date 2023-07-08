@@ -39,9 +39,10 @@ final class KfConsumerParamsTest {
   @Test
   void representsXmlCorrectly() {
     final Params mock = Mockito.mock(Params.class);
-    Mockito.when(mock.asXml()).thenReturn("<groupId>103</groupId>");
+    final String group = "<groupId>103</groupId>";
+    Mockito.when(mock.asXml()).thenReturn(group);
     MatcherAssert.assertThat(
-      "Represents right XML settings",
+      "Should return %s inside a consumer tag".formatted(group),
       new KfConsumerParams(mock).asXml(),
       Matchers.equalTo("<consumer>\n<groupId>103</groupId>\n</consumer>\n")
     );
