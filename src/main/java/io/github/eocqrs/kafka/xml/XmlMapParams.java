@@ -28,6 +28,7 @@ import org.cactoos.Input;
 import org.cactoos.Scalar;
 import org.cactoos.io.ResourceOf;
 
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -72,7 +73,7 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
    * A ctor that takes an Input and converts it to XMLDocument.
    *
    * @param resource Resource with settings.
-   * @param cust  Customer type.
+   * @param cust     Customer type.
    * @throws Exception When something went wrong.
    */
   protected XmlMapParams(final Input resource, final KfCustomer cust)
@@ -94,25 +95,27 @@ abstract class XmlMapParams implements Scalar<Map<String, Object>> {
 
   @Override
   public final Map<String, Object> value() throws Exception {
-    return new XMLDocument(this.configuration.toString())
-      .nodes("//%s/*".formatted(this.customer))
-      .stream()
-      .map(Object::toString)
-      .map(XMLDocument::new)
-      .map(xml -> xml.nodes("//*").get(0).node().getNodeName())
-      .collect(
-        Collectors.toMap(
-          name ->
-            XmlMapParams.CAPITALS
-              .matcher(name)
-              .replaceAll(".$1")
-              .toLowerCase(Locale.ROOT),
-          name ->
-            new TextXpath(
-              this.configuration,
-              "//%s".formatted(name)
-            ).toString()
+    return Collections.unmodifiableMap(
+      new XMLDocument(this.configuration.toString())
+        .nodes("//%s/*".formatted(this.customer))
+        .stream()
+        .map(Object::toString)
+        .map(XMLDocument::new)
+        .map(xml -> xml.nodes("//*").get(0).node().getNodeName())
+        .collect(
+          Collectors.toMap(
+            name ->
+              XmlMapParams.CAPITALS
+                .matcher(name)
+                .replaceAll(".$1")
+                .toLowerCase(Locale.ROOT),
+            name ->
+              new TextXpath(
+                this.configuration,
+                "//%s".formatted(name)
+              ).toString()
+          )
         )
-      );
+    );
   }
 }
