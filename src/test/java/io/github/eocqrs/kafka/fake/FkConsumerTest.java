@@ -417,7 +417,7 @@ final class FkConsumerTest {
       "Datasets %s should contain all of %s"
         .formatted(datasets, topics),
       datasets,
-      Matchers.containsInAnyOrder(topics.toArray())
+      Matchers.contains(topics.toArray())
     );
     datasets.clear();
     second.forEach(rec -> datasets.add(rec.value()));
