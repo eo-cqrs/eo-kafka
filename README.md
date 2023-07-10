@@ -123,7 +123,9 @@ Or create it with XML file:
 ```java
 final Producer<String, String> producer =
   new KfProducer<>(
-    new KfXmlFlexible<String, String>("producer.xml") // file with producer config
+    new KfXmlFlexible<String, String>(
+      "producer.xml" // file with producer config
+    )
 );
 ```
 btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
@@ -139,7 +141,9 @@ Since version `0.4.6` you can create Producer with JSON file:
 ```java
 final Producer<String, String> producer =
   new KfProducer<>(
-  new KfJsonFlexible<String, String>("producer.json") // file with producer config  
+    new KfJsonFlexible<String, String>(
+      "producer.json" // file with producer config
+    )  
 );
 ```
 
@@ -154,9 +158,10 @@ Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory,
 
 Since version `0.5.6` you can create Producer with YAML file:
 ```java
-final Producer<String, String> producer = new KfProducer<>(
-  new KfYamlProducerSettings<>(
-    "producer.yaml"
+final Producer<String, String> producer =
+  new KfProducer<>(
+    new KfYamlProducerSettings<>(
+      "producer.yaml"
   )
 );
 ```
@@ -252,7 +257,9 @@ Since version `0.4.6` you can create Consumer with JSON file:
 ```java
 final Consumer<String, String> producer =
   new KfConsumer<>(
-  new KfJsonFlexible<String, String>("consumer.json") // file with producer config  
+    new KfJsonFlexible<String, String>(
+      "consumer.json" // file with producer config
+    )  
 );
 ```
 
@@ -268,10 +275,11 @@ Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory,
 
 Since version `0.5.6` you can create Consumer with YAML file:
 ```java
-final Consumer<String, String> consumer = new KfConsumer<>(
-  new KfYamlConsumerSettings<>(
-    "consumer.yaml"
-  )
+final Consumer<String, String> consumer = 
+  new KfConsumer<>(
+    new KfYamlConsumerSettings<>(
+      "consumer.yaml"
+    )
 );
 ```
 
