@@ -143,13 +143,29 @@ final Producer<String, String> producer =
 );
 ```
 
-Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory, should looks like this:
+Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory, should look like this:
 ```json
 {
   "bootstrapServers": "localhost:9092",
   "keySerializer": "org.apache.kafka.common.serialization.StringSerializer",
   "valueSerializer": "org.apache.kafka.common.serialization.StringSerializer"
 }
+```
+
+Since version `0.5.6` you can create Producer with YAML file:
+```java
+final Producer<String, String> producer = new KfProducer<>(
+  new KfYamlProducerSettings<>(
+    new YamlMapParams<String, String>("producer.yaml")
+  )
+);
+```
+
+Your [YAML](https://en.wikipedia.org/wiki/YAML), located in resources directory, should look like this:
+```yaml
+bootstrap-servers: localhost:9092
+key-serializer: org.apache.kafka.common.serialization.StringSerializer
+value-serializer: org.apache.kafka.common.serialization.StringSerializer
 ```
 
 To send a [message](#messages):
@@ -248,6 +264,23 @@ Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory,
  "keyDeserializer": "org.apache.kafka.common.serialization.StringDeserializer",
  "valueDeserializer": "org.apache.kafka.common.serialization.StringDeserializer"
 }
+```
+
+Since version `0.5.6` you can create Consumer with YAML file:
+```java
+final Consumer<String, String> consumer = new KfConsumer<>(
+  new KfYamlConsumerSettings<>(
+    new YamlMapParams<String, String>("consumer.yaml")
+  )
+);
+```
+
+Your [YAML](https://en.wikipedia.org/wiki/YAML), located in resources directory, should look like this:
+```yaml
+bootstrap-servers: localhost:9092
+group-id: "1"
+key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 ```
 
 Consuming [messages](#messages):
@@ -460,8 +493,8 @@ Under the hood XML document will looks like this:
 
 **By the version `0.3.5`, eo-kafka support only String values in FkConsumer**.
 
-## Config API
-| Kafka Property                          | eo-kafka API                                                                                                                                                    | XML/JSON tag
+## Configs
+| Kafka Property                          | eo-kafka API                                                                                                                                                    | XML/JSON/YAML tag
 |-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------| ----------------------
 | `bootstrap.servers`                     | [BootstrapServers](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BootstrapServers.java)                       | bootstrapServers
 | `key.serializer`                        | [KeySerializer](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KeySerializer.java)                             | keySerializer
