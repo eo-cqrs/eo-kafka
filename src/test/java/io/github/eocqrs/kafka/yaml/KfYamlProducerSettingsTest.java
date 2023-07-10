@@ -30,18 +30,30 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 /**
  * Test case for {@link KfYamlConsumerSettings}.
  */
-class KfYamlProducerSettingsTest {
+final class KfYamlProducerSettingsTest {
 
   @Test
-  void createsProducerFromYaml() {
+  void createsProducerFromYamlConfiguration() {
     assertDoesNotThrow(
-      () -> new KfProducer<>(
+      () -> new KfProducer<String, String>(
         new KfYamlProducerSettings<>(
-          new YamlMapParams<String, String>(
+          new YamlMapParams(
             "producer.yaml"
           )
         )
       )
+    );
+  }
+
+  @Test
+  void createsProducerFromYamlFileName() {
+    assertDoesNotThrow(
+      () ->
+        new KfProducer<String, String>(
+          new KfYamlProducerSettings<>(
+            "producer.yaml"
+          )
+        )
     );
   }
 }

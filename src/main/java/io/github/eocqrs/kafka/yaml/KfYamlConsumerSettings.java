@@ -23,7 +23,6 @@
 package io.github.eocqrs.kafka.yaml;
 
 import io.github.eocqrs.kafka.ConsumerSettings;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
@@ -32,14 +31,32 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
  * @param <K> The key type.
  * @param <X> The value type.
  */
-@RequiredArgsConstructor
 public final class KfYamlConsumerSettings<K, X>
   implements ConsumerSettings<K, X> {
 
   /**
    * YAML params.
    */
-  private final YamlMapParams<K, X> params;
+  private final YamlMapParams params;
+
+  /**
+   * Ctor.
+   *
+   * @param prms YAML Params
+   */
+  public KfYamlConsumerSettings(final YamlMapParams prms) {
+    this.params = prms;
+  }
+
+  /**
+   * Ctor.
+   *
+   * @param nm YAML file name
+   * @throws Exception when something went wrong
+   */
+  public KfYamlConsumerSettings(final String nm) throws Exception {
+    this(new YamlMapParams(nm));
+  }
 
   @Override
   public KafkaConsumer<K, X> consumer() {

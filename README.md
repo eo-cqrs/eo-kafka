@@ -156,7 +156,7 @@ Since version `0.5.6` you can create Producer with YAML file:
 ```java
 final Producer<String, String> producer = new KfProducer<>(
   new KfYamlProducerSettings<>(
-    new YamlMapParams<String, String>("producer.yaml")
+    "producer.yaml"
   )
 );
 ```
@@ -270,7 +270,7 @@ Since version `0.5.6` you can create Consumer with YAML file:
 ```java
 final Consumer<String, String> consumer = new KfConsumer<>(
   new KfYamlConsumerSettings<>(
-    new YamlMapParams<String, String>("consumer.yaml")
+    "consumer.yaml"
   )
 );
 ```
