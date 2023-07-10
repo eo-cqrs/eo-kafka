@@ -46,7 +46,7 @@ final class YamlMapParamsTest {
 
   @BeforeEach
   void setParams() throws Exception {
-    this.params = new YamlMapParams<>("producer.yaml").value();
+    this.params = new YamlMapParams("producer.yaml").value();
   }
 
   @Test

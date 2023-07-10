@@ -36,12 +36,9 @@ import java.util.Map;
 /**
  * This class converts a YAML source from
  * kebab case keys into kafka specific keys Map.
- *
- * @param <K> The key type.
- * @param <X> The value type.
  */
 @RequiredArgsConstructor
-public class YamlMapParams<K, X> implements Scalar<Map<String, Object>> {
+public final class YamlMapParams implements Scalar<Map<String, Object>> {
 
   /**
    * The config value.
@@ -78,7 +75,7 @@ public class YamlMapParams<K, X> implements Scalar<Map<String, Object>> {
   }
 
   @Override
-  public final Map<String, Object> value() {
+  public Map<String, Object> value() {
     final Map<String, Object> accum = new HashMap<>(0);
     this.value
       .forEach(
