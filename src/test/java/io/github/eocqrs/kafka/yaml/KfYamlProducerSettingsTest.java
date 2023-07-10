@@ -25,7 +25,7 @@ package io.github.eocqrs.kafka.yaml;
 import io.github.eocqrs.kafka.producer.KfProducer;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 /**
  * Test case for {@link KfYamlConsumerSettings}.
