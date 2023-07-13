@@ -48,7 +48,7 @@ public final class ConsumerXmlMapParams extends XmlMapParams {
    * @param resource The resource with xml settings.
    * @throws Exception When something went wrong.
    */
-  ConsumerXmlMapParams(final Input resource) throws Exception {
+  public ConsumerXmlMapParams(final Input resource) throws Exception {
     super(resource, KfCustomer.CONSUMER);
   }
 
@@ -58,7 +58,7 @@ public final class ConsumerXmlMapParams extends XmlMapParams {
    * @param name Name of the resource.
    * @throws Exception When something went wrong.
    */
-  ConsumerXmlMapParams(final String name) throws Exception {
+  public ConsumerXmlMapParams(final String name) throws Exception {
     super(name, KfCustomer.CONSUMER);
   }
 }

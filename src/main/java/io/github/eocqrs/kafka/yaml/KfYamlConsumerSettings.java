@@ -23,6 +23,7 @@
 package io.github.eocqrs.kafka.yaml;
 
 import io.github.eocqrs.kafka.ConsumerSettings;
+import lombok.SneakyThrows;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
 /**
