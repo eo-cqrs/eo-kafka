@@ -5,20 +5,20 @@ import org.cactoos.Scalar;
 import java.nio.file.Path;
 
 public final class ExtensionOf implements Scalar<String> {
-  private final String filename;
+    private final String filename;
 
-  public ExtensionOf(final Path path) {
-    this(path.toString());
-  }
+    public ExtensionOf(final Path path) {
+        this(path.toString());
+    }
 
-  public ExtensionOf(final String filename) {
-    this.filename = filename;
-  }
+    public ExtensionOf(final String filename) {
+        this.filename = filename;
+    }
 
-  @Override
-  public String value() {
-    return this.filename.substring(
-      this.filename.lastIndexOf('.') + 1
-    );
-  }
+    @Override
+    public String value() {
+        return this.filename.substring(
+            this.filename.lastIndexOf('.') + 1
+        );
+    }
 }

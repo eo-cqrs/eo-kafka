@@ -16,48 +16,41 @@ import java.util.stream.Collectors;
 
 public final class AutoNames implements Scalar<Map<Path, SupportedType>> {
 
-  private final String directory;
+    private final String directory;
 
-  public AutoNames(final String directory) {
-    this.directory = directory;
-  }
+    public AutoNames(final String directory) {
+        this.directory = directory;
+    }
 
-  @SneakyThrows
-  @Override
-  public Map<Path, SupportedType> value() {
-    return new ListOf<>(
-      new Filtered<>(
-        this::producerOrConsumerFile,
-        new IterableOf<>(
-          new Directory(
-            new File(
-              Objects.requireNonNull(
-                Thread.currentThread()
-                  .getContextClassLoader()
-                  .getResource("")
-              ).toURI()
+    @SneakyThrows
+    @Override
+    public Map<Path, SupportedType> value() {
+        return new ListOf<>(
+            new Filtered<>(
+                path -> new File(path.toUri()).isFile(),
+                new IterableOf<>(
+                    new Directory(
+                        Path.of(
+                            Objects.requireNonNull(
+                                Thread.currentThread()
+                                    .getContextClassLoader()
+                                    .getResource(this.directory)
+                            ).getPath()
+                        )
+                    ).iterator()
+                )
             )
-          ).iterator()
-        )
-      )
-    ).stream()
-      .collect(
-        Collectors.toMap(
-          path -> path,
-          path ->
-            SupportedType.valueOf(
-              new Upper(
-                new ExtensionOf(path).value()
-              ).toString()
-            )
-        )
-      );
-  }
-
-  private boolean producerOrConsumerFile(final Path path) {
-    return (path.getFileName().toString().contains("producer")
-      || path.getFileName().toString().contains("consumer"))
-      && path.toFile().isFile()
-      && path.getParent().endsWith(this.directory);
-  }
+        ).stream()
+            .collect(
+                Collectors.toMap(
+                    path -> path,
+                    path ->
+                        SupportedType.valueOf(
+                            new Upper(
+                                new ExtensionOf(path).value()
+                            ).toString()
+                        )
+                )
+            );
+    }
 }
