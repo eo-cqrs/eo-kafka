@@ -109,7 +109,7 @@ SOFTWARE.
     <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
     <mockito-core.version>5.4.0</mockito-core.version>
     <mockito-junit-jupiter.version>5.4.0</mockito-junit-jupiter.version>
-    <snakeyaml.version>2.0</snakeyaml.version>
+    <snakeyaml.version>2.1</snakeyaml.version>
   </properties>
   <dependencies>
     <dependency>
