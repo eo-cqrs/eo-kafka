@@ -77,8 +77,10 @@ public final class KfConsumer<K, X> implements Consumer<K, X> {
   }
 
   @Override
-  public void subscribe(final ConsumerRebalanceListener listener,
-                        final String... topics) {
+  public void subscribe(
+    final ConsumerRebalanceListener listener,
+    final String... topics
+  ) {
     this.origin.subscribe(new ListOf<>(topics), listener);
   }
 
