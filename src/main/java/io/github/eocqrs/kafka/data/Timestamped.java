@@ -24,6 +24,7 @@ package io.github.eocqrs.kafka.data;
 
 import io.github.eocqrs.kafka.Message;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.cactoos.scalar.Sticky;
 
 /**
  * Message with timestamp.
@@ -42,7 +43,7 @@ public final class Timestamped<K, X> implements Message<K, X> {
   /**
    * Message.
    */
-  private final Message<K, X> message;
+  private final Sticky<ProducerRecord<K, X>> message;
 
   /**
    * Ctor.
@@ -55,7 +56,7 @@ public final class Timestamped<K, X> implements Message<K, X> {
     final Message<K, X> msg
   ) {
     this.timestamp = tmstmp;
-    this.message = msg;
+    this.message = new Sticky<>(msg);
   }
 
   @Override
