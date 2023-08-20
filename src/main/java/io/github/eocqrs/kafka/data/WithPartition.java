@@ -25,6 +25,7 @@ package io.github.eocqrs.kafka.data;
 import io.github.eocqrs.kafka.Message;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.cactoos.scalar.Sticky;
+import org.cactoos.scalar.Synced;
 
 /**
  * Message with specified partition.
@@ -43,7 +44,7 @@ public final class WithPartition<K, X> implements Message<K, X> {
   /**
    * Message.
    */
-  private final Sticky<ProducerRecord<K, X>> message;
+  private final Synced<ProducerRecord<K, X>> message;
 
   /**
    * Ctor.
@@ -56,7 +57,7 @@ public final class WithPartition<K, X> implements Message<K, X> {
     final Message<K, X> msg
   ) {
     this.partition = prtn;
-    this.message = new Sticky<>(msg);
+    this.message = new Synced<>(new Sticky<>(msg));
   }
 
   @Override
