@@ -41,14 +41,15 @@ public final class Timestamped<K, X> implements Message<K, X> {
    * Timestamp.
    */
   private final long timestamp;
-  /**
-   * Message.
-   */
+
   /*
    * @todo #428:60min/DEV Write tests for caching mechanism.
    *   We need to prove with tests that our caching works
    *   and that it is also thread-safe.
    * */
+  /**
+   * Message.
+   */
   private final Synced<ProducerRecord<K, X>> message;
 
   /**
