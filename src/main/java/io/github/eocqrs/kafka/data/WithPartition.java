@@ -43,7 +43,7 @@ public final class WithPartition<K, X> implements Message<K, X> {
   private final int partition;
 
   /*
-   * @todo #428:60min/DEV Write tests for caching mechanism.
+   * @todo #428:60min/DEV Write tests for WithPartition caching mechanism.
    *   We need to prove with tests that our caching works
    *   and that it is also thread-safe.
    * */

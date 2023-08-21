@@ -43,7 +43,7 @@ public final class Timestamped<K, X> implements Message<K, X> {
   private final long timestamp;
 
   /*
-   * @todo #428:60min/DEV Write tests for caching mechanism.
+   * @todo #428:60min/DEV Write tests for Timestamped caching mechanism.
    *   We need to prove with tests that our caching works
    *   and that it is also thread-safe.
    * */
