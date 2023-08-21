@@ -44,6 +44,11 @@ public final class WithPartition<K, X> implements Message<K, X> {
   /**
    * Message.
    */
+  /*
+  * @todo #428:60min/DEV Write tests for caching mechanism.
+  *   We need to prove with tests that our caching works
+  *   and that it is also thread-safe.
+  * */
   private final Synced<ProducerRecord<K, X>> message;
 
   /**
