@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 abstract class XmlMapParams implements Scalar<Map<String, Object>> {
 
   /**
-   * It's a regex that matches all capital letters, except the first one.
+   * It's a regex that matches all capital letters except the first one.
    */
   private static final Pattern CAPITALS = Pattern.compile("(?<!^)([A-Z])");
 
