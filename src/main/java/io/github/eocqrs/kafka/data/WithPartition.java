@@ -24,6 +24,7 @@ package io.github.eocqrs.kafka.data;
 
 import io.github.eocqrs.kafka.Message;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.cactoos.Scalar;
 import org.cactoos.scalar.Sticky;
 import org.cactoos.scalar.Synced;
 
@@ -50,7 +51,7 @@ public final class WithPartition<K, X> implements Message<K, X> {
   /**
    * Message.
    */
-  private final Synced<ProducerRecord<K, X>> message;
+  private final Scalar<ProducerRecord<K, X>> message;
 
   /**
    * Ctor.

@@ -35,6 +35,4 @@ import org.cactoos.Scalar;
  */
 public interface Message<K, X> extends Scalar<ProducerRecord<K, X>> {
 
-  @Override
-  ProducerRecord<K, X> value() throws Exception;
 }
