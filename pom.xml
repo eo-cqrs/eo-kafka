@@ -90,8 +90,8 @@ SOFTWARE.
     <kafka-clients.version>3.6.0</kafka-clients.version>
     <cactoos.version>0.55.0</cactoos.version>
     <lombok.version>1.18.30</lombok.version>
-    <junit-api.version>5.10.0</junit-api.version>
-    <junit-params.version>5.10.0</junit-params.version>
+    <junit-api.version>5.10.1</junit-api.version>
+    <junit-params.version>5.10.1</junit-params.version>
     <assert4j-core.version>3.24.2</assert4j-core.version>
     <xfake.version>0.1.2</xfake.version>
     <xembly.version>0.28.1</xembly.version>
