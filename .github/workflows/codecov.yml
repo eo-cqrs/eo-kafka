@@ -20,9 +20,18 @@ jobs:
           restore-keys: |
             maven-
       - run: |
-          mvn clean install
+          mvn fail
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./target/site/jacoco/jacoco.xml
           fail_ci_if_error: false
+  report-fail:
+    name: Create issue on failure
+    needs: codecov
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: jayqi/failed-build-issue-action
+        with:
+          github-token: ${{ secrets.TOKEN }}
