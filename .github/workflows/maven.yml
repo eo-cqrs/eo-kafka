@@ -50,12 +50,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-jdk-${{ matrix.java }}-maven-
       - run: mvn clean install -Pinvoker --errors --batch-mode
-  report-fail:
-    name: Create issue on failure
-    needs: test
-    if: failure()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: jayqi/failed-build-issue-action
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+#  report-fail:
+#    name: Create issue on failure
+#    needs: test
+#    if: failure()
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: jayqi/failed-build-issue-action
+#        with:
+#          github-token: ${{ secrets.GITHUB_TOKEN }}
