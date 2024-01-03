@@ -69,3 +69,4 @@ final class ConsumerTest extends KafkaITCase {
     }
   }
 }
+
