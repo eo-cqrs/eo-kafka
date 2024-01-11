@@ -94,7 +94,7 @@ SOFTWARE.
     <junit-params.version>5.10.1</junit-params.version>
     <assert4j-core.version>3.25.1</assert4j-core.version>
     <xfake.version>0.1.2</xfake.version>
-    <xembly.version>0.30.0</xembly.version>
+    <xembly.version>0.31.0</xembly.version>
     <eokson.version>0.3.2</eokson.version>
     <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
     <maven-verifier-plugin.version>1.1</maven-verifier-plugin.version>
