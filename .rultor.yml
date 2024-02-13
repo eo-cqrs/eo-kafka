@@ -11,8 +11,6 @@ merge:
     - "mvn clean install --errors --batch-mode"
 release:
   pre: false
-  sensetive:
-    - settings.xml
   script: |-
     [[ "${tag}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || exit -1
     mvn versions:set "-DnewVersion=${tag}"
