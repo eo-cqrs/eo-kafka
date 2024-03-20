@@ -89,7 +89,7 @@ SOFTWARE.
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kafka-clients.version>3.7.0</kafka-clients.version>
     <cactoos.version>0.55.0</cactoos.version>
-    <lombok.version>1.18.30</lombok.version>
+    <lombok.version>1.18.32</lombok.version>
     <junit-api.version>5.10.2</junit-api.version>
     <junit-params.version>5.10.2</junit-params.version>
     <assert4j-core.version>3.25.3</assert4j-core.version>
