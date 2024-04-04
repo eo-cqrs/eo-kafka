@@ -105,7 +105,7 @@ SOFTWARE.
     <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
     <sa-tan.version>0.1.5</sa-tan.version>
     <maven-invoker-plugin.version>3.6.1</maven-invoker-plugin.version>
-    <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+    <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
     <maven-gpg-plugin.version>3.2.2</maven-gpg-plugin.version>
     <mockito-core.version>5.11.0</mockito-core.version>
     <mockito-junit-jupiter.version>5.11.0</mockito-junit-jupiter.version>
