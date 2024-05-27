@@ -1,0 +1,17 @@
+---
+name: reports-check
+on:
+  issues:
+    types: opened
+permissions:
+  issues: write
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: tracehubpm/reports-check-action@latest
+        with:
+          deepinfra_token: ${{ secrets.DEEPINFRA_TOKEN }}
+          github_token: ${{ secrets.GH_TOKEN }}
