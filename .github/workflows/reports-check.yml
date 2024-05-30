@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - uses: tracehubpm/reports-check-action@latest
+      - uses: tracehubpm/reports-check-action@master
         with:
           deepinfra_token: ${{ secrets.DEEPINFRA_TOKEN }}
           github_token: ${{ secrets.GH_TOKEN }}
