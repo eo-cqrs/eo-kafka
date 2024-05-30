@@ -101,7 +101,7 @@ SOFTWARE.
     <slf4j.version>2.0.13</slf4j.version>
     <jtcop.version>0.1.14</jtcop.version>
     <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
-    <checkstyle.version>8.15</checkstyle.version>
+    <checkstyle.version>8.45.1</checkstyle.version>
     <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
     <sa-tan.version>0.1.5</sa-tan.version>
     <maven-invoker-plugin.version>3.7.0</maven-invoker-plugin.version>
