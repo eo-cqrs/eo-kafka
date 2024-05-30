@@ -1,3 +1,5 @@
+# eo-kafka
+
 <img alt="logo" src="logo.svg" height="100px" />
 
 This nice logo made by [@l3r8yJ](https://github.com/l3r8yJ)
@@ -23,18 +25,21 @@ Project architect: [@h1alexbel](https://github.com/h1alexbel)
 
 EO Kafka Producers and consumers for working with Apache Kafka message broker.
 
-Read [_Kafka Producers and Consumers for Elegant Microservices_](https://h1alexbel.github.io/2023/03/26/eo-kafka-for-elegant-microservices.html), the blog post about `EO-Kafka`
-<br>
-and [_EO-Kafka with Spring_](https://h1alexbel.github.io/2023/04/15/eo-kafka-with-spring.html), how to connect `EO-Kafka` with Spring.
+Read [_Kafka Producers and Consumers for Elegant Microservices_](https://h1alexbel.github.io/2023/03/26/eo-kafka-for-elegant-microservices.html),
+the blog post about `EO-Kafka`, and [_EO-Kafka with Spring_](https://h1alexbel.github.io/2023/04/15/eo-kafka-with-spring.html),
+about how to connect `EO-Kafka` with Spring.
 
-**Motivation**. We are not happy with Spring Kafka, because it is very procedural and not object-oriented.
-eo-kafka is suggesting to do almost exactly the same, but through objects.
+**Motivation**. We are not happy with Spring Kafka, because it is very
+procedural and not object-oriented. eo-kafka is suggesting to do almost exactly
+the same, but through objects.
 
-**Principles**. These are the [design principles](https://www.elegantobjects.org/#principles) behind eo-kafka.
+**Principles**. These are the [design principles](https://www.elegantobjects.org/#principles)
+behind eo-kafka.
 
 **How to use**. All you need is this (get the latest version [here](https://search.maven.org/artifact/io.github.eo-cqrs/eo-kafka)):
 
 Maven:
+
 ```xml
 <dependency>
   <groupId>io.github.eo-cqrs</groupId>
@@ -43,6 +48,7 @@ Maven:
 ```
 
 To use it with [Spring Boot](https://spring.io/):
+
 ```xml
 <dependency>
   <groupId>io.github.eo-cqrs</groupId>
@@ -56,7 +62,8 @@ To use it with [Spring Boot](https://spring.io/):
 </dependency>
 ```
 
-Gradle:
+With Gradle:
+
 ```groovy
 dependencies {
     compile 'io.github.eo-cqrs:eo-kafka:<version>'
@@ -64,12 +71,15 @@ dependencies {
 ```
 
 ## Messages
+
 To create Kafka Message with **Topic**, **Key** and **Value**:
+
 ```java
 final Message<String, String> msg = new Tkv<>("test.topic", "test-k", "test-v");
 ```
 
 Creation Kafka Message with **Partition**:
+
 ```java
 final Message<String, String> msg = 
   new WithPartition<>(
@@ -83,6 +93,7 @@ final Message<String, String> msg =
 ```
 
 Creation Kafka Message with **Timestamp**:
+
 ```java
 final Message<String, String> msg =
   new Timestamped<>(
@@ -99,12 +110,16 @@ final Message<String, String> msg =
 ```
 
 ## Producers
+
 To create Kafka Producer you can wrap original [KafkaProducer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/producer/KafkaProducer.html):
+
 ```java
 final KafkaProducer origin = ...;
 final Producer<String, String> producer = new KfProducer<>(origin);
 ```
+
 Or construct it with [KfFlexible](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KfFlexible.java):
+
 ```java
 final Producer<String, String> producer =
   new KfProducer<>(
@@ -119,7 +134,9 @@ final Producer<String, String> producer =
     )
   );
 ```
+
 Or create it with XML file:
+
 ```java
 final Producer<String, String> producer =
   new KfProducer<>(
@@ -128,7 +145,9 @@ final Producer<String, String> producer =
     )
 );
 ```
-btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
+
+btw, your [XML] file should be in the ```resources``` look like:
+
 ```xml
 <producer>
   <bootstrapServers>localhost:9092</bootstrapServers>
@@ -138,6 +157,7 @@ btw, your [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20
 ```
 
 Since version `0.4.6` you can create Producer with JSON file:
+
 ```java
 final Producer<String, String> producer =
   new KfProducer<>(
@@ -147,7 +167,8 @@ final Producer<String, String> producer =
 );
 ```
 
-Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory, should look like this:
+Your [JSON], located in resources directory, should look like this:
+
 ```json
 {
   "bootstrapServers": "localhost:9092",
@@ -157,6 +178,7 @@ Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory,
 ```
 
 Since version `0.5.6` you can create Producer with YAML file:
+
 ```java
 final Producer<String, String> producer =
   new KfProducer<>(
@@ -166,7 +188,8 @@ final Producer<String, String> producer =
 );
 ```
 
-Your [YAML](https://en.wikipedia.org/wiki/YAML), located in resources directory, should look like this:
+Your [YAML], located in resources directory, should look like this:
+
 ```yaml
 bootstrap-servers: localhost:9092
 key-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -174,6 +197,7 @@ value-serializer: org.apache.kafka.common.serialization.StringSerializer
 ```
 
 To send a [message](#messages):
+
 ```java
 try (final Producer<String, String> producer = ...) {
       producer.send(
@@ -192,7 +216,10 @@ try (final Producer<String, String> producer = ...) {
 }
 ```
 
-Also, you can create [KfCallback](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/producer/KfCallback.java), Kafka Producer with Async [Callback](https://kafka.apache.org/26/javadoc/org/apache/kafka/clients/producer/Callback.html) support:
+Also, you can create [KfCallback](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/producer/KfCallback.java),
+Kafka Producer with async [Callback](https://kafka.apache.org/26/javadoc/org/apache/kafka/clients/producer/Callback.html)
+support:
+
 ```java
 final Producer<String, String> producer =
   new KfCallback<>(
@@ -214,11 +241,14 @@ final Producer<String, String> producer =
 
 ## Consumers
 To create Kafka Consumer you can wrap original [KafkaConsumer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html):
+
 ```java
 final KafkaConsumer origin = ...;
 final Consumer<String, String> producer = new KfConsumer<>(origin);
 ```
+
 Using [KfFlexible](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/KfFlexible.java):
+
 ```java
 final Consumer<String, String> consumer =
   new KfConsumer<>(
@@ -235,7 +265,8 @@ final Consumer<String, String> consumer =
   );
 ```
 
-And XML File approach:
+And XML file approach:
+
 ```java
 final Consumer<String, String> consumer =
   new KfConsumer<>(
@@ -243,7 +274,8 @@ final Consumer<String, String> consumer =
 );
 ```
 
-Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Language%20(XML)%20is,%2Dreadable%20and%20machine%2Dreadable.) file should be in the ```resources``` look like:
+Again, [XML] file should be in the ```resources``` look like:
+
 ```xml
 <consumer>
   <bootstrapServers>localhost:9092</bootstrapServers>
@@ -254,6 +286,7 @@ Again, [XML](https://en.wikipedia.org/wiki/XML#:~:text=Extensible%20Markup%20Lan
 ```
 
 Since version `0.4.6` you can create Consumer with JSON file:
+
 ```java
 final Consumer<String, String> producer =
   new KfConsumer<>(
@@ -263,7 +296,8 @@ final Consumer<String, String> producer =
 );
 ```
 
-Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory, should looks like this:
+Your [JSON], located in resources directory, should look like this:
+
 ```json
 {
  "bootstrapServers": "localhost:9092",
@@ -274,6 +308,7 @@ Your [JSON](https://en.wikipedia.org/wiki/JSON), located in resources directory,
 ```
 
 Since version `0.5.6` you can create Consumer with YAML file:
+
 ```java
 final Consumer<String, String> consumer = 
   new KfConsumer<>(
@@ -283,7 +318,8 @@ final Consumer<String, String> consumer =
 );
 ```
 
-Your [YAML](https://en.wikipedia.org/wiki/YAML), located in resources directory, should look like this:
+Your [YAML], located in resources directory, should look like this:
+
 ```yaml
 bootstrap-servers: localhost:9092
 group-id: "1"
@@ -292,6 +328,7 @@ value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 ```
 
 Consuming [messages](#messages):
+
 ```java
 try (
   final Consumer<String, String> consumer =
@@ -316,7 +353,9 @@ try (
     }
   }
 ```
+
 Also, you can `subscribe` with [ConsumerRebalanceListener](https://kafka.apache.org/24/javadoc/index.html?org/apache/kafka/clients/consumer/ConsumerRebalanceListener.html):
+
 ```java
 consumer.subscribe(new ConsumerRebalanceListener() {
     @Override
@@ -337,9 +376,10 @@ consumer.unsubscribe();
 
 ## Fakes
 
-In case of mocking eo-kafka, you can use existing Fake Objects from `io.github.eocqrs.kafka.fake` package.
-They look like a normal ones, but instead of talking to real Kafka broker,
-they are manipulating in-memory XML document.
+In case of mocking eo-kafka, you can use existing Fake Objects from
+`io.github.eocqrs.kafka.fake` package. They look like a normal ones,
+but instead of talking to real Kafka broker, they are manipulating
+in-memory XML document.
 
 ### FkBroker
 
@@ -369,6 +409,7 @@ broker.with(new TopicDirs("fake.topic").value());
 ```
 
 Under the hood XML will be modified to:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <broker>
@@ -550,7 +591,7 @@ provided they don't violate our quality standards. To avoid frustration,
 before sending us your pull request please run full Maven build:
 
 ```bash
-$ mvn clean install
+mvn clean install
 ```
 
 You will need Maven 3.8.7+ and Java 17+.
@@ -558,3 +599,7 @@ You will need Maven 3.8.7+ and Java 17+.
 If you want to contribute to the next release version of eo-kafka, please check the [project board](https://github.com/orgs/eo-cqrs/projects/2/views/1).
 
 Our [rultor image](https://github.com/eo-cqrs/eo-kafka-rultor-image) for CI/CD.
+
+[XML]: https://en.wikipedia.org/wiki/XML
+[JSON]: https://en.wikipedia.org/wiki/JSON
+[YAML]: https://en.wikipedia.org/wiki/YAML
