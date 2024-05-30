@@ -5,11 +5,9 @@
 This nice logo made by [@l3r8yJ](https://github.com/l3r8yJ)
 
 [![Managed By Self XDSD](https://self-xdsd.com/b/mbself.svg)](https://self-xdsd.com/p/eo-cqrs/eo-kafka?provider=github)
-
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![DevOps By Rultor.com](https://www.rultor.com/b/eo-cars/eo-kafka)](https://www.rultor.com/p/eo-cqrs/eo-kafka)
 [![We recommend IntelliJ IDEA](https://www.elegantobjects.org/intellij-idea.svg)](https://www.jetbrains.com/idea/)
-<br>
 
 [![mvn](https://github.com/eo-cqrs/eo-kafka/actions/workflows/maven.yml/badge.svg)](https://github.com/eo-cqrs/eo-kafka/actions/workflows/maven.yml)
 [![maven central](http://maven-badges.herokuapp.com/maven-central/io.github.eo-cqrs/eo-kafka/badge.svg)](https://search.maven.org/artifact/io.github.eo-cqrs/eo-kafka)
@@ -547,6 +545,7 @@ Under the hood XML document will looks like this:
 **By the version `0.3.5`, eo-kafka support only String values in FkConsumer**.
 
 ## Configs
+
 | Kafka Property                          | eo-kafka API                                                                                                                                                    | XML/JSON tag | YAML
 |-----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------| --------------------- |-------
 | `bootstrap.servers`                     | [BootstrapServers](https://github.com/eo-cqrs/eo-kafka/blob/master/src/main/java/io/github/eocqrs/kafka/parameters/BootstrapServers.java)                       | bootstrapServers | bootstrap-servers
