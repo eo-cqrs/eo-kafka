@@ -33,8 +33,8 @@ jobs:
     name: Build
     strategy:
       matrix:
-        os: [windows-2022, macos-12]
-        java: [17]
+        os: [ windows-2022, macos-12 ]
+        java: [ 17 ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -54,8 +54,8 @@ jobs:
     name: Build Integrations
     strategy:
       matrix:
-        os-integration: [ubuntu-20.04]
-        java: [17]
+        os-integration: [ ubuntu-20.04 ]
+        java: [ 17 ]
     runs-on: ${{ matrix.os-integration }}
     steps:
       - uses: actions/checkout@v4
