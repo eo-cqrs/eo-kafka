@@ -2,7 +2,7 @@
 <!--
 MIT License
 
-Copyright (c) 2023 Aliaksei Bialiauski, EO-CQRS
+Copyright (c) 2023-2024 Aliaksei Bialiauski, EO-CQRS
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -26,6 +26,6 @@ SOFTWARE.
 <suppressions>
   <suppress checks="LineLength" files=".*\.java$" lines="0-23"/>
   <suppress checks="HiddenField" files=".*\.java$" lines="23-9999"/>
-  <suppress checks="VisibilityModifier" files="KfFlexibleEnvelope.java" lines="46"/>
-  <suppress checks="VisibilityModifier" files="KfAttrEnvelope.java" lines="36-45"/>
+  <suppress checks="VisibilityModifier" files="KfFlexibleEnvelope.java" lines="49"/>
+  <suppress checks="VisibilityModifier" files="KfAttrEnvelope.java" lines="41-46"/>
 </suppressions>
