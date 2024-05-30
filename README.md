@@ -240,6 +240,7 @@ final Producer<String, String> producer =
 ```
 
 ## Consumers
+
 To create Kafka Consumer you can wrap original [KafkaConsumer](https://kafka.apache.org/23/javadoc/index.html?org/apache/kafka/clients/consumer/KafkaConsumer.html):
 
 ```java
@@ -370,6 +371,7 @@ consumer.subscribe(new ConsumerRebalanceListener() {
 ```
 
 Finally, you can `unsubscribe`:
+
 ```java
 consumer.unsubscribe();
 ```
@@ -394,6 +396,7 @@ final FkBroker broker = new InXml(
 ```
 
 It will create in-memory XML document with following structure:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <broker>
@@ -495,7 +498,8 @@ MatcherAssert.assertThat(
 );
 ```
 
-As well as production [producers](#producers) and [consumers](#consumers), fake ones also should be closed after things been done:
+As well as production [producers](#producers) and [consumers](#consumers), fake
+ones also should be closed after things been done:
 
 ```java
 fake.close();
@@ -596,7 +600,8 @@ mvn clean install
 
 You will need Maven 3.8.7+ and Java 17+.
 
-If you want to contribute to the next release version of eo-kafka, please check the [project board](https://github.com/orgs/eo-cqrs/projects/2/views/1).
+If you want to contribute to the next release version of eo-kafka, please check
+the [project board](https://github.com/orgs/eo-cqrs/projects/2/views/1).
 
 Our [rultor image](https://github.com/eo-cqrs/eo-kafka-rultor-image) for CI/CD.
 
