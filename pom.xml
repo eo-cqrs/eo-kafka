@@ -88,7 +88,7 @@ SOFTWARE.
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kafka-clients.version>3.8.0</kafka-clients.version>
-    <cactoos.version>0.55.0</cactoos.version>
+    <cactoos.version>0.56.1</cactoos.version>
     <lombok.version>1.18.34</lombok.version>
     <junit-api.version>5.11.2</junit-api.version>
     <junit-params.version>5.11.2</junit-params.version>
